@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     @include('admin.css')
+    @include('admin.script')
 </head>
 <body style="background-color: #FAEBD7;">
     <div class="container-scroller w-full">
@@ -143,7 +144,7 @@
         </div>
     </div>
 </div>
-@include('admin.script')
+
     
 </body>
 </html>

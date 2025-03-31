@@ -76,6 +76,7 @@
             <div class="container d-flex justify-content-center">
                 <div class="table-container">
                     <h2 class="text-center" style="color: #333;">Manage Doctors</h2>
+                    <a href="{{url(path: 'add_doctor_view')}}" class="btn btn-success">Add Doctor</a>
                     <table>
                         <thead>
                             <tr>

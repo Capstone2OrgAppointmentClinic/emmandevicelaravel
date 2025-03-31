@@ -62,16 +62,6 @@
             </a>
           </li>
 
-
-          <li class="nav-item menu-items">
-            <a class="nav-link" href="{{url(path: 'add_doctor_view')}}">
-              <span class="menu-icon">
-                <i class="mdi mdi-file-document-box"></i>
-              </span>
-              <span class="menu-title" style="color:white;">Add Doctors</span>
-            </a>
-          </li>
-
           <li class="nav-item menu-items">
             <a class="nav-link" href="{{url(path: 'showappointment')}}">
               <span class="menu-icon">
@@ -86,7 +76,7 @@
               <span class="menu-icon">
                 <i class="mdi mdi-file-document-box"></i>
               </span>
-              <span class="menu-title" style="color:white;">All Doctors</span>
+              <span class="menu-title" style="color:white;">Doctors</span>
             </a>
           </li>
 
