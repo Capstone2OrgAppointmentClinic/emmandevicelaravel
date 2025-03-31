@@ -27,7 +27,7 @@ class HomeController extends Controller
         {
             if (Auth::user()->usertype == 0) 
             {
-                $doctor = Doctor::all(); // Fetch doctors for the user side
+                $doctor = Doctor::all();
                 $announcements = Announcement::orderBy('created_at', 'desc')->get();
     
                 return view('user.home', compact('doctor', 'announcements'));
@@ -86,7 +86,6 @@ public function appointment(Request $request)
         return redirect()->back()->with('error', 'An appointment already exists within 1 hour of this time. Please choose another time.');
     }
 
-    // Create and save the new appointment
     $data = new Appointment();
     $data->name = Auth::user()->name;
     $data->email = Auth::user()->email;
@@ -100,7 +99,6 @@ public function appointment(Request $request)
 
     $data->save();
 
-    // Notify the admin about the new appointment
     $admin = User::where('usertype', 1)->first();
     if ($admin) {
         $admin->notify(new NewAppointmentNotification($data));
@@ -254,22 +252,73 @@ public function reschedule_appoint(Request $request)
     $appointment = Appointment::find($request->appointment_id);
 
     if ($appointment) {
-        
+        $rescheduleDateTime = Carbon::createFromFormat('Y-m-d H:i', $request->reschedule_date . ' ' . $request->reschedule_time);
+
+        $conflict = Appointment::where('date', $request->reschedule_date)
+            ->where('id', '!=', $appointment->id)
+            ->where(function ($query) use ($rescheduleDateTime) {
+                $query->whereTime('time', '>=', $rescheduleDateTime->copy()->subHour()->format('H:i'))
+                    ->whereTime('time', '<=', $rescheduleDateTime->copy()->addHour()->format('H:i'));
+            })
+            ->exists();
+
+        if ($conflict) {
+            return redirect()->back()->with('error', 'Another appointment is scheduled within 1 hour of the selected time. Please choose a different time.');
+        }
+
         $appointment->date = $request->reschedule_date;
         $appointment->time = $request->reschedule_time;
         $appointment->message = $request->reschedule_reason;
         $appointment->status = 'Rescheduled';
         $appointment->save();
 
-        $admin = User::where('usertype', 1)->first(); 
+        // Notify admin of reschedule
+        $admin = User::where('usertype', 1)->first();
         if ($admin) {
             $admin->notify(new RescheduleNotification($appointment));
         }
 
-        return redirect()->back()->with('message', 'Appointment rescheduled successfully');
+        return redirect()->back()->with('message', 'Appointment rescheduled successfully.');
     } else {
         return redirect()->back()->with('error', 'Appointment not found.');
     }
 }
+public function checkConflict($appointmentId, $date, $time)
+{
+    // Count all appointments for the selected date (all users)
+    $appointmentCount = Appointment::where('date', $date)
+        ->where('id', '!=', $appointmentId) 
+        ->count();
 
+    // If the limit of 5 appointments per day is reached, show error
+    if ($appointmentCount >= 5) {
+        return response()->json([
+            'appointmentLimit' => true,
+            'exactConflict' => false,
+            'timeConflict' => false,
+        ]);
+    }
+
+    // Check exact conflict for the same time and date (for other users)
+    $exactConflict = Appointment::where('date', $date)
+        ->where('time', $time)
+        ->where('id', '!=', $appointmentId)
+        ->exists();
+
+    // Check conflict if another appointment is within 1 hour of the selected time
+    $rescheduleDateTime = Carbon::createFromFormat('Y-m-d H:i', $date . ' ' . $time);
+    $timeConflict = Appointment::where('date', $date)
+        ->where('id', '!=', $appointmentId)
+        ->where(function ($query) use ($rescheduleDateTime) {
+            $query->whereTime('time', '>=', $rescheduleDateTime->copy()->subHour()->format('H:i'))
+                  ->whereTime('time', '<=', $rescheduleDateTime->copy()->addHour()->format('H:i'));
+        })
+        ->exists();
+
+    return response()->json([
+        'appointmentLimit' => false,
+        'exactConflict' => $exactConflict,
+        'timeConflict' => $timeConflict,
+    ]);
+}
 }

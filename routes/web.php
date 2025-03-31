@@ -79,3 +79,5 @@ Route::get('/announcement/{id}', [HomeController::class, 'showAnnouncement'])->n
 Route::post('/cancel_appoint', [HomeController::class, 'cancelAppointment'])->name('cancel.appointment');
 
 Route::post('/reschedule_appoint', [HomeController::class, 'reschedule_appoint'])->name('reschedule_appoint');
+
+Route::get('/check-conflict/{appointmentId}/{date}/{time}', [HomeController::class, 'checkConflict']);

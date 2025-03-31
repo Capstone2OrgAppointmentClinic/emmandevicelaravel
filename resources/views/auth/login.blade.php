@@ -19,13 +19,15 @@
         @endif
 
         <h1 style="font-size:35px; margin-left:40px;">CliniQuickAid Login</h1>
-        
+
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
             <div>
                 <x-label for="student_id" value="{{ __('Student ID') }}" />
-                <x-input id="student_id" class="block mt-1 w-full" type="text" name="student_id" :value="old('student_id')" required autofocus autocomplete="username" />
+                <x-input id="student_id" class="block mt-1 w-full" type="text" name="student_id" 
+                         value="SVFC-" required autofocus autocomplete="username" 
+                         oninput="formatStudentID(this)" maxlength="20" />
             </div>
 
             <div class="mt-4">
@@ -54,3 +56,23 @@
         </form>
     </x-authentication-card>
 </x-guest-layout>
+
+<!-- Add JavaScript for formatting -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let studentIdField = document.getElementById('student_id');
+        if (!studentIdField.value.startsWith('SVFC-')) {
+            studentIdField.value = 'SVFC-';
+        }
+    });
+
+    function formatStudentID(input) {
+        let value = input.value.replace('SVFC-', '').replace(/[^0-9]/g, '').slice(0, 12);
+
+        if (value.length > 6) {
+            input.value = 'SVFC-' + value.slice(0, 6) + '-' + value.slice(6, 12);
+        } else {
+            input.value = 'SVFC-' + value;
+        }
+    }
+</script>

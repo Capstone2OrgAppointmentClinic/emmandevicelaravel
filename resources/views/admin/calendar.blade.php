@@ -11,7 +11,6 @@
 
 @include('admin.css_calendar')
 </head>
-<>
 <body style="background-color: #FAEBD7;">
     @include('admin.sidebar')
     @include('admin.navbar')

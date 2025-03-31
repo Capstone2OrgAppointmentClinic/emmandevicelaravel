@@ -96,8 +96,8 @@
               </li>
               <li class="nav-item dropdown">
     <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="mdi mdi-bell"></i>
-        <span class="count bg-success">
+    <i class="mdi mdi-bell" style="font-size: 20px;"></i>
+    <span class="count bg-danger" style="font-size: 12px; padding: 5px 5px;">
             {{ auth()->user()->unreadNotifications->count() }}
         </span>
     </a>

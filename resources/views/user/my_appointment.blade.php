@@ -239,7 +239,6 @@
     </div>
 </div>
 
-
 <script>
     function showRescheduleModal(appointmentId) {
         document.getElementById('reschedule_appointment_id').value = appointmentId;
@@ -270,29 +269,61 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-        
-        const rescheduleDateInput = document.getElementById('reschedule_date');
-        const today = new Date().toISOString().split('T')[0];
-        rescheduleDateInput.setAttribute('min', today);
-        
-        const rescheduleTimeInput = document.getElementById('reschedule_time');
-        rescheduleTimeInput.addEventListener('change', function () {
-            const selectedTime = this.value;
-            const selectedHour = parseInt(selectedTime.split(':')[0]);
+    const rescheduleDateInput = document.getElementById('reschedule_date');
+    const rescheduleTimeInput = document.getElementById('reschedule_time');
+    const rescheduleButton = document.querySelector("button[type='submit']");
 
-            if (selectedHour < 8 || selectedHour >= 20) {
-                alert('Appointments can only scheduled between 8 AM and 8 PM.');
-                this.value = '';
-            }
-        });
+    const today = new Date().toISOString().split('T')[0];
+    rescheduleDateInput.setAttribute('min', today);
 
-        let alertDiv = document.querySelector('.alert');
-        if (alertDiv) {
-            setTimeout(function () {
-                alertDiv.style.display = 'none';
-            }, 5000);
+    rescheduleButton.disabled = true;
+
+    rescheduleDateInput.addEventListener('change', checkTimeConflict);
+    rescheduleTimeInput.addEventListener('change', checkTimeConflict);
+
+    function checkTimeConflict() {
+        const appointmentId = document.getElementById('reschedule_appointment_id').value;
+        const rescheduleDate = rescheduleDateInput.value;
+        const rescheduleTime = rescheduleTimeInput.value;
+
+        if (rescheduleDate && rescheduleTime) {
+            fetch(`/check-conflict/${appointmentId}/${rescheduleDate}/${rescheduleTime}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error checking conflicts');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.appointmentLimit) {
+                        alert('The daily limit of 5 appointments has already been reached for this date. Please choose another date.');
+                        rescheduleButton.disabled = true;
+                    } else if (data.exactConflict) {
+                        alert('An appointment is already scheduled for the same date and time. Please choose another time.');
+                        rescheduleButton.disabled = true;
+                    } else if (data.timeConflict) {
+                        alert('Another appointment is scheduled within 1 hour of the selected time. Please choose another time.');
+                        rescheduleButton.disabled = true;
+                    } else {
+                        rescheduleButton.disabled = false;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error checking for conflicts. Please try again.');
+                    rescheduleButton.disabled = true;
+                });
+        } else {
+            rescheduleButton.disabled = true;
         }
-    });
+    }
+    let alertDiv = document.querySelector('.alert');
+    if (alertDiv) {
+        setTimeout(function () {
+            alertDiv.style.display = 'none';
+        }, 5000);
+    }
+});
 </script>
 
 

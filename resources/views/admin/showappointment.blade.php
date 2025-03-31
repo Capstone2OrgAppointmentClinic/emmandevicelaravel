@@ -67,17 +67,34 @@
 
         <!-- Status Column -->
         <td class="text-center">
-            <span class="badge 
-                @if($appoint->status == 'approved') bg-success 
-                @elseif($appoint->status == 'canceled') bg-danger 
-                @elseif($appoint->status == 'in progress') bg-warning text-dark 
-                @else bg-secondary 
-                @endif">
-                {{ ucfirst($appoint->status) }}
-            </span>
-        </td>
+    @php
+        $statusClass = '';
+        switch(strtolower($appoint->status)) {
+            case 'approved':
+                $statusClass = 'bg-success';
+                break;
+            case 'canceled':
+                $statusClass = 'bg-danger';
+                break;
+            case 'in progress':
+                $statusClass = 'bg-warning text-dark';
+                break;
+            case 'rescheduled':
+                $statusClass = 'bg-primary';
+                break;
+            default:
+                $statusClass = 'bg-secondary';
+                break;
+        }
+    @endphp
 
-        <!-- Action Dropdown for Each Row -->
+    <span class="badge {{ $statusClass }}">
+        {{ ucfirst($appoint->status) }}
+    </span>
+</td>
+
+
+
         <td class="text-center dropdown">
             <a class="btn btn-outline-dark dropdown-toggle w-100" href="#" role="button" id="rowActionDropdown{{ $appoint->id }}" data-bs-toggle="dropdown" aria-expanded="false">
                 Choose
@@ -124,22 +141,6 @@
     }
 </style>
 
-
-<!-- Style for Hover Dropdown -->
-<style>
-    .dropdown:hover .dropdown-menu {
-        display: block;
-        margin-top: 0;
-    }
-
-    .dropdown-menu li:hover,
-    .dropdown-menu a.dropdown-item:hover {
-        background-color: transparent !important;
-        color: #ff00ff !important;
-        transition: none !important;
-        box-shadow: none !important;
-    }
-</style>
 
 
         <!-- Message Modal -->
