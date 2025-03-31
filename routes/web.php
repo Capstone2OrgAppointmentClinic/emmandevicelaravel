@@ -75,3 +75,7 @@ Route::get('/announcements', [AdminController::class, 'announcements'])->name('a
 Route::post('createAnnouncement', [AdminController::class, 'createAnnouncement'])->name('createAnnouncement');
 
 Route::get('/announcement/{id}', [HomeController::class, 'showAnnouncement'])->name('announcement_details');
+
+Route::post('/cancel_appoint', [HomeController::class, 'cancelAppointment'])->name('cancel.appointment');
+
+Route::post('/reschedule_appoint', [HomeController::class, 'reschedule_appoint'])->name('reschedule_appoint');

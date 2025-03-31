@@ -21,6 +21,7 @@ return new class extends Migration
             $table->time('time')->nullable(); 
             $table->text('message')->nullable(); 
             $table->string('status')->default('Pending');
+            $table->text('cancel_reason')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
 

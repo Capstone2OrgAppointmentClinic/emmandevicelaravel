@@ -19,13 +19,14 @@
   <link rel="stylesheet" href="../assets/vendor/animate/animate.css">
 
   <link rel="stylesheet" href="../assets/css/theme.css">
+
 </head>
 <body>
   <div class="back-to-top"></div>
 
   <header>
     
-    
+
 
     <nav class="navbar navbar-expand-lg navbar-light shadow-sm bg-light">
       <div class="container">
@@ -91,6 +92,22 @@
       </div> <!-- .container -->
     </nav>
   </header>
+
+  @if(session('message'))
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        {{ session('message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+
   <div align="center" style="padding: 70px;">
     <h1 style="font-size: 40px; padding: 15px;  color: #000; font-weight: bold;">
         Appointment Schedule
@@ -105,7 +122,8 @@
                         <th style="padding: 12px; font-size: 20px;">Time</th>
                         <th style="padding: 12px; font-size: 20px;">Message</th>
                         <th style="padding: 12px; font-size: 20px;">Status</th>
-                        <th style="padding: 12px; font-size: 20px;">Cancel Appointment</th>
+                        <th style="padding: 12px; font-size: 20px;">Cancel</th>
+                        <th style="padding: 12px; font-size: 20px;">Reschedule</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -118,29 +136,36 @@
                     </td>
                         <td style="padding: 12px; font-size: 18px; color: #333;">{{$appoints->message}}</td>
                         <td style="padding: 12px; font-size: 18px;">
-    @php
-        $status = strtolower(trim($appoints->status));
-    @endphp
+                    @php
+                    $status = strtolower(trim($appoints->status));
+                    @endphp
 
-    @if($status == 'in progress')
-        <span class="badge bg-warning text-dark" style="font-size: 14px;">{{ ucfirst($appoints->status) }}</span>
-    @elseif($status == 'approved')
-        <span class="badge bg-success" style="font-size: 14px;">{{ ucfirst($appoints->status) }}</span>
-    @elseif($status == 'canceled')
-        <span class="badge bg-danger" style="font-size: 14px;">{{ ucfirst($appoints->status) }}</span>
-    @else
-        <span class="badge bg-secondary" style="font-size: 14px;">{{ ucfirst($appoints->status) }}</span>
-    @endif
-</td>
-
-
-                        <td>
-                            <a class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to cancel this?')" 
-                                href="{{url('cancel_appoint', $appoints->id)}}" 
-                                style="padding: 6px 12px; font-size: 14px;">
-                                Cancel
-                            </a>
-                        </td>
+                    @if($status == 'in progress')
+                    <span class="badge bg-warning text-dark" style="font-size: 14px;">{{ ucfirst($appoints->status) }}</span>
+                    @elseif($status == 'approved')
+                    <span class="badge bg-success" style="font-size: 14px;">{{ ucfirst($appoints->status) }}</span>
+                    @elseif($status == 'canceled')
+                    <span class="badge bg-danger" style="font-size: 14px;">{{ ucfirst($appoints->status) }}</span>
+                    @else
+                    <span class="badge bg-secondary" style="font-size: 14px;">{{ ucfirst($appoints->status) }}</span>
+                    @endif
+                    @if($status == 'approved' || $status == 'canceled')
+                     <td></td>
+                     <td></td>
+                    @else
+                      <td>
+                    <button class="btn btn-danger btn-sm" onclick="showCancelReasonModal({{ $appoints->id }})"
+                     style="padding: 6px 12px; font-size: 14px;">
+                        Cancel
+                    </button>
+                     </td>
+                      <td>
+                    <button class="btn btn-primary btn-sm" onclick="showRescheduleModal({{ $appoints->id }})"
+                       style="padding: 6px 12px; font-size: 14px;">
+                        Reschedule
+                      </button>
+                      </td>
+                       @endif
                     </tr>
                     @endforeach
                 </tbody>
@@ -148,6 +173,129 @@
         </div>
     </div>
 </div>
+
+<!-- Reschedule Modal -->
+<div class="modal fade" id="rescheduleModal" tabindex="-1" aria-labelledby="rescheduleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="rescheduleForm" method="POST" action="{{ url('reschedule_appoint') }}">
+            @csrf
+            <input type="hidden" name="appointment_id" id="reschedule_appointment_id">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="rescheduleModalLabel">Reschedule Appointment</h5>
+                    <button type="button" onclick="closeRescheduleModal()" aria-label="Close" 
+                            style="font-size: 30px; background: none; border: none; color: red; outline: none; box-shadow: none;">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="reschedule_reason" class="form-label">Why do you want to reschedule?</label>
+                        <textarea class="form-control" id="reschedule_reason" name="reschedule_reason" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="reschedule_date" class="form-label">Select New Date</label>
+                        <input type="date" class="form-control" id="reschedule_date" name="reschedule_date" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="reschedule_time" class="form-label">Select New Time</label>
+                        <input type="time" class="form-control" id="reschedule_time" name="reschedule_time" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Reschedule</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Cancel Reason Modal -->
+<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title" id="cancelModalLabel" style="flex-grow: 1; text-align: center;">Reason for Cancellation</h5>
+                <button type="button" onclick="closeModal()" aria-label="Close" 
+                style="font-size: 30px; background: none; border: none; color: white; outline: none; box-shadow: none;">
+                &times;
+                </button>
+            </div>
+
+            <form id="cancelForm" action="{{ url('cancel_appoint') }}" method="POST">
+                @csrf
+                <input type="hidden" name="appointment_id" id="appointment_id">
+
+                <div class="modal-body">
+                    <label for="cancel_reason" style="font-size: 14px;" align="center;" class="form-label">Leave a message below for cancellation of this appointment:</label>
+                    <textarea name="cancel_reason" id="cancel_reason" class="form-control" rows="4" placeholder="Enter your reason..." required></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function showRescheduleModal(appointmentId) {
+        document.getElementById('reschedule_appointment_id').value = appointmentId;
+        var rescheduleModal = new bootstrap.Modal(document.getElementById('rescheduleModal'));
+        rescheduleModal.show();
+
+        window.currentCancelModal = rescheduleModal;
+    }
+
+    function showCancelReasonModal(appointmentId) {
+        document.getElementById("appointment_id").value = appointmentId;
+        var cancelModal = new bootstrap.Modal(document.getElementById('cancelModal'));
+        cancelModal.show();
+        
+        window.currentCancelModal = cancelModal;
+    }
+
+    function closeRescheduleModal() {
+        if (window.currentCancelModal) {
+            window.currentCancelModal.hide();
+        }
+    }
+
+    function closeModal() {
+        if (window.currentCancelModal) {
+            window.currentCancelModal.hide();
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        const rescheduleDateInput = document.getElementById('reschedule_date');
+        const today = new Date().toISOString().split('T')[0];
+        rescheduleDateInput.setAttribute('min', today);
+        
+        const rescheduleTimeInput = document.getElementById('reschedule_time');
+        rescheduleTimeInput.addEventListener('change', function () {
+            const selectedTime = this.value;
+            const selectedHour = parseInt(selectedTime.split(':')[0]);
+
+            if (selectedHour < 8 || selectedHour >= 20) {
+                alert('Appointments can only scheduled between 8 AM and 8 PM.');
+                this.value = '';
+            }
+        });
+
+        let alertDiv = document.querySelector('.alert');
+        if (alertDiv) {
+            setTimeout(function () {
+                alertDiv.style.display = 'none';
+            }, 5000);
+        }
+    });
+</script>
+
+
 
 
 <script src="../assets/js/jquery-3.5.1.min.js"></script>
@@ -159,7 +307,7 @@
 <script src="../assets/vendor/wow/wow.min.js"></script>
 
 <script src="../assets/js/theme.js"></script>
-  
+
 </body>
 @include('user.calendar')
 </html>

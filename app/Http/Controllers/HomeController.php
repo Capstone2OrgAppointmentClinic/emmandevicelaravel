@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use App\Notifications\NewAppointmentNotification;
 use Illuminate\Support\Facades\Notification;
+use App\Notifications\RescheduleNotification;
 
 
 
@@ -49,56 +50,65 @@ class HomeController extends Controller
     $announcements = Announcement::orderBy('created_at', 'desc')->get();
     return view('user.home', compact('announcements','doctor'));
 }
-    public function appointment(Request $request)
-    {
-        if (!Auth::check()) {
-            return redirect()->back()->with('error', 'You must login first to make an appointment.');
-        }
-    
-        $request->validate([
-            'date' => 'required|date|after_or_equal:today',
-            'time' => 'required',
-        ]);
-    
-        $totalAppointmentsForDay = Appointment::whereDate('date', $request->date)->count();
-    
-        if ($totalAppointmentsForDay >= 5) {
-            return redirect()->back()->with('error', 'Sorry, the limit of 5 appointments for this day has been reached.');
-        }
-    
-        $appointmentDateTime = Carbon::createFromFormat('Y-m-d H:i', $request->date . ' ' . $request->time);
-
-        $conflict = Appointment::where('date', $request->date)
-            ->where(function ($query) use ($appointmentDateTime) {
-                $query->whereTime('time', '>=', $appointmentDateTime->copy()->subHour()->format('H:i'))
-                      ->whereTime('time', '<=', $appointmentDateTime->copy()->addHour()->format('H:i'));
-            })
-            ->exists();
-    
-        if ($conflict) {
-            return redirect()->back()->with('error', 'An appointment already exists within 1 hour of this time. Please choose another time.');
-        }
-    
-        $data = new Appointment();
-        $data->name = Auth::user()->name;
-        $data->email = Auth::user()->email;
-        $data->date = $request->date;
-        $data->time = $request->time;
-        $data->phone = $request->number;
-        $data->message = $request->message;
-        $data->service = $request->service;
-        $data->status = 'In progress';
-        $data->user_id = Auth::user()->id;
-    
-        $data->save();
-    
-        $admin = User::where('usertype', 1)->first();
-        if ($admin) {
-            $admin->notify(new NewAppointmentNotification($data));
-        }
-    
-        return redirect()->back()->with('message', 'Appointment request successful! It is now added to your calendar wait for the approval.');
+public function appointment(Request $request)
+{
+    // Ensure the user is authenticated
+    if (!Auth::check()) {
+        return redirect()->back()->with('error', 'You must login first to make an appointment.');
     }
+
+    // Validate the input data
+    $request->validate([
+        'date' => 'required|date|after_or_equal:today',
+        'time' => 'required|date_format:H:i',
+    ]);
+
+    $selectedTime = Carbon::createFromFormat('H:i', $request->time);
+    
+    if ($selectedTime->hour < 8 || $selectedTime->hour >= 20) {
+        return redirect()->back()->with('error', 'Appointments can only be scheduled between 8 AM and 8 PM.');
+    }
+
+    $totalAppointmentsForDay = Appointment::whereDate('date', $request->date)->count();
+    if ($totalAppointmentsForDay >= 5) {
+        return redirect()->back()->with('error', 'Sorry, the limit of 5 appointments for this day has been reached.');
+    }
+
+    $appointmentDateTime = Carbon::createFromFormat('Y-m-d H:i', $request->date . ' ' . $request->time);
+    $conflict = Appointment::where('date', $request->date)
+        ->where(function ($query) use ($appointmentDateTime) {
+            $query->whereTime('time', '>=', $appointmentDateTime->copy()->subHour()->format('H:i'))
+                  ->whereTime('time', '<=', $appointmentDateTime->copy()->addHour()->format('H:i'));
+        })
+        ->exists();
+
+    if ($conflict) {
+        return redirect()->back()->with('error', 'An appointment already exists within 1 hour of this time. Please choose another time.');
+    }
+
+    // Create and save the new appointment
+    $data = new Appointment();
+    $data->name = Auth::user()->name;
+    $data->email = Auth::user()->email;
+    $data->date = $request->date;
+    $data->time = $request->time;
+    $data->phone = $request->number;
+    $data->message = $request->message;
+    $data->service = $request->service;
+    $data->status = 'In progress';
+    $data->user_id = Auth::user()->id;
+
+    $data->save();
+
+    // Notify the admin about the new appointment
+    $admin = User::where('usertype', 1)->first();
+    if ($admin) {
+        $admin->notify(new NewAppointmentNotification($data));
+    }
+
+    return redirect()->back()->with('message', 'Appointment request successful! It is now added to your calendar. Wait for the approval.');
+}
+
     
     public function myappointment()
     {
@@ -199,19 +209,22 @@ public function checkAppointmentConflict(Request $request)
     $date = $request->date;
     $time = $request->time;
 
-    
     $selectedTime = Carbon::createFromFormat('H:i', $time);
+
+    if ($selectedTime->hour < 8 || $selectedTime->hour >= 20) {
+        return response()->json(['conflict' => true, 'message' => 'Appointments can only be scheduled between 8 AM and 8 PM.']);
+    }
+
     $startTime = $selectedTime->copy()->subHour();
     $endTime = $selectedTime->copy()->addHour();
 
-    
     $conflict = Appointment::whereDate('date', $date)
-        ->whereTime('time', '>=', $startTime->format('H:i'))
-        ->whereTime('time', '<=', $endTime->format('H:i'))
+        ->whereBetween('time', [$startTime->format('H:i'), $endTime->format('H:i')])
         ->exists();
 
     return response()->json(['conflict' => $conflict]);
 }
+
 public function announcement()
  {
      return view('user.announcement');
@@ -220,6 +233,43 @@ public function announcement()
 {
     $announcement = Announcement::findOrFail($id);
     return view('user.announcement_details', compact('announcement'));
+}
+public function cancelAppointment(Request $request)
+{
+    $appointment = Appointment::find($request->appointment_id);
+
+    if ($appointment) {
+        \Log::info('Appointment ID: ' . $appointment->id . ' was canceled. Reason: ' . $request->cancel_reason);
+
+        $appointment->delete();
+
+        return redirect()->back()->with('message', 'Appointment successfully canceled.');
+    }
+
+    return redirect()->back()->with('error', 'Appointment not found.');
+}
+
+public function reschedule_appoint(Request $request)
+{
+    $appointment = Appointment::find($request->appointment_id);
+
+    if ($appointment) {
+        
+        $appointment->date = $request->reschedule_date;
+        $appointment->time = $request->reschedule_time;
+        $appointment->message = $request->reschedule_reason;
+        $appointment->status = 'Rescheduled';
+        $appointment->save();
+
+        $admin = User::where('usertype', 1)->first(); 
+        if ($admin) {
+            $admin->notify(new RescheduleNotification($appointment));
+        }
+
+        return redirect()->back()->with('message', 'Appointment rescheduled successfully');
+    } else {
+        return redirect()->back()->with('error', 'Appointment not found.');
+    }
 }
 
 }

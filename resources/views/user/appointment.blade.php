@@ -60,44 +60,67 @@
         <script src="../assets/vendor/wow/wow.min.js"></script>
         <script src="../assets/js/theme.js"></script>
 
-        <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        let dateInput = document.querySelector("input[name='date']");
-        let today = new Date().toISOString().split('T')[0];
-        dateInput.setAttribute("min", today);
+<script>
+        document.addEventListener("DOMContentLoaded", function () {
+    let dateInput = document.querySelector("input[name='date']");
+    let timeInput = document.querySelector("input[name='time']");
+    let submitButton = document.querySelector("button[type='submit']");
 
-        dateInput.addEventListener("change", function () {
-            if (this.value < today) {
-                alert("Select a valid date.");
-                this.value = today;
+    let today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute("min", today);
+
+    dateInput.addEventListener("change", function () {
+        if (this.value < today) {
+            alert("Select a valid date.");
+            this.value = today;
+        }
+    });
+
+    dateInput.addEventListener("change", function () {
+        let selectedDate = this.value;
+
+        if (selectedDate) {
+            fetch(`/check-appointments?date=${selectedDate}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.count >= 5) {
+                        alert("The limit of 5 appointments has been reached for this date.");
+                        submitButton.disabled = true;
+                    } else {
+                        submitButton.disabled = false;
+                    }
+                })
+                .catch(error => console.error("Error checking appointments:", error));
+        }
+    });
+
+    const setTimeRange = () => {
+        let options = [];
+        for (let h = 8; h <= 20; h++) {
+            for (let m = 0; m < 60; m += 30) {
+                let hour = h < 10 ? "0" + h : h;
+                let minute = m === 0 ? "00" : "30";
+                options.push(`${hour}:${minute}`);
             }
-        });
+        }
+        timeInput.innerHTML = options.map(time => `<option value="${time}">${time}</option>`).join('');
+    };
 
-        let submitButton = document.querySelector("button[type='submit']");
-        let timeInput = document.querySelector("input[name='time']");
+    setTimeRange();
 
+    timeInput.addEventListener("change", function () {
+        let selectedDate = dateInput.value;
+        let selectedTime = timeInput.value;
+
+        let timeParts = selectedTime.split(':');
+        let hour = parseInt(timeParts[0], 10);
         
-        dateInput.addEventListener("change", function () {
-            let selectedDate = this.value;
-
-            if (selectedDate) {
-                fetch(`/check-appointments?date=${selectedDate}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.count >= 5) {
-                            alert("The limit of 5 appointments has been reached for this date.");
-                            submitButton.disabled = true;
-                        } else {
-                            submitButton.disabled = false;
-                        }
-                    })
-                    .catch(error => console.error("Error checking appointments:", error));
-            }
-        });
-
-        timeInput.addEventListener("change", function () {
-            let selectedDate = dateInput.value;
-            let selectedTime = timeInput.value;
+        if (hour < 8 || hour >= 20) {
+            alert("Appointments can only scheduled between 8 AM and 8 PM.");
+            timeInput.value = '';
+            submitButton.disabled = true;
+        } else {
+            submitButton.disabled = false;
 
             if (selectedDate && selectedTime) {
                 fetch(`/check-appointment-conflict?date=${selectedDate}&time=${selectedTime}`)
@@ -112,13 +135,15 @@
                     })
                     .catch(error => console.error("Error checking conflicts:", error));
             }
-        });
-        const form = document.querySelector("form");
-        form.addEventListener("submit", function () {
-            submitButton.disabled = true;
-            submitButton.innerText = "Processing...";
-        });
+        }
     });
+
+    const form = document.querySelector("form");
+    form.addEventListener("submit", function () {
+        submitButton.disabled = true;
+        submitButton.innerText = "Processing...";
+    });
+});
 </script>
 
     </div>

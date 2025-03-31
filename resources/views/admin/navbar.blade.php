@@ -105,20 +105,27 @@
         <h6 class="p-3 mb-0">Notifications</h6>
         <div class="dropdown-divider"></div>
 
-        
         <div style="max-height: 300px; overflow-y: auto;">
             @if(auth()->user()->unreadNotifications->count() > 0)
                 @foreach(auth()->user()->unreadNotifications as $notification)
                     <a class="dropdown-item preview-item" href="{{ route('markAsRead', $notification->id) }}">
                         <div class="preview-item-content">
-                            <p class="preview-subject mb-1">
-                                New Appointment from <strong>{{ $notification->data['name'] ?? 'Unknown' }}</strong>
-                            </p>
-                            <p class="text-muted mb-0">
-                                Service: {{ $notification->data['service'] ?? 'No Service' }} | 
-                                Date: {{ $notification->data['date'] ?? 'No Date' }} | 
-                                Time: {{ $notification->data['time'] ?? 'No Time' }}
-                            </p>
+                        <p class="preview-subject mb-1">
+          @if(isset($notification->data['status']) && $notification->data['status'] == 'Rescheduled')
+                <strong>Appointment Rescheduled by {{ $notification->data['name'] ?? 'Unknown' }}</strong>
+          @else
+               New Appointment from <strong>{{ $notification->data['name'] ?? 'Unknown' }}</strong>
+          @endif
+           </p>
+             <p class="text-muted mb-0">
+                 Service: {{ $notification->data['service'] ?? 'No Service' }} |
+                 Date: {{ $notification->data['date'] ?? 'No Date' }} |
+                 Time: {{ $notification->data['time'] ?? 'No Time' }}
+             </p>
+
+              @if(isset($notification->data['status']) && $notification->data['status'] == 'Rescheduled')
+              <p class="text-warning mb-0">Reason: {{ $notification->data['reason'] ?? 'No Reason Provided' }}</p>
+              @endif
                         </div>
                     </a>
                 @endforeach
@@ -128,7 +135,9 @@
         </div>
 
         <div class="dropdown-divider"></div>
-        <h6 class="p-3 mb-0 text-center"><a href="#" onclick="markAllAsRead()">Mark all as read</a></h6>
+        <h6 class="p-3 mb-0 text-center">
+            <a href="#" onclick="markAllAsRead()">Mark all as read</a>
+        </h6>
     </div>
 </li>
 
@@ -142,6 +151,7 @@
             });
     }
 </script>
+
 
 
 

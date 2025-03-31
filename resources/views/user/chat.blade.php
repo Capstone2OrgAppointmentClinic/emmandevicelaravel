@@ -41,9 +41,9 @@
 
 </style>
 <div id="chatbot-container" >
-    <button id="chatbot-toggle" style="background-color: #00D95F;">💬 Chat with CliniQuickAid</button>
+    <button id="chatbot-toggle" style="background-color: #28a745;">💬 Chat with CliniQuickAid</button>
     <div id="chatbot-box">
-        <div id="chatbot-header" style="background-color: #00D95F;">
+        <div id="chatbot-header" style="background-color: #28a745;">
             CliniQuickAid <i class="fa-solid fa-stethoscope" style="margin-left:-8.7rem; margin-top: 3px;"></i><span id="close-chatbot">&times;</span>
         </div>
         <div id="chatbot-messages" style="max-height: 300px; overflow-y: auto;"></div>

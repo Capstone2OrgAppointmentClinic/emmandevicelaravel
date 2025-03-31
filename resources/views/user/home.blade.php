@@ -20,6 +20,7 @@
   <link href="{{ asset('vendor/bladewind/css/bladewind-ui.min.css') }}" rel="stylesheet" />
   <script src="{{ asset('vendor/bladewind/js/helpers.js') }}"></script>
   <script src="//unpkg.com/alpinejs" defer></script>
+
 </head>
 
 <body class="bg-light">
@@ -93,17 +94,19 @@
 </header>
 
 @if(session()->has('message'))
-<div class="alert alert-success">
-    <button type="button" class="close" data-dismiss="alert"></button>
-    {{session()->get('message')}}
+<div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+    {{ session()->get('message') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
 
-@if (session('error'))
-<div class="alert alert-danger">
-    {{session('error')}}
+@if(session('error'))
+<div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+    {{ session('error') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
+
 
 <!-- Main Hero Section -->
 <div class="page-hero bg-image overlay-dark" style="background-image: url(../assets/img/latestimg/building.png);">
@@ -150,7 +153,7 @@
         </div>
       </div>
     </div> <!-- .page-section -->
-
+    @if(!auth()->check())
     <div class="page-section pb-0" style="background-color: antiquewhite;">
       <div class="container">
         <div class="row align-items-center">
@@ -168,13 +171,15 @@
       </div>
     </div> <!-- .bg-light -->
   </div> <!-- .bg-light -->
-
-@include('user.doctor')
-@include('user.latest')
+  @endif
+@if(!auth()->check())
+    @include('user.doctor')
+@endif
 @include('user.chat')
 <div id="appointment-section">
     @include('user.appointment')
 </div>
+@include('user.latest')
 
 <footer class="page-footer">
     <div class="container">
@@ -207,10 +212,15 @@
             <div class="col-sm-6 col-lg-3 py-3">
                 <h5>Project created by:</h5>
                 <a href="https://www.facebook.com/emrayzap.04" class="footer-link" target="_blank">Aligan, Rhed</a>
+                <br>
                 <a href="https://www.facebook.com/emrayzap.04" class="footer-link" target="_blank">Coniaro, Joanna Mae</a>
+                <br>
                 <a href="https://www.facebook.com/emrayzap.04" class="footer-link" target="_blank">Buenafe, Danilo Jr</a>
+                <br>
                 <a href="https://www.facebook.com/emrayzap.04" class="footer-link" target="_blank">Lumba, Bryan Justine</a>
+                <br>
                 <a href="https://www.facebook.com/emrayzap.04" class="footer-link" target="_blank">Coronel, Cristina</a>
+                <br>
                 <a href="https://www.facebook.com/emrayzap.04" class="footer-link" target="_blank">Paz, Emmanuel Ray</a>
             </div>
         </div>
@@ -228,13 +238,26 @@
 
 <!-- JavaScript to Show Modal on Load -->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+     document.addEventListener('DOMContentLoaded', function () {
+        let alertDivs = document.querySelectorAll('.alert');
+        
+        alertDivs.forEach(function(alert) {
+            setTimeout(function () {
+                alert.style.transition = 'opacity 0.5s ease';
+                alert.style.opacity = '0';
+                setTimeout(function () {
+                    alert.style.display = 'none';
+                }, 500);
+            }, 5000);
+        });
+    });
+        document.addEventListener("DOMContentLoaded", function () {
         var myModalEl = document.getElementById('announcementModal');
         if (myModalEl) {
             var myModal = new bootstrap.Modal(myModalEl);
             myModal.show();
         }
-document.querySelectorAll('[data-bs-dismiss="modal"]').forEach(function (btn) {
+            document.querySelectorAll('[data-bs-dismiss="modal"]').forEach(function (btn) {
             btn.addEventListener('click', function () {
                 myModal.hide();
             });

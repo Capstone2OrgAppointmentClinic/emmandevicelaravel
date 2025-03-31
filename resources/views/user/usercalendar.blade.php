@@ -104,24 +104,32 @@
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             headerToolbar: {
-                left: 'prev,next today',
+                left: 'prev',
                 center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                right: 'next'
+            },
+            footerToolbar: {
+                left: 'dayGridMonth,timeGridWeek,timeGridDay'
             },
             events: "{{ url('/user/get-appointments') }}", 
             editable: false,
             selectable: true,
             eventClick: function (info) {
                 alert('Appointment: ' + info.event.title);
+            },
+            eventTimeFormat: {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
             }
         });
 
-        
         calendar.render();
     });
 </script>
 
-</script>
+
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
 </body>
