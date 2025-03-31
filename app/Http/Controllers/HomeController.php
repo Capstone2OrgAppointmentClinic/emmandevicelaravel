@@ -98,6 +98,8 @@ public function appointment(Request $request)
     $data->status = 'In progress';
     $data->user_id = Auth::user()->id;
 
+    // $data->password = bcrypt($request->password);
+
     $data->save();
 
     // Notify the admin about the new appointment

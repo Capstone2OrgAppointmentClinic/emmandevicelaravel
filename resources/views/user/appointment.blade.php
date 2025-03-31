@@ -43,8 +43,8 @@
 <!-- Message -->
 <div class="row g-3 mt-3">
     <div class="col-12 py-2 wow fadeInUp" data-wow-delay="300ms">
-        <label for="message" class="form-label">Message</label>
-        <textarea name="message" id="message" class="form-control" rows="5" placeholder="Enter your message..." required></textarea>
+        <label for="message" class="form-label">Purpose</label>
+        <textarea name="message" id="message" class="form-control" rows="5" placeholder="Provide details about your request..." required></textarea>
     </div>
 </div>
 

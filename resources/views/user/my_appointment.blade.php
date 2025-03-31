@@ -20,6 +20,9 @@
 
   <link rel="stylesheet" href="../assets/css/theme.css">
 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+
 </head>
 <body>
   <div class="back-to-top"></div>
@@ -30,7 +33,8 @@
 
     <nav class="navbar navbar-expand-lg navbar-light shadow-sm bg-light">
       <div class="container">
-      <img src="../assets/img/person/svfctrans.png" alt="logo " style="width:auto; height: 60px;"/>
+        <a href="home">
+      <img src="../assets/img/person/svfctrans.png" alt="logo " style="width:auto; height: 60px;" href="home"/></a>
         <a class="navbar-brand" href="home"><span class="text-primary"><span style="color:#f204f2;">Clini</span></span>-QuickAid</a>
         
 
@@ -40,7 +44,7 @@
 
         <div class="" id="navbarSupport">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
+            <li class="nav-item ">
               <a class="nav-link" href="{{url('/')}}">Home</a>
             </li>
             <li class="nav-item">
@@ -60,9 +64,29 @@
 
             @auth
 
-            <li class="nav-item">
-             <a class="nav-link" href="{{url('myappointment')}}">My Appointment</a>
-            </li>
+            <li class="nav-item dropdown">
+            <a class="nav-link  dropdown-toggle active " style="background: none; color:#00d9a5;" href="{{url('myappointment')}}">Appointment</a>
+            <ul class="dropdown-menu">
+                <li>
+                                <a class="dropdown-item" href="{{ route('user.usercalendar') }}">Calendar</a>
+                           
+                          </li>
+                        </ul>
+                    </li>
+                    <style>
+     .dropdown:hover .dropdown-menu {
+         display: block;
+         margin-top: 0;
+     }
+ 
+    .dropdown-menu li:hover,
+    .dropdown-menu a.dropdown-item:hover {
+     background-color: transparent !important;
+     color: #ff00ff !important;
+     transition: none !important;
+     box-shadow: none !important;
+    }
+     </style>
 
 
             <x-app-layout>
@@ -109,7 +133,7 @@
 
 
   <div align="center" style="padding: 70px;">
-    <h1 style="font-size: 40px; padding: 15px;  color: #000; font-weight: bold;">
+    <h1 style="font-size: 40px; padding: 15px;  color: #181A18; font-weight: bold;">
         Appointment Schedule
     </h1>
 
@@ -128,7 +152,7 @@
                 </thead>
                 <tbody>
                     @foreach($appoint as $appoints)
-                    <tr class="align-middle">
+                    <tr class="align-middle items-center">
                     <td style="padding: 12px; font-size: 18px; color: #333;">{{$appoints->service}}</td>
                     <td style="padding: 12px; font-size: 18px; color: #333;">{{$appoints->date}}</td>
                     <td style="padding: 12px; font-size: 18px; color: #333;">
@@ -141,29 +165,28 @@
                     @endphp
 
                     @if($status == 'in progress')
-                    <span class="badge bg-warning text-dark" style="font-size: 14px;">{{ ucfirst($appoints->status) }}</span>
+                    <span class="badge text-blue-600 flex justify-center items-center w-full h-full mt-[14px]" style="font-size: 1.5rem;">{{ ucfirst($appoints->status) }}</span>
                     @elseif($status == 'approved')
-                    <span class="badge bg-success" style="font-size: 14px;">{{ ucfirst($appoints->status) }}</span>
+                    <span class="badge text-green-500 flex justify-center items-center w-full h-full mt-[14px]" style="font-size: 1.5rem;">{{ ucfirst($appoints->status) }}</span>
                     @elseif($status == 'canceled')
-                    <span class="badge bg-danger" style="font-size: 14px;">{{ ucfirst($appoints->status) }}</span>
+                    <span class="badge text-red-500 flex justify-center items-center w-full h-full mt-[14px]" style="font-size: 1.5rem;">{{ ucfirst($appoints->status) }}</span>
                     @else
-                    <span class="badge bg-secondary" style="font-size: 14px;">{{ ucfirst($appoints->status) }}</span>
+                    <span class="badge text-red-500 flex justify-center items-center w-full h-full mt-[14px]" style="font-size: 1.5rem;">{{ ucfirst($appoints->status) }}</span>
                     @endif
                     @if($status == 'approved' || $status == 'canceled')
                      <td></td>
                      <td></td>
                     @else
                       <td>
-                    <button class="btn btn-danger btn-sm" onclick="showCancelReasonModal({{ $appoints->id }})"
-                     style="padding: 6px 12px; font-size: 14px;">
-                        Cancel
+                      <button class="btn-lg w-full" onclick="showCancelReasonModal({{ $appoints->id }})" style="font-size: 1.7rem;">
+                      <i class="bi bi-x-lg" style="color: red; font-size: 2.3rem; margin: 0;"></i>
                     </button>
+
                      </td>
                       <td>
-                    <button class="btn btn-primary btn-sm" onclick="showRescheduleModal({{ $appoints->id }})"
-                       style="padding: 6px 12px; font-size: 14px;">
-                        Reschedule
-                      </button>
+                      <button class="btn-lg w-full "  onclick="showRescheduleModal({{ $appoints->id }})" ystyle="font-size: 1.7rem;">
+                      <i class="bi bi-calendar" style="color: #FFA500; font-size: 2.3rem; margin: 0;"></i>
+                    </button>
                       </td>
                        @endif
                     </tr>
@@ -175,14 +198,14 @@
 </div>
 
 <!-- Reschedule Modal -->
-<div class="modal fade" id="rescheduleModal" tabindex="-1" aria-labelledby="rescheduleModalLabel" aria-hidden="true">
+<div class="modal fade rounded-lg" id="rescheduleModal" tabindex="-1" aria-labelledby="rescheduleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <form id="rescheduleForm" method="POST" action="{{ url('reschedule_appoint') }}">
             @csrf
             <input type="hidden" name="appointment_id" id="reschedule_appointment_id">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="rescheduleModalLabel">Reschedule Appointment</h5>
+                    <h5 class="modal-title flex justify-center" id="rescheduleModalLabel" style="flex-grow: 1; text-align: center; font-size: 1.7rem;">Reschedule Appointment</h5>
                     <button type="button" onclick="closeRescheduleModal()" aria-label="Close" 
                             style="font-size: 30px; background: none; border: none; color: red; outline: none; box-shadow: none;">
                         &times;
@@ -202,20 +225,20 @@
                         <input type="time" class="form-control" id="reschedule_time" name="reschedule_time" required>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Reschedule</button>
-                </div>
             </div>
+            <div class="modal-footer" >
+                <button type="submit" class="btn btn-primary" >Reschedule</button>
+        </div>
         </form>
     </div>
 </div>
 
 <!-- Cancel Reason Modal -->
-<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+<div class="modal fade rounded-lg"  id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-danger text-white">
-            <h5 class="modal-title" id="cancelModalLabel" style="flex-grow: 1; text-align: center;">Reason for Cancellation</h5>
+        <div class="modal-content" style="border-radius: 5%;">
+            <div class="modal-header bg-red-600 text-white" style="border-top-left-radius:1rem; border-top-right-radius: 1rem;">
+            <h5 class="modal-title" id="cancelModalLabel" style="flex-grow: 1; text-align: center; font-size: 1.7rem;">Reason for Cancellation<i class="bi bi-question-lg" style="color: #F8F9FA;"></i></h5>
                 <button type="button" onclick="closeModal()" aria-label="Close" 
                 style="font-size: 30px; background: none; border: none; color: white; outline: none; box-shadow: none;">
                 &times;
@@ -227,8 +250,8 @@
                 <input type="hidden" name="appointment_id" id="appointment_id">
 
                 <div class="modal-body">
-                    <label for="cancel_reason" style="font-size: 14px;" align="center;" class="form-label">Leave a message below for cancellation of this appointment:</label>
-                    <textarea name="cancel_reason" id="cancel_reason" class="form-control" rows="4" placeholder="Enter your reason..." required></textarea>
+                    <label for="cancel_reason" style="font-size: 14px; color: gray;" align="center;" class="form-label">Leave a message below for cancellation of this appointment:</label>
+                    <textarea name="cancel_reason" id="cancel_reason" class="form-control" rows="4" placeholder="Enter your reason..." required style="color: black;"></textarea>
                 </div>
 
                 <div class="modal-footer">
@@ -238,6 +261,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 <script>
