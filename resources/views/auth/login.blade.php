@@ -61,18 +61,30 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         let studentIdField = document.getElementById('student_id');
+
+        // Set default value if the field is empty or doesn't start with SVFC-
         if (!studentIdField.value.startsWith('SVFC-')) {
             studentIdField.value = 'SVFC-';
         }
+
+        // Place cursor after SVFC- on load
+        setTimeout(() => {
+            studentIdField.setSelectionRange(5, 5);
+        }, 10);
     });
 
     function formatStudentID(input) {
         let value = input.value.replace('SVFC-', '').replace(/[^0-9]/g, '').slice(0, 12);
 
+        // Format with en dash after 6 digits
         if (value.length > 6) {
             input.value = 'SVFC-' + value.slice(0, 6) + '-' + value.slice(6, 12);
         } else {
             input.value = 'SVFC-' + value;
         }
+
+        // Move cursor after the last entered digit
+        let newPos = value.length > 6 ? value.length + 6 : value.length + 5;
+        input.setSelectionRange(newPos, newPos);
     }
 </script>
