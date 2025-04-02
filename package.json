@@ -21,6 +21,7 @@
         "@fullcalendar/core": "^6.1.15",
         "@fullcalendar/daygrid": "^6.1.15",
         "@fullcalendar/interaction": "^6.1.15",
+        "bootstrap-icons": "^1.11.3",
         "laravel-echo": "^2.0.2",
         "pusher-js": "^8.4.0"
     }

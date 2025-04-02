@@ -56,6 +56,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_photo_url',
     ];
 
+    
+
     /**
      * Get the attributes that should be cast.
      *

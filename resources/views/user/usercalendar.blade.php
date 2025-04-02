@@ -40,7 +40,7 @@
 
         <div class="" id="navbarSupport">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
+            <li class="nav-item ">
               <a class="nav-link" href="{{url('/')}}">Home</a>
             </li>
             <li class="nav-item">
@@ -60,9 +60,30 @@
 
             @auth
 
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('user.usercalendar') }}">My Calendar</a>
-            </li>
+            
+
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" style="background: none; color:#00d9a5;" href="{{ route('user.usercalendar') }}">Calendar</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                            <a class="dropdown-item" href="{{url('myappointment')}}">Appointment</a>
+                          </li>
+                        </ul>
+                    </li>
+                    <style>
+     .dropdown:hover .dropdown-menu {
+         display: block;
+         margin-top: 0;
+     }
+ 
+    .dropdown-menu li:hover,
+    .dropdown-menu a.dropdown-item:hover {
+     background-color: transparent !important;
+     color:#f204f2 !important;
+     transition: none !important;
+     box-shadow: none !important;
+    }
+     </style>
             
 
             <x-app-layout>
