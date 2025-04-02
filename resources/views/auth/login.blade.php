@@ -24,15 +24,17 @@
             @csrf
 
             <div>
-                <x-label for="student_id" value="{{ __('Student ID') }}" />
-                <x-input id="student_id" class="block mt-1 w-full" type="text" name="student_id" 
-                         value="SVFC-" required autofocus autocomplete="username" 
-                         oninput="formatStudentID(this)" maxlength="20" />
+            <x-label for="student_id" value="{{ __('Student ID') }}" />
+            <x-input id="student_id" class="block mt-1 w-full gray-text" type="text" name="student_id"
+             value="SVFC- Enter your Student ID" required autofocus autocomplete="username"
+             onfocus="if (this.value === 'SVFC- Enter your Student ID') this.value = 'SVFC-';"
+             oninput="formatStudentID(this)" maxlength="20" />
+
             </div>
 
             <div class="mt-4">
                 <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+                <x-input id="password" placeholder="Password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
             </div>
 
             <div class="block mt-4">
@@ -57,34 +59,53 @@
     </x-authentication-card>
 </x-guest-layout>
 
-<!-- Add JavaScript for formatting -->
+<style>
+    .gray-text {
+        color: gray;
+    }
+</style>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         let studentIdField = document.getElementById('student_id');
 
-        // Set default value if the field is empty or doesn't start with SVFC-
         if (!studentIdField.value.startsWith('SVFC-')) {
             studentIdField.value = 'SVFC-';
         }
 
-        // Place cursor after SVFC- on load
+        applyPlaceholderEffect(studentIdField);
+
         setTimeout(() => {
             studentIdField.setSelectionRange(5, 5);
         }, 10);
     });
 
     function formatStudentID(input) {
-        let value = input.value.replace('SVFC-', '').replace(/[^0-9]/g, '').slice(0, 12);
+        let value = input.value.replace('SVFC-', '').replace(/[^0-9]/g, '');
 
-        // Format with en dash after 6 digits
+        let formattedValue = 'SVFC-';
+
         if (value.length > 6) {
-            input.value = 'SVFC-' + value.slice(0, 6) + '-' + value.slice(6, 12);
+            formattedValue += value.substring(0, 6) + '-' + value.substring(6);
         } else {
-            input.value = 'SVFC-' + value;
+            formattedValue += value;
         }
 
-        // Move cursor after the last entered digit
-        let newPos = value.length > 6 ? value.length + 6 : value.length + 5;
+        input.value = formattedValue;
+        applyPlaceholderEffect(input);
+
+        let newPos = value.length > 6 ? value.length + 7 : value.length + 5;
         input.setSelectionRange(newPos, newPos);
+    }
+
+    function applyPlaceholderEffect(input) {
+        if (input.value === 'SVFC-') {
+            input.classList.add('gray-text');
+            input.value = 'SVFC- Enter your Student ID';
+        } else if (input.value.startsWith('SVFC- Enter your Student ID')) {
+            input.value = 'SVFC-';
+        } else {
+            input.classList.remove('gray-text');
+        }
     }
 </script>

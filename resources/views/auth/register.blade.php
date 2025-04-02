@@ -4,7 +4,7 @@
         <x-slot name="logo">
             <x-authentication-card-logo />
         </x-slot>
-
+        
         <x-validation-errors class="mb-4" style="width: 50%;" />
 
         <form method="POST" action="{{ route('register') }}">
@@ -17,30 +17,23 @@
                 <!-- Left Column -->
                 <div>
                     <x-label for="name" value="Name" />
-                    <x-input id="name" class="block mt-1 w-full" type="text" name="name" required autofocus />
+                    <x-input id="name" class="block mt-1 w-full" type="text" name="name"  required autofocus placeholder="Enter your full name"/>
 
                     <x-label for="student_id" value="Student ID" class="mt-4" />
-                    <x-input id="student_id" class="block mt-1 w-full" type="text" name="student_id" required />
+                    <x-input id="student_id" class="block mt-1 w-full" type="text" name="student_id" required placeholder="Student ID"/>
 
                     <x-label for="email" value="Email" class="mt-4" />
-                    <x-input id="email" class="block mt-1 w-full" type="email" name="email" required />
-                   
-                    <!-- <x-label for="course" value=course" class="mt-4" />
-                    <x-input id="course" class="block mt-1 w-full" type="course" name="course" /> -->
+                    <x-input id="email" class="block mt-1 w-full" type="email" name="email" required placeholder="Email Address"/>
 
                     <x-label for="phone" value="Phone" class="mt-4" />
-                    <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" required />
+                    <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" required required placeholder="Enter your phone number"/>
 
                     <x-label for="address" value="Address" class="mt-4" />
-                    <x-input id="address" class="block mt-1 w-full" type="text" name="address" required />
+                    <x-input id="address" class="block mt-1 w-full" type="text" name="address" required placeholder="Enter your address"/>
                 </div>
 
 
-                <!-- Right Column -->
                 <div >
-
-                <!-- <x-label for="course" value="Course" class="mt-4" />
-                    <x-input id="course" class="block mt-1 w-full" type="text" name="course" /> -->
                     <div id="course_container">
                     <x-label for="course" value="Course / Strand" />
                     <select id="course" name="course" class="block mt-1 w-full p-2 border rounded mb-4" required>
@@ -63,13 +56,13 @@
                     </select>
 
                     <x-label for="year_level" value="Year Level" class="mt-4" />
-                    <select id="year_level" name="year_level" class="block mt-1 w-full p-2 border rounded"></select>
+                    <select id="year_level" name="year_level" class="block mt-1 w-full p-2 border rounded" required></select>
 
                     <x-label for="password" value="Password" class="mt-4" />
-                    <x-input id="password" class="block mt-1 w-full" type="password" name="password" required />
+                    <x-input id="password" class="block mt-1 w-full" type="password" name="password" required placeholder="Password"/>
 
                     <x-label for="password_confirmation" value="Confirm Password" class="mt-4" />
-                    <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
+                    <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required placeholder="Confirm your password"/>
                 </div>
             </div>
 
