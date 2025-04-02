@@ -26,8 +26,8 @@
             <div>
             <x-label for="student_id" value="{{ __('Student ID') }}" />
             <x-input id="student_id" class="block mt-1 w-full gray-text" type="text" name="student_id"
-             value="SVFC- Enter your Student ID" required autofocus autocomplete="username"
-             onfocus="if (this.value === 'SVFC- Enter your Student ID') this.value = 'SVFC-';"
+             value="Enter your Student ID" required autofocus autocomplete="username"
+             onfocus="if (this.value === 'Enter your Student ID') this.value = 'SVFC-';"
              oninput="formatStudentID(this)" maxlength="20" />
 
             </div>
@@ -99,11 +99,11 @@
     }
 
     function applyPlaceholderEffect(input) {
-        if (input.value === 'SVFC-') {
+        if (input.value === 'Enter your Student ID') {
             input.classList.add('gray-text');
-            input.value = 'SVFC- Enter your Student ID';
-        } else if (input.value.startsWith('SVFC- Enter your Student ID')) {
-            input.value = 'SVFC-';
+            input.value = 'Enter your Student ID';
+        } else if (input.value.startsWith('Enter your Student ID')) {
+            input.value = 'Enter your Student ID';
         } else {
             input.classList.remove('gray-text');
         }
