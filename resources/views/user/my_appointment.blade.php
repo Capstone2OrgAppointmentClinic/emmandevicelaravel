@@ -165,13 +165,13 @@
                     @endphp
 
                     @if($status == 'in progress')
-                    <span class="badge text-blue-600 flex justify-center items-center w-full h-full mt-[14px]" style="font-size: 1.5rem;">{{ ucfirst($appoints->status) }}</span>
+                    <span class="badge text-blue-600 flex justify-center items-center w-full h-full mt-[14px]" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
                     @elseif($status == 'approved')
-                    <span class="badge text-green-500 flex justify-center items-center w-full h-full mt-[14px]" style="font-size: 1.5rem;">{{ ucfirst($appoints->status) }}</span>
+                    <span class="badge text-green-500 flex justify-center items-center w-full h-full mt-[14px]" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
                     @elseif($status == 'canceled')
-                    <span class="badge text-red-500 flex justify-center items-center w-full h-full mt-[14px]" style="font-size: 1.5rem;">{{ ucfirst($appoints->status) }}</span>
+                    <span class="badge text-red-500 flex justify-center items-center w-full h-full mt-[14px]" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
                     @else
-                    <span class="badge text-red-500 flex justify-center items-center w-full h-full mt-[14px]" style="font-size: 1.5rem;">{{ ucfirst($appoints->status) }}</span>
+                    <span class="badge text-red-500 flex justify-center items-center w-full h-full mt-[14px]" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
                     @endif
                     @if($status == 'approved' || $status == 'canceled')
                      <td></td>
