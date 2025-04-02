@@ -81,3 +81,13 @@ Route::post('/cancel_appoint', [HomeController::class, 'cancelAppointment'])->na
 Route::post('/reschedule_appoint', [HomeController::class, 'reschedule_appoint'])->name('reschedule_appoint');
 
 Route::get('/check-conflict/{appointmentId}/{date}/{time}', [HomeController::class, 'checkConflict']);
+
+Route::get('/get-unread-notifications-count', function() {
+    return response()->json(['count' => auth()->user()->unreadNotifications->count()]);
+});
+
+Route::get('approved/{id}', [AdminController::class, 'approveAppointment']);
+
+Route::get('canceled/{id}', [AdminController::class, 'cancelAppointment']);
+
+Route::get('/markAllAsRead', [HomeController::class, 'markAllAsRead'])->name('markAllAsRead');

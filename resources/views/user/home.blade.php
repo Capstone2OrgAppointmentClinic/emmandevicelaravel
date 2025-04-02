@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="../assets/vendor/owl-carousel/css/owl.carousel.css">
   <link rel="stylesheet" href="../assets/vendor/animate/animate.css">
   <link rel="stylesheet" href="../assets/css/theme.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </head>
 
@@ -48,26 +49,84 @@
                     @if(Route::has('login'))
                     @auth
                     
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="{{url('myappointment')}}">Appointment</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ route('user.usercalendar') }}">Calendar</a></li>
-                        </ul>
-                    </li>
-                    <style>
-     .dropdown:hover .dropdown-menu {
-         display: block;
-         margin-top: 0;
-     }
- 
-    .dropdown-menu li:hover,
-    .dropdown-menu a.dropdown-item:hover {
-     background-color: transparent !important;
-     color: #ff00ff !important;
-     transition: none !important;
-     box-shadow: none !important;
+     <!-- Appointment -->
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="{{ url('myappointment') }}">Appointment</a>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="{{ route('user.usercalendar') }}">Calendar</a></li>
+    </ul>
+</li>
+
+<!-- Notification -->
+<li class="nav-item">
+    <a class="nav-link count-indicator" id="notificationLink" href="#" aria-expanded="false" data-bs-toggle="modal" data-bs-target="#notificationModal">
+        <i class="fas fa-bell" style="font-size: 16px;"></i>
+        @if(auth()->user()->unreadNotifications->count() > 0)
+            <span class="count bg-danger" style="font-size: 10px; padding: 5px 5px;">
+                {{ auth()->user()->unreadNotifications->count() }}
+            </span>
+        @endif
+    </a>
+</li>
+
+<!-- Modal to display notifications -->
+<div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationModalLabel">Notifications</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="max-height: 300px; overflow-y: auto;">
+                @if(auth()->user()->unreadNotifications->count() > 0)
+                    @foreach(auth()->user()->unreadNotifications as $notification)
+                        <a class="dropdown-item preview-item" href="{{ route('markAsRead', $notification->id) }}">
+                            <div class="preview-item-content">
+                                <p class="preview-subject mb-1">
+                                    {{ $notification->data['message'] }}
+                                </p>
+                            </div>
+                        </a>
+                    @endforeach
+                @else
+                    <p class="p-3 text-center text-muted">No new notifications</p>
+                @endif
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="/" onclick="markAllAsRead()" class="btn btn-primary">Mark all as read</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .nav-item.dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0;
     }
-     </style>
+
+    .nav-item.dropdown .dropdown-menu li:hover,
+    .nav-item.dropdown .dropdown-menu a.dropdown-item:hover {
+        background-color: transparent !important;
+        color: #ff00ff !important;
+        transition: none !important;
+        box-shadow: none !important;
+    }
+    .modal-body {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    #notificationLink:hover {
+        cursor: pointer;
+    }
+</style>
+
+<!-- Add Bootstrap JS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+                  
                     <x-app-layout>
 
                     </x-app-layout>

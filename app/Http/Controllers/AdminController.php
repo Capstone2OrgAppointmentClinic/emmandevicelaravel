@@ -15,6 +15,7 @@ use Spatie\GoogleCalendar\Event;
 use App\Notifications\NewAppointmentNotification;
 use Illuminate\Support\Facades\DB;
 use App\Models\Announcement;
+use App\Notifications\AppointmentStatusNotification;
 
 
 use App\Notifications\SendEmailNotification;
@@ -330,6 +331,32 @@ public function createAnnouncement(Request $request)
     ]);
 
     return back()->with('success', 'Announcement created successfully!');
+}
+
+public function approveAppointment($appointmentId)
+{
+    $appointment = Appointment::find($appointmentId);
+    $appointment->status = 'Approved';  // Or any other status you set
+    $appointment->save();
+
+    // Send notification to the user
+    $user = $appointment->user;
+    $user->notify(new AppointmentStatusNotification($appointment, 'approved'));
+
+    return redirect()->back()->with('message', 'Appointment Approved');
+}
+
+public function cancelAppointment($appointmentId)
+{
+    $appointment = Appointment::find($appointmentId);
+    $appointment->status = 'Canceled';  // Or any other status
+    $appointment->save();
+
+    
+    $user = $appointment->user;
+    $user->notify(new AppointmentStatusNotification($appointment, 'canceled'));
+
+    return redirect()->back()->with('message', 'Appointment Canceled');
 }
 
 }

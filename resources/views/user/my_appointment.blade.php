@@ -65,7 +65,7 @@
             @auth
 
             <li class="nav-item dropdown">
-            <a class="nav-link  dropdown-toggle active " style="background: none; color:#00d9a5;" href="{{url('myappointment')}}">Appointment</a>
+            <a class="nav-link  dropdown-toggle active " style="background: none; color: #00d9a5;" href="{{url('myappointment')}}">Appointment</a>
             <ul class="dropdown-menu">
                 <li>
                                 <a class="dropdown-item" href="{{ route('user.usercalendar') }}">Calendar</a>
@@ -205,7 +205,7 @@
             <input type="hidden" name="appointment_id" id="reschedule_appointment_id">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title flex justify-center" id="rescheduleModalLabel" style="flex-grow: 1; text-align: center; font-size: 1.7rem;">Reschedule Appointment</h5>
+                    <h5 class="modal-title" id="rescheduleModalLabel" style="flex-grow: 1; text-align: center; font-size: 1.7rem;">Reschedule Appointment</h5>
                     <button type="button" onclick="closeRescheduleModal()" aria-label="Close" 
                             style="font-size: 30px; background: none; border: none; color: red; outline: none; box-shadow: none;">
                         &times;
@@ -225,13 +225,14 @@
                         <input type="time" class="form-control" id="reschedule_time" name="reschedule_time" required>
                     </div>
                 </div>
+                <div class="modal-footer" style="display: flex; justify-content: center; padding: 15px 30px; border-top: 1px solid #e5e5e5;">
+                    <button type="submit" id="rescheduleButton" class="btn btn-primary">Reschedule</button>
+                </div>
             </div>
-            <div class="modal-footer" >
-                <button type="submit" class="btn btn-primary" >Reschedule</button>
-        </div>
         </form>
     </div>
 </div>
+
 
 <!-- Cancel Reason Modal -->
 <div class="modal fade rounded-lg"  id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
@@ -262,27 +263,24 @@
     </div>
 </div>
 
-
 <script>
-    function showRescheduleModal(appointmentId) {
-        document.getElementById('reschedule_appointment_id').value = appointmentId;
-        var rescheduleModal = new bootstrap.Modal(document.getElementById('rescheduleModal'));
-        rescheduleModal.show();
-
-        window.currentCancelModal = rescheduleModal;
+   function showRescheduleModal(appointmentId) {
+    document.getElementById('reschedule_appointment_id').value = appointmentId;
+    var rescheduleModal = new bootstrap.Modal(document.getElementById('rescheduleModal'));
+    rescheduleModal.show();
+    window.currentRescheduleModal = rescheduleModal;
     }
 
     function showCancelReasonModal(appointmentId) {
         document.getElementById("appointment_id").value = appointmentId;
         var cancelModal = new bootstrap.Modal(document.getElementById('cancelModal'));
         cancelModal.show();
-        
         window.currentCancelModal = cancelModal;
     }
 
     function closeRescheduleModal() {
-        if (window.currentCancelModal) {
-            window.currentCancelModal.hide();
+        if (window.currentRescheduleModal) {
+            window.currentRescheduleModal.hide();
         }
     }
 
@@ -295,10 +293,15 @@
     document.addEventListener('DOMContentLoaded', function () {
     const rescheduleDateInput = document.getElementById('reschedule_date');
     const rescheduleTimeInput = document.getElementById('reschedule_time');
-    const rescheduleButton = document.querySelector("button[type='submit']");
+    const rescheduleButton = document.getElementById('rescheduleButton');
 
     const today = new Date().toISOString().split('T')[0];
     rescheduleDateInput.setAttribute('min', today);
+
+    const minTime = '08:00';
+    const maxTime = '20:00';
+    rescheduleTimeInput.setAttribute('min', minTime);
+    rescheduleTimeInput.setAttribute('max', maxTime);
 
     rescheduleButton.disabled = true;
 
@@ -311,6 +314,12 @@
         const rescheduleTime = rescheduleTimeInput.value;
 
         if (rescheduleDate && rescheduleTime) {
+            if (rescheduleTime < minTime || rescheduleTime > maxTime) {
+                alert('Appointments can only be scheduled between 8:00 AM and 8:00 PM.');
+                rescheduleButton.disabled = true;
+                return;
+            }
+
             fetch(`/check-conflict/${appointmentId}/${rescheduleDate}/${rescheduleTime}`)
                 .then(response => {
                     if (!response.ok) {
@@ -341,6 +350,7 @@
             rescheduleButton.disabled = true;
         }
     }
+
     let alertDiv = document.querySelector('.alert');
     if (alertDiv) {
         setTimeout(function () {
@@ -348,6 +358,7 @@
         }, 5000);
     }
 });
+
 </script>
 
 

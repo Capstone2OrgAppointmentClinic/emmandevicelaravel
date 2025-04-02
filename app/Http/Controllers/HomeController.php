@@ -323,4 +323,13 @@ public function checkConflict($appointmentId, $date, $time)
         'timeConflict' => $timeConflict,
     ]);
 }
+public function markAllAsRead()
+{
+    // Mark all unread notifications as read for the authenticated user
+    auth()->user()->unreadNotifications->markAsRead();
+
+    // Return a success response
+    return response()->json(['success' => true]);
+}
+
 }
