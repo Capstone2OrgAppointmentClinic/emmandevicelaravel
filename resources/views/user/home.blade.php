@@ -121,6 +121,7 @@
     #notificationLink:hover {
         cursor: pointer;
     }
+
 </style>
 
 <!-- Add Bootstrap JS and Popper.js -->
@@ -161,19 +162,61 @@
 </div>
 @endif
 
+<!-- Main  -->
+<div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="page-hero bg-image overlay-dark" style="background-image: url('../assets/img/latestimg/building.png');">
+                <div class="hero-section">
+                    <div class="container text-center wow zoomIn">
+                        <span class="display-4 btn-headcolor" style="color:#f204f2;">CliniQuickAid</span><br><br>
+                        <span class="subhead">your health</span>
+                        <h1 class="display-4" style="color: #00D9A5;">Deserves Quick Care</h1>
+                        <a href="#page-section" class="btn btn-primary" style="background-color:#f204f2;">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<!-- Main Hero Section -->
-<div class="page-hero bg-image overlay-dark" style="background-image: url(../assets/img/latestimg/building.png);">
-    <div class="hero-section">
-        <div class="container text-center wow zoomIn">
-            <span class="display-4 btn-headcolor" style="color:#f204f2;">CliniQuickAid</span><br><br>
-            <span class="subhead">your health</span>
-            <h1 class="display-4" style="color: #00D9A5;">Deserves Quick Care</h1>
-            <a href="#appointment-section" class="btn btn-primary" style="background-color:#f204f2;">Make Your
-                Appointment Now!</a>
+        <div class="carousel-item">
+            <div class="page-hero bg-image overlay-dark" style="background-image: url('../assets/img/latestimg/CLINIC 1.png');">
+                <div class="hero-section">
+                    <div class="container text-center wow zoomIn">
+                        <span class="display-4 btn-headcolor" style="color:#f204f2;">CliniQuickAid</span><br><br>
+                        <span class="subhead">your health</span>
+                        <h1 class="display-4" style="color: #00D9A5;">Deserves Quick Care</h1>
+                        <a href="#page-section" class="btn btn-primary" style="background-color:#f204f2;">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-item">
+            <div class="page-hero bg-image overlay-dark" style="background-image: url('../assets/img/latestimg/CLINIC 2.png');">
+                <div class="hero-section">
+                    <div class="container text-center wow zoomIn">
+                        <span class="display-4 btn-headcolor" style="color:#f204f2;">CliniQuickAid</span><br><br>
+                        <span class="subhead">your health</span>
+                        <h1 class="display-4" style="color: #00D9A5;">Deserves Quick Care</h1>
+                        <a href="#page-section" class="btn btn-primary" style="background-color:#f204f2;">Get Started</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden"></span>
+    </a>
+    <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden"></span>
+    </a>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
 
 <div class="bg-light">
@@ -207,8 +250,9 @@
         </div>
       </div>
     </div> <!-- .page-section -->
+
     @if(!auth()->check())
-    <div class="page-section pb-0" style="background-color: antiquewhite;">
+    <div id="page-section" class="page-section pb-0" style="background-color: antiquewhite;">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-lg-6 py-3 wow fadeInUp">
@@ -224,16 +268,20 @@
         </div>
       </div>
     </div> <!-- .bg-light -->
-  </div> <!-- .bg-light -->
   @endif
+
 @if(!auth()->check())
     @include('user.doctor')
 @endif
 @include('user.chat')
-<div id="appointment-section">
-    @include('user.appointment')
-</div>
+
 @include('user.latest')
+
+@if(auth()->check())
+    <div id="appointment-section">
+        @include('user.appointment')
+    </div>
+@endif
 
 <footer class="page-footer">
     <div class="container">
@@ -292,6 +340,23 @@
 
 <!-- JavaScript to Show Modal on Load -->
 <script>
+     document.addEventListener("DOMContentLoaded", function () {
+        const images = [
+            "../assets/img/latestimg/building.png",
+            "../assets/img/latestimg/clinic 1.png",
+            "../assets/img/latestimg/clinic 2.png"
+        ];
+
+        let currentIndex = 0;
+        const heroSection = document.querySelector(".page-hero");
+
+        function changeBackground() {
+            currentIndex = (currentIndex + 1) % images.length;
+            heroSection.style.backgroundImage = `url('${images[currentIndex]}')`;
+        }
+
+        setInterval(changeBackground, 5000);
+    });
      document.addEventListener('DOMContentLoaded', function () {
         let alertDivs = document.querySelectorAll('.alert');
         
