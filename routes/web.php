@@ -91,3 +91,5 @@ Route::get('approved/{id}', [AdminController::class, 'approveAppointment']);
 Route::get('canceled/{id}', [AdminController::class, 'cancelAppointment']);
 
 Route::get('/markAllAsRead', [HomeController::class, 'markAllAsRead'])->name('markAllAsRead');
+
+Route::get('/appointment', [HomeController::class, 'index'])->name('user.appointment');

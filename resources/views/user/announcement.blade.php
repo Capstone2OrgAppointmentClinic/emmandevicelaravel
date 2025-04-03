@@ -83,6 +83,7 @@
      box-shadow: none !important;
     }
      </style>
+
             <x-app-layout>
             </x-app-layout>
 
@@ -90,13 +91,13 @@
             
             
             <li class="nav-item">
-              <a class="btn btn-primary ml-lg-3" href="{{route('login')}}">Login</a>
+              <a class="btn btn-primary ml-lg-3" href="{{route('login')}}" style="background-color: #f204f2;">Login</a>
             </li>
 
             
             
             <li class="nav-item">
-              <a class="btn btn-primary ml-lg-3" href="{{route('register')}}">Register</a>
+              <a class="btn btn-primary ml-lg-3" href="{{route('register')}}" style="background-color: #f204f2;">Register</a>
             </li>
 
             @endauth
