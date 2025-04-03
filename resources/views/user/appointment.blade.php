@@ -61,7 +61,7 @@
         <script src="../assets/js/theme.js"></script>
 
 <script>
-        document.addEventListener("DOMContentLoaded", function () {
+      document.addEventListener("DOMContentLoaded", function () {
     let dateInput = document.querySelector("input[name='date']");
     let timeInput = document.querySelector("input[name='time']");
     let submitButton = document.querySelector("button[type='submit']");
@@ -73,6 +73,14 @@
         if (this.value < today) {
             alert("Select a valid date.");
             this.value = today;
+        } else {
+            let selectedDate = new Date(this.value);
+            let dayOfWeek = selectedDate.getDay();
+
+            if (dayOfWeek === 0 || dayOfWeek === 6) {
+                alert("Appointments can only be scheduled from Monday to Friday.");
+                this.value = today;
+            }
         }
     });
 
@@ -114,9 +122,9 @@
 
         let timeParts = selectedTime.split(':');
         let hour = parseInt(timeParts[0], 10);
-        
+
         if (hour < 8 || hour >= 20) {
-            alert("Appointments can only scheduled between 8 AM and 8 PM.");
+            alert("Appointments can only be scheduled between 8 AM and 8 PM.");
             timeInput.value = '';
             submitButton.disabled = true;
         } else {

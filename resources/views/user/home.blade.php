@@ -51,7 +51,7 @@
                     
      <!-- Appointment -->
 <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle"  href="{{ url('myappointment') }}">Appointment</a>
+    <a class="nav-link dropdown-toggle" style="color: #00d9a5;" href="{{ url('myappointment') }}">Appointment</a>
     <ul class="dropdown-menu">
         <li><a class="dropdown-item" href="{{ route('user.usercalendar') }}">Calendar</a></li>
     </ul>
@@ -94,7 +94,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a href="/" onclick="markAllAsRead()" class="btn btn-primary">Mark all as read</a>
+                <a href="{{ url('markAllAsRead') }}" onclick="markAllAsRead()" class="btn btn-primary">Mark all as read</a>
             </div>
         </div>
     </div>

@@ -65,7 +65,7 @@
             @auth
 
             <li class="nav-item dropdown">
-            <a class="nav-link  dropdown-toggle active " style="background: none; color: #00d9a5;" href="{{url('myappointment')}}">Appointment</a>
+            <a class="nav-link  dropdown-toggle active" style="background: none; color: #00d9a5;" href="{{url('myappointment')}}">Appointment</a>
             <ul class="dropdown-menu">
                 <li>
                                 <a class="dropdown-item" href="{{ route('user.usercalendar') }}">Calendar</a>
@@ -264,33 +264,33 @@
 </div>
 
 <script>
-   function showRescheduleModal(appointmentId) {
+function showRescheduleModal(appointmentId) {
     document.getElementById('reschedule_appointment_id').value = appointmentId;
     var rescheduleModal = new bootstrap.Modal(document.getElementById('rescheduleModal'));
     rescheduleModal.show();
     window.currentRescheduleModal = rescheduleModal;
-    }
+}
 
-    function showCancelReasonModal(appointmentId) {
-        document.getElementById("appointment_id").value = appointmentId;
-        var cancelModal = new bootstrap.Modal(document.getElementById('cancelModal'));
-        cancelModal.show();
-        window.currentCancelModal = cancelModal;
-    }
+function showCancelReasonModal(appointmentId) {
+    document.getElementById("appointment_id").value = appointmentId;
+    var cancelModal = new bootstrap.Modal(document.getElementById('cancelModal'));
+    cancelModal.show();
+    window.currentCancelModal = cancelModal;
+}
 
-    function closeRescheduleModal() {
-        if (window.currentRescheduleModal) {
-            window.currentRescheduleModal.hide();
-        }
+function closeRescheduleModal() {
+    if (window.currentRescheduleModal) {
+        window.currentRescheduleModal.hide();
     }
+}
 
-    function closeModal() {
-        if (window.currentCancelModal) {
-            window.currentCancelModal.hide();
-        }
+function closeModal() {
+    if (window.currentCancelModal) {
+        window.currentCancelModal.hide();
     }
+}
 
-    document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
     const rescheduleDateInput = document.getElementById('reschedule_date');
     const rescheduleTimeInput = document.getElementById('reschedule_time');
     const rescheduleButton = document.getElementById('rescheduleButton');
@@ -314,6 +314,16 @@
         const rescheduleTime = rescheduleTimeInput.value;
 
         if (rescheduleDate && rescheduleTime) {
+            const selectedDate = new Date(rescheduleDate);
+            const dayOfWeek = selectedDate.getDay();
+
+            if (dayOfWeek === 0 || dayOfWeek === 6) {
+                alert('Appointments cannot be rescheduled to Saturday or Sunday.');
+                rescheduleDateInput.value = today;
+                rescheduleButton.disabled = true;
+                return;
+            }
+
             if (rescheduleTime < minTime || rescheduleTime > maxTime) {
                 alert('Appointments can only be scheduled between 8:00 AM and 8:00 PM.');
                 rescheduleButton.disabled = true;
