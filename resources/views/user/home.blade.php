@@ -51,7 +51,7 @@
                     
      <!-- Appointment -->
 <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="{{ url('myappointment') }}">Appointment</a>
+    <a class="nav-link dropdown-toggle"  href="{{ url('myappointment') }}">Appointment</a>
     <ul class="dropdown-menu">
         <li><a class="dropdown-item" href="{{ route('user.usercalendar') }}">Calendar</a></li>
     </ul>
@@ -109,7 +109,7 @@
     .nav-item.dropdown .dropdown-menu li:hover,
     .nav-item.dropdown .dropdown-menu a.dropdown-item:hover {
         background-color: transparent !important;
-        color: #ff00ff !important;
+        color: #00d9a5 !important;
         transition: none !important;
         box-shadow: none !important;
     }
@@ -172,7 +172,7 @@
                         <span class="display-4 btn-headcolor" style="color:#f204f2;">CliniQuickAid</span><br><br>
                         <span class="subhead">your health</span>
                         <h1 class="display-4" style="color: #00D9A5;">Deserves Quick Care</h1>
-                        <a href="#page-section" class="btn btn-primary" style="background-color:#f204f2;">Get Started</a>
+                        <a href="#page-section" class="btn outline-btn">Get Started</a>
                     </div>
                 </div>
             </div>
@@ -185,7 +185,7 @@
                         <span class="display-4 btn-headcolor" style="color:#f204f2;">CliniQuickAid</span><br><br>
                         <span class="subhead">your health</span>
                         <h1 class="display-4" style="color: #00D9A5;">Deserves Quick Care</h1>
-                        <a href="#page-section" class="btn btn-primary" style="background-color:#f204f2;">Get Started</a>
+                        <a href="#page-section" class="btn outline-btn">Get Started</a>
                     </div>
                 </div>
             </div>
@@ -198,7 +198,7 @@
                         <span class="display-4 btn-headcolor" style="color:#f204f2;">CliniQuickAid</span><br><br>
                         <span class="subhead">your health</span>
                         <h1 class="display-4" style="color: #00D9A5;">Deserves Quick Care</h1>
-                        <a href="#page-section" class="btn btn-primary" style="background-color:#f204f2;">Get Started</a>
+                        <a href="#page-section" class="btn outline-btn">Get Started</a>
                     </div>
                 </div>
             </div>
@@ -215,8 +215,29 @@
     </a>
 </div>
 
+
+<style>
+.outline-btn {
+    background-color: transparent;
+    border: 2px solid #f204f2;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.outline-btn:hover {
+    background-color: #f204f2;
+    color: white;
+}
+</style>
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 @endif
+
 
 @if(auth()->check())
 @include('user.main')

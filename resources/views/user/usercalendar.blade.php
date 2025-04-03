@@ -79,7 +79,7 @@
     .dropdown-menu li:hover,
     .dropdown-menu a.dropdown-item:hover {
      background-color: transparent !important;
-     color:#f204f2 !important;
+     color: #00d9a5 !important;
      transition: none !important;
      box-shadow: none !important;
     }

@@ -35,7 +35,7 @@
       <div class="container">
         <a href="home">
       <img src="../assets/img/person/svfctrans.png" alt="logo " style="width:auto; height: 60px;" href="home"/></a>
-        <a class="navbar-brand" href="home"><span class="text-primary"><span style="color:#f204f2;">Clini</span></span>-QuickAid</a>
+        <a class="navbar-brand" href="home"><span class="text-primary"><span style="color: #f204f2;">Clini</span></span>-QuickAid</a>
         
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupport" aria-controls="navbarSupport" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,7 +82,7 @@
     .dropdown-menu li:hover,
     .dropdown-menu a.dropdown-item:hover {
      background-color: transparent !important;
-     color: #ff00ff !important;
+     color: #00d9a5 !important;
      transition: none !important;
      box-shadow: none !important;
     }

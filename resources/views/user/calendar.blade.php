@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="../assets/css/maicons.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
@@ -16,6 +17,7 @@
     </style>
 </head>
 <body>
+
 <div class="container">
     <div id="calendar"></div>
 </div>

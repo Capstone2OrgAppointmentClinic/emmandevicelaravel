@@ -9,7 +9,7 @@
                         <span class="display-4 btn-headcolor" style="color:#f204f2;">CliniQuickAid</span><br><br>
                         <span class="subhead">your health</span>
                         <h1 class="display-4" style="color: #00D9A5;">Deserves Quick Care</h1>
-                        <a href="#appointment-section" class="btn btn-primary" style="background-color:#f204f2;">Make An Appointment Now!</a>
+                        <a href="#appointment-section" class="btn outline-btn">Make appointment now!</a>
                     </div>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                         <span class="display-4 btn-headcolor" style="color:#f204f2;">CliniQuickAid</span><br><br>
                         <span class="subhead">your health</span>
                         <h1 class="display-4" style="color: #00D9A5;">Deserves Quick Care</h1>
-                        <a href="#appointment-section" class="btn btn-primary" style="background-color:#f204f2;">Make An Appointment Now!</a>
+                        <a href="#appointment-section" class="btn outline-btn">Make appointment now!</a>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,8 @@
                         <span class="display-4 btn-headcolor" style="color:#f204f2;">CliniQuickAid</span><br><br>
                         <span class="subhead">your health</span>
                         <h1 class="display-4" style="color: #00D9A5;">Deserves Quick Care</h1>
-                        <a href="#appointment-section" class="btn btn-primary" style="background-color: #f204f2;">Make An Appointment Now!</a>
+                        <a href="#appointment-section" class="btn outline-btn">Make appointment now!</a>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -53,4 +54,20 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+.outline-btn {
+    background-color: transparent;
+    border: 2px solid #f204f2;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+}
 
+.outline-btn:hover {
+    background-color: #f204f2;
+    color: white;
+}
+</style>
