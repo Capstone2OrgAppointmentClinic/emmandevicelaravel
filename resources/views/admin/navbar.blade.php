@@ -2,9 +2,9 @@
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar p-0 fixed-top d-flex flex-row" style="background-color: #AD1457;">
           
-          <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
-            <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-              <span class="mdi mdi-menu"></span>
+          <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch" >
+            <button class="navbar-toggler navbar-toggler align-self-center mt-2" type="button" data-toggle="minimize">
+              <span class="mdi mdi-menu text-white text-[44px]" ></span>
             </button>
             <ul class="navbar-nav navbar-nav-right">
               <li class="nav-item dropdown d-none d-lg-block">
