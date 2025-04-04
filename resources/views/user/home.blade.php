@@ -51,7 +51,7 @@
                     
      <!-- Appointment -->
 <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" style="color: #00d9a5;" href="{{ url('myappointment') }}">Appointment</a>
+    <a class="nav-link dropdown-toggle" href="{{ url('myappointment') }}">Appointment</a>
     <ul class="dropdown-menu">
         <li><a class="dropdown-item" href="{{ route('user.usercalendar') }}">Calendar</a></li>
     </ul>
@@ -62,7 +62,7 @@
     <a class="nav-link count-indicator" id="notificationLink" href="#" aria-expanded="false" data-bs-toggle="modal" data-bs-target="#notificationModal">
         <i class="fas fa-bell" style="font-size: 16px;"></i>
         @if(auth()->user()->unreadNotifications->count() > 0)
-            <span class="count bg-danger" style="font-size: 10px; padding: 5px 5px;">
+            <span class="count " style="font-size: 10px; padding: 5px 5px;">
                 {{ auth()->user()->unreadNotifications->count() }}
             </span>
         @endif

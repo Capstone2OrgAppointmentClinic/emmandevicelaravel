@@ -167,6 +167,8 @@ class AdminController extends Controller
 
       $details=[
 
+        'subject' => $request->subject,
+
        'greeting' => $request->greeting,
 
        'body' => $request->body,
