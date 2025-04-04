@@ -173,7 +173,7 @@ input[type="file"]:focus {
         <div class="container container-wrapper">
             <!-- Announcement Card -->
             <div class="card">
-                <div class="card-header">
+                <div class="card-header" style="background-color: ;">
                     Create Announcement
                 </div>
                 <div class="card-body">

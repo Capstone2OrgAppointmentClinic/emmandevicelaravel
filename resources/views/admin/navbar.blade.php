@@ -95,12 +95,15 @@
                 </div>
               </li>
               <li class="nav-item dropdown">
-    <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+  <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
     <i class="mdi mdi-bell" style="font-size: 20px;"></i>
-    <span class="count bg-danger" style="font-size: 12px; padding: 5px 5px;">
+    @if(auth()->user()->unreadNotifications->count() > 0)
+        <span class="count bg-danger" style="font-size: 12px; padding: 5px 5px;">
             {{ auth()->user()->unreadNotifications->count() }}
         </span>
-    </a>
+    @endif
+</a>
+
     <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
         <h6 class="p-3 mb-0">Notifications</h6>
         <div class="dropdown-divider"></div>
