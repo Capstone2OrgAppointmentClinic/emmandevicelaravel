@@ -83,10 +83,9 @@
         </div>
 
         <div style="padding:15px;">
+          <textarea style="color:black; height: 114px;" class="rounded-lg w-[22rem]" name="message" required placeholder="Purpose of your email"></textarea>
+</div>
 
-        <input type="text" style="color:black; height: 34px;"  class="rounded-lg  w-[22rem] p-4" name="message" required="" placeholder="Purpose of your email">
-
-        </div>
 
         <!-- <div style="padding:15px;">
 

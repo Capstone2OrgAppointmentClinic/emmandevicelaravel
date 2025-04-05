@@ -94,4 +94,4 @@ Route::get('/markAllAsRead', [HomeController::class, 'markAllAsRead'])->name('ma
 
 Route::get('/appointment', [HomeController::class, 'index'])->name('user.appointment');
 
-Route::get('/showappointment', [AdminController::class, 'show'])->name('admin.showappointment')->middleware('auth');
+// Route::get('/showappointment', [AdminController::class, 'show'])->name('admin.showappointment')->middleware('auth');

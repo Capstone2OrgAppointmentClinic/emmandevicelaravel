@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <!-- Required meta tags -->
     @include('admin.css')
     <style>
@@ -62,6 +63,8 @@
             background-color: #0056b3;
         }
     </style>
+
+<link href="/src/styles.css" rel="stylesheet">
 </head>
 <body>
     <div class="container-scroller">
@@ -79,13 +82,13 @@
                     <a href="{{url(path: 'add_doctor_view')}}" class="btn btn-success">Add Doctor</a>
                     <table>
                         <thead>
-                            <tr>
-                                <th>Doctor Name</th>
-                                <th>Phone</th>
-                                <th>Speciality</th>
-                                <th>Image</th>
-                                <th>Remove</th>
-                                <th>Update</th>
+                            <tr ">
+                                <th class="bg-[#AD1457]">Doctor Name</th>
+                                <th class="bg-[#AD1457]">Phone</th>
+                                <th class="bg-[#AD1457]">Speciality</th>
+                                <th class="bg-[#AD1457]">Image</th >
+                                <th class="bg-[#AD1457]">Remove</th>
+                                <th class="bg-[#AD1457]">Update</th>
                             </tr>
                         </thead>
                         <tbody>
