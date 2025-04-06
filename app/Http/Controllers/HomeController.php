@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use App\Notifications\NewAppointmentNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\RescheduleNotification;
+use Illuminate\Support\Facades\Validator;
 
 
 
@@ -52,15 +53,16 @@ class HomeController extends Controller
 }
 public function appointment(Request $request)
 {
-    // Ensure the user is authenticated
     if (!Auth::check()) {
         return redirect()->back()->with('error', 'You must login first to make an appointment.');
     }
 
-    // Validate the input data
     $request->validate([
         'date' => 'required|date|after_or_equal:today',
         'time' => 'required|date_format:H:i',
+        'number' => 'required|regex:/^\+63[9]\d{9}$/',
+    ], [
+        'number.regex' => 'The contact number must start with +63 and contain exactly 10 digits.',
     ]);
 
     $selectedTime = Carbon::createFromFormat('H:i', $request->time);
@@ -96,8 +98,6 @@ public function appointment(Request $request)
     $data->service = $request->service;
     $data->status = 'In progress';
     $data->user_id = Auth::user()->id;
-
-    // $data->password = bcrypt($request->password);
 
     $data->save();
 
@@ -323,11 +323,15 @@ public function checkConflict($appointmentId, $date, $time)
         'timeConflict' => $timeConflict,
     ]);
 }
-public function markAllAsRead()
+public function markAllAsRead(Request $request)
 {
     auth()->user()->unreadNotifications->markAsRead();
 
-    return response()->json(['success' => true]);
+    return response()->json(['status' => 'success']);
 }
+public function aboutUs()
+{
+    return view('user.aboutUs');
 
+}
 }

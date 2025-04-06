@@ -214,22 +214,44 @@ class AdminController extends Controller
 {
     $user = User::find($id);
 
-    if ($user) {
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->address = $request->address;
-        $user->course = $request->course;
-        $user->student_id = $request->student_id;
-        $user->education_level = $request->education_level;
-        $user->year_level = $request->year_level;
-
-        $user->save();
+    if (!$user) {
+        return redirect()->back()->with('error', 'User not found');
     }
 
-    return redirect()->back()->with('message','Update user successful');
-   
-  }
+    if (preg_match('/\d/', $request->name)) {
+        return redirect()->back()->with('error', 'Name should not contain numbers');
+    }
+
+    if (preg_match('/[a-zA-Z]/', $request->phone)) {
+        return redirect()->back()->with('error', 'Phone number should not contain letters');
+    }
+
+    if (!strpos($request->email, '@gmail.com')) {
+        return redirect()->back()->with('error', 'Email must be a Gmail address');
+    }
+
+    if (User::where('phone', $request->phone)->where('id', '!=', $id)->exists()) {
+        return redirect()->back()->with('error', 'Phone number already exists');
+    }
+
+    if (User::where('email', $request->email)->where('id', '!=', $id)->exists()) {
+        return redirect()->back()->with('error', 'Email address already exists');
+    }
+
+    $user->name = $request->name;
+    $user->email = $request->email;
+    $user->phone = $request->phone;
+    $user->address = $request->address;
+    $user->course = $request->course;
+    $user->student_id = $request->student_id;
+    $user->education_level = $request->education_level;
+    $user->year_level = $request->year_level;
+
+    $user->save();
+
+    return redirect()->back()->with('message', 'Update user successful');
+}
+
   public function calendar()
 {
     $events = Event::get();

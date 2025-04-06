@@ -1,3 +1,9 @@
+
+@if(session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+@elseif(session('error'))
+    <div class="alert alert-danger">{{ session('error') }}</div>
+@endif
 <div class="page-section">
     <div class="container">
     <h1 class="text-center wow fadeInUp mb-5" 
@@ -33,12 +39,48 @@
             <option value="Emergency Response">Emergency Response</option>
         </select>
     </div>
-    <!-- Contact Number -->
-    <div class="col-12 col-md-6 py-2 wow fadeInUp" data-wow-delay="300ms">
-        <label for="number" class="form-label">Contact Number</label>
-        <input type="text" id="number" name="number" class="form-control" placeholder="Enter your number..." required>
-    </div>
-</div>
+ <!-- Contact Number -->
+ <div class="col-12 col-md-6 py-2 wow fadeInUp" data-wow-delay="300ms">
+                    <label for="number" class="form-label">Contact Number</label>
+                    <input type="tel" id="number" name="number" class="form-control" value="+63" maxlength="13" required 
+                      oninput="ensurePhoneNumberFormat(this)" onkeydown="preventPrefixDeletion(event, this)">
+                    <div id="phone-warning" style="color: red; display: none;">Enter valid number it must start with 9 followed by 9 digits.</div>
+                    <div id="phone-error" style="color: red; display: none;">Contact number must contains number only.</div>
+                </div>
+            </div>
+
+<script>
+function ensurePhoneNumberFormat(input) {
+    const warningMessage = document.getElementById('phone-warning');
+    const errorMessage = document.getElementById('phone-error');
+    const regex = /^\+63[9]\d{9}$/;
+    
+    const invalidCharacterRegex = /[^0-9+]/g;
+    if (invalidCharacterRegex.test(input.value)) {
+        errorMessage.style.display = 'block';
+        warningMessage.style.display = 'none';
+    } else {
+        errorMessage.style.display = 'none';
+        if (input.value.length > 3 && !regex.test(input.value)) {
+            warningMessage.style.display = 'block';
+        } else {
+            warningMessage.style.display = 'none';
+        }
+    }
+
+    if (input.value.length > 13) {
+        input.value = input.value.slice(0, 13);
+    }
+}
+
+function preventPrefixDeletion(event, input) {
+    const prefixLength = 3;
+    if (input.selectionStart <= prefixLength && (event.key === 'Backspace' || event.key === 'Delete')) {
+        event.preventDefault();
+        input.value = '+63' + input.value.slice(3);
+    }
+}
+</script>
 
 <!-- Message -->
 <div class="row g-3 mt-3">
