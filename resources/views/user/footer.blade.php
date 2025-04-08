@@ -16,7 +16,6 @@
                 <ul class="footer-menu">
                     <li><a href="#">Facebook</a></li>
                     <li><a href="#">Instagram</a></li>
-                    <li><a href="#">Viber</a></li>
                 </ul>
             </div>
             <div class="col-sm-6 col-lg-3 py-3">

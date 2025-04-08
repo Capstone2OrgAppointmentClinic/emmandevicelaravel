@@ -86,6 +86,8 @@ Route::get('/get-unread-notifications-count', function() {
     return response()->json(['count' => auth()->user()->unreadNotifications->count()]);
 });
 
+Route::get('/check-appointment-limit', [HomeController::class, 'checkAppointmentLimit']);
+
 Route::get('approved/{id}', [AdminController::class, 'approveAppointment']);
 
 Route::get('canceled/{id}', [AdminController::class, 'cancelAppointment']);
@@ -94,4 +96,10 @@ Route::get('/markAllAsRead', [HomeController::class, 'markAllAsRead'])->name('ma
 
 Route::get('/appointment', [HomeController::class, 'index'])->name('user.appointment');
 
-// Route::get('/showappointment', [AdminController::class, 'show'])->name('admin.showappointment')->middleware('auth');
+Route::get('/user/latest', [HomeController::class, 'latest'])->name('user.latest');
+
+Route::get('/user/chat', [HomeController::class, 'chatPage'])->name('user.chat')->middleware('auth');
+
+Route::get('/check-weekly-user-appointments', [HomeController::class, 'checkWeeklyUserAppointments']);
+
+Route::get('/check-weekly-limit', [HomeController::class, 'checkWeeklyLimit']);

@@ -103,7 +103,7 @@ function preventPrefixDeletion(event, input) {
         <script src="../assets/js/theme.js"></script>
 
 <script>
-      document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     let dateInput = document.querySelector("input[name='date']");
     let timeInput = document.querySelector("input[name='time']");
     let submitButton = document.querySelector("button[type='submit']");
@@ -118,35 +118,51 @@ function preventPrefixDeletion(event, input) {
         } else {
             let selectedDate = new Date(this.value);
             let dayOfWeek = selectedDate.getDay();
-
             if (dayOfWeek === 0 || dayOfWeek === 6) {
                 alert("Appointments can only be scheduled from Monday to Friday.");
                 this.value = today;
             }
         }
-    });
 
-    dateInput.addEventListener("change", function () {
         let selectedDate = this.value;
-
         if (selectedDate) {
-            fetch(`/check-appointments?date=${selectedDate}`)
+            fetch(`/check-appointment-limit?date=${selectedDate}`)
                 .then(response => response.json())
                 .then(data => {
-                    if (data.count >= 5) {
-                        alert("The limit of 5 appointments has been reached for this date.");
+                    if (data.appointmentLimit) {
+                        alert("The maximum 5 appointments of this day has been reach.");
                         submitButton.disabled = true;
                     } else {
                         submitButton.disabled = false;
                     }
                 })
-                .catch(error => console.error("Error checking appointments:", error));
+                .catch(error => console.error("Error checking appointment limit:", error));
+
+            fetch(`/check-weekly-user-appointments?date=${selectedDate}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.count >= 3) {
+                        alert("You can only make 3 appointments per week.");
+                        submitButton.disabled = true;
+                    } else {
+                        submitButton.disabled = false;
+                    }
+                })
+                .catch(error => console.error("Error checking weekly appointments:", error));
         }
     });
 
     const setTimeRange = () => {
         let options = [];
-        for (let h = 8; h <= 20; h++) {
+        for (let h = 8; h <= 11; h++) {
+            for (let m = 0; m < 60; m += 30) {
+                if (h === 11 && m > 30) break;
+                let hour = h < 10 ? "0" + h : h;
+                let minute = m === 0 ? "00" : "30";
+                options.push(`${hour}:${minute}`);
+            }
+        }
+        for (let h = 13; h <= 17; h++) {
             for (let m = 0; m < 60; m += 30) {
                 let hour = h < 10 ? "0" + h : h;
                 let minute = m === 0 ? "00" : "30";
@@ -162,31 +178,30 @@ function preventPrefixDeletion(event, input) {
         let selectedDate = dateInput.value;
         let selectedTime = timeInput.value;
 
-        let timeParts = selectedTime.split(':');
-        let hour = parseInt(timeParts[0], 10);
+        let [hour, minute] = selectedTime.split(':').map(Number);
 
-        if (hour < 8 || hour >= 20) {
-            alert("Appointments can only be scheduled between 8 AM and 8 PM.");
+        if (hour === 12) {
+            alert("Appointments cannot be scheduled between 12PM to 1PM it's lunch break.");
+            timeInput.value = '';
+            submitButton.disabled = true;
+        } else if (hour < 8 || (hour === 11 && minute > 30) || hour > 17) {
+            alert("Appointments must be between 8AM to 11:30 AM or 1PM to 5PM.");
             timeInput.value = '';
             submitButton.disabled = true;
         } else {
-            submitButton.disabled = false;
-
-            if (selectedDate && selectedTime) {
-                fetch(`/check-appointment-conflict?date=${selectedDate}&time=${selectedTime}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.conflict) {
-                            alert("An appointment is already scheduled at this time. Please choose a different time.");
-                            submitButton.disabled = true;
-                        } else {
-                            submitButton.disabled = false;
-                        }
-                    })
-                    .catch(error => console.error("Error checking conflicts:", error));
-            }
-        }
-    });
+            fetch(`/check-appointment-conflict?date=${selectedDate}&time=${selectedTime}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.conflict) {
+                    alert(`student has made an appointment at this time ${data.start_time} - ${data.end_time}`);
+                    submitButton.disabled = true;
+                } else {
+                    submitButton.disabled = false;
+                }
+            })
+            .catch(error => console.error("Error checking conflicts:", error));
+    }
+});
 
     const form = document.querySelector("form");
     form.addEventListener("submit", function () {

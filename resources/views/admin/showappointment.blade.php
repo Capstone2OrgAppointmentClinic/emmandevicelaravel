@@ -32,7 +32,7 @@
           <h1 class="text-center text-dark py-3 fw-bold" style="font-size: 2rem; margin: 25px;">Appointments</h1>
           <div class="table-responsive">
             <table class="table table-bordered text-center w-100">
-              <thead class="bg-[#AD1457] text-white">
+            <thead style="background-color: #AD1457;" class="text-white">
                 <tr>
                   <th class="text-center text-white">Customer Name</th>
                   <th class="text-center text-white">Email</th>

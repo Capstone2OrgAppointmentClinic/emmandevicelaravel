@@ -76,7 +76,7 @@
         </div>
 
         <div class="col-12 text-center mt-4 wow zoomIn">
-          <a href="blog.html" class="btn btn-primary" style="background-color:#f204f2;">More...</a>
+          <a href="{{url('announcement')}}" class="btn btn-primary" style="background-color:#f204f2;">More...</a>
         </div>
 
       </div>

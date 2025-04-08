@@ -6,7 +6,7 @@
             <button class="navbar-toggler navbar-toggler align-self-center mt-2" type="button" data-toggle="minimize">
               <span class="mdi mdi-menu text-white text-[44px]" ></span>
             </button>
-            <ul class="navbar-nav navbar-nav-right">
+            < class="navbar-nav navbar-nav-right">
               <li class="nav-item dropdown d-none d-lg-block">
                 <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-bs-toggle="dropdown" aria-expanded="false" href="#">In development</a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="createbuttonDropdown">
@@ -153,12 +153,7 @@
                 }
             });
     }
-</script>
-
-
-
-
-              
+</script>     
               <x-app-layout>
    
               </x-app-layout>

@@ -211,29 +211,63 @@ public function checkAppointmentConflict(Request $request)
 
     $selectedTime = Carbon::createFromFormat('H:i', $time);
 
-    if ($selectedTime->hour < 8 || $selectedTime->hour >= 20) {
-        return response()->json(['conflict' => true, 'message' => 'Appointments can only be scheduled between 8 AM and 8 PM.']);
+    $morningStart = Carbon::createFromTime(8, 0);
+    $morningEnd = Carbon::createFromTime(11, 30);
+    $afternoonStart = Carbon::createFromTime(13, 0);
+    $afternoonEnd = Carbon::createFromTime(17, 0);
+
+    if (!($selectedTime->between($morningStart, $morningEnd) || $selectedTime->between($afternoonStart, $afternoonEnd))) {
+        return response()->json([
+            'conflict' => true,
+            'message' => 'Appointments can only be scheduled between 8:00–11:30 AM or 1PM to 5PM. Lunch break is from 12 PM to 1 PM.'
+        ]);
     }
 
     $startTime = $selectedTime->copy()->subHour();
     $endTime = $selectedTime->copy()->addHour();
 
-    $conflict = Appointment::whereDate('date', $date)
+    $conflictingAppointment = Appointment::whereDate('date', $date)
         ->whereBetween('time', [$startTime->format('H:i'), $endTime->format('H:i')])
-        ->exists();
+        ->first();
 
-    return response()->json(['conflict' => $conflict]);
+    if ($conflictingAppointment) {
+        $conflictingStartTime = Carbon::createFromFormat('H:i:s', $conflictingAppointment->time);
+        $conflictingEndTime = $conflictingStartTime->copy()->addMinutes(30);
+        
+        $formattedStartTime = $conflictingStartTime->format('h:i A');
+        $formattedEndTime = $conflictingEndTime->format('h:i A');
+
+        return response()->json([
+            'conflict' => true,
+            'start_time' => $formattedStartTime,
+            'end_time' => $formattedEndTime,
+            'message' => "student has made an appointment at this time",
+        ]);
+    }
+
+    return response()->json(['conflict' => false]);
 }
 
 public function announcement()
  {
      return view('user.announcement');
  }
- public function showAnnouncement($id)
+ public function checkAppointmentLimit(Request $request)
 {
-    $announcement = Announcement::findOrFail($id);
-    return view('user.announcement_details', compact('announcement'));
+    $date = $request->input('date');
+    $appointmentCount = Appointment::where('date', $date)->count();
+
+    if ($appointmentCount >= 5) {
+        return response()->json([
+            'appointmentLimit' => true,
+        ]);
+    }
+
+    return response()->json([
+        'appointmentLimit' => false,
+    ]);
 }
+
 public function cancelAppointment(Request $request)
 {
     $appointment = Appointment::find($request->appointment_id);
@@ -287,12 +321,10 @@ public function reschedule_appoint(Request $request)
 }
 public function checkConflict($appointmentId, $date, $time)
 {
-    // Count all appointments for the selected date (all users)
     $appointmentCount = Appointment::where('date', $date)
-        ->where('id', '!=', $appointmentId) 
+        ->where('id', '!=', $appointmentId)
         ->count();
 
-    // If the limit of 5 appointments per day is reached, show error
     if ($appointmentCount >= 5) {
         return response()->json([
             'appointmentLimit' => true,
@@ -301,28 +333,40 @@ public function checkConflict($appointmentId, $date, $time)
         ]);
     }
 
-    // Check exact conflict for the same time and date (for other users)
     $exactConflict = Appointment::where('date', $date)
         ->where('time', $time)
         ->where('id', '!=', $appointmentId)
         ->exists();
 
-    // Check conflict if another appointment is within 1 hour of the selected time
     $rescheduleDateTime = Carbon::createFromFormat('Y-m-d H:i', $date . ' ' . $time);
     $timeConflict = Appointment::where('date', $date)
         ->where('id', '!=', $appointmentId)
         ->where(function ($query) use ($rescheduleDateTime) {
-            $query->whereTime('time', '>=', $rescheduleDateTime->copy()->subHour()->format('H:i'))
-                  ->whereTime('time', '<=', $rescheduleDateTime->copy()->addHour()->format('H:i'));
+            $query->whereTime('time', '>=', $rescheduleDateTime->copy()->subMinutes(30)->format('H:i'))
+                  ->whereTime('time', '<=', $rescheduleDateTime->copy()->addMinutes(30)->format('H:i'));
         })
-        ->exists();
+        ->first(); 
+
+    if ($timeConflict) {
+        $conflictEndTime = Carbon::createFromFormat('H:i:s', $timeConflict->time)->addMinutes(30)->format('h:i A');
+        return response()->json([
+            'appointmentLimit' => false,
+            'exactConflict' => false,
+            'timeConflict' => true,
+            'conflictingTime' => Carbon::createFromFormat('H:i:s', $timeConflict->time)->format('h:i A'),
+            'conflictEndTime' => $conflictEndTime,
+            'message' => "Another student already booked this time.",
+        ]);
+    }
 
     return response()->json([
         'appointmentLimit' => false,
         'exactConflict' => $exactConflict,
-        'timeConflict' => $timeConflict,
+        'timeConflict' => false,
     ]);
 }
+
+
 public function markAllAsRead(Request $request)
 {
     auth()->user()->unreadNotifications->markAsRead();
@@ -333,5 +377,30 @@ public function aboutUs()
 {
     return view('user.aboutUs');
 
+}
+public function latest()
+{
+    // Fetch the latest announcements
+    $announcements = Announcement::orderBy('created_at', 'desc')->get();
+
+    // Return the view and pass the announcements data
+    return view('user.latest', compact('announcements'));
+}
+public function chatPage()
+{
+    return view('user.chat');
+}
+public function checkWeeklyUserAppointments(Request $request)
+{
+    $userId = Auth::id();
+    $date = Carbon::parse($request->query('date'));
+    $startOfWeek = $date->copy()->startOfWeek(Carbon::MONDAY);
+    $endOfWeek = $date->copy()->endOfWeek(Carbon::FRIDAY);
+
+    $count = Appointment::where('user_id', $userId)
+        ->whereBetween('date', [$startOfWeek->toDateString(), $endOfWeek->toDateString()])
+        ->count();
+
+    return response()->json(['count' => $count]);
 }
 }

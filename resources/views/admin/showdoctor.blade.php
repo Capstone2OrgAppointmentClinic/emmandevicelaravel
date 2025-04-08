@@ -31,7 +31,7 @@
         }
 
         th {
-            background-color: #00D9A5;
+            background-color: #AD1457;
             color: white;
             font-size: 16px;
         }
@@ -79,8 +79,7 @@
             <div class="container d-flex justify-content-center">
                 <div class="table-container">
                     <h2 class="text-center" style="color: #333;">Manage Doctors</h2>
-                    <a href="{{url(path: 'add_doctor_view')}}" class="btn btn-success">Add Doctor</a>
-                    <table>
+                    <a href="{{ url('add_doctor_view') }}" class="btn text-white" style="background-color: #AD1457;">Add Doctor</a>                    <table>
                         <thead>
                             <tr ">
                                 <th class="bg-[#AD1457]">Doctor Name</th>

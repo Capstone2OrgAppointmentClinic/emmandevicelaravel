@@ -56,45 +56,45 @@
           <li class="nav-item menu-items">
             <a class="nav-link" href="{{url(path: 'home')}}">
               <span class="menu-icon">
-                <i class="mdi mdi-file-document-box"></i>
+                <i class="mdi mdi-file-document-box" style="font-size: 18px;"></i>
               </span>
-              <span class="menu-title" style="color:white;">Dashboard</span>
+              <span class="menu-title" style="color:white; font-size:19px;">Dashboard</span>
             </a>
           </li>
 
           <li class="nav-item menu-items">
             <a class="nav-link" href="{{url(path: 'showappointment')}}">
               <span class="menu-icon">
-                <i class="mdi mdi-file-document-box"></i>
+                <i class="mdi mdi-file-document-box" style="font-size: 18px;"></i>
               </span>
-              <span class="menu-title" style="color:white;">Appointments</span>
+              <span class="menu-title" style="color:white; font-size:19px;">Appointments</span>
             </a>
           </li>
 
           <li class="nav-item menu-items">
             <a class="nav-link" href="{{url('showdoctor')}}">
               <span class="menu-icon">
-                <i class="mdi mdi-file-document-box"></i>
+                <i class="mdi mdi-account-box-multiple" style="font-size: 18px;"></i>
               </span>
-              <span class="menu-title" style="color:white;">Doctors</span>
+              <span class="menu-title" style="color:white; font-size:19px;">Doctors</span>
             </a>
           </li>
 
           <li class="nav-item menu-items">
             <a class="nav-link" href="{{url('calendar')}}">
               <span class="menu-icon">
-                <i class="mdi mdi-file-document-box"></i>
+                <i class="mdi mdi-calendar-month-outline" style="font-size: 18px;"></i>
               </span>
-              <span class="menu-title" style="color:white;">Calendar</span>
+              <span class="menu-title" style="color:white; font-size:19px;">Calendar</span>
             </a>
           </li>
 
           <li class="nav-item menu-items">
             <a class="nav-link" href="{{ url('announcements') }}">
               <span class="menu-icon">
-                <i class="mdi mdi-file-document-box"></i>
+                <i class="mdi mdi-message-text-outline" style="font-size: 18px;"></i>
               </span>
-              <span class="menu-title" style="color:white;">Announcement</span>
+              <span class="menu-title" style="color:white; font-size:19px;">Announcement</span>
             </a>
           </li>
 

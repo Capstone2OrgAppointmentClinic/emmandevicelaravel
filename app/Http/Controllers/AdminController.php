@@ -328,7 +328,6 @@ public function announcements()
     return view('admin.announcements');
 }
 
-// Store Announcement
 public function createAnnouncement(Request $request)
 {
     $request->validate([
@@ -348,6 +347,7 @@ public function createAnnouncement(Request $request)
         $imagePath = 'assets/img/announcement/' . $imageName;
     }
 
+    // Insert the new announcement into the database
     DB::table('announcements')->insert([
         'title' => $request->title,
         'message' => $request->message,
@@ -356,7 +356,8 @@ public function createAnnouncement(Request $request)
         'updated_at' => now(),
     ]);
 
-    return back()->with('success', 'Announcement created successfully!');
+    // Redirect to the user 'latest' view after the announcement is created
+    return redirect()->route('user.latest')->with('success', 'Announcement created successfully!');
 }
 
 public function approveAppointment($appointmentId)

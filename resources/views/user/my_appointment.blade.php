@@ -184,7 +184,7 @@
 
                      </td>
                       <td>
-                      <button class="btn-lg w-full "  onclick="showRescheduleModal({{ $appoints->id }})" ystyle="font-size: 1.7rem;">
+                      <button class="btn-lg w-full "  onclick="showRescheduleModal({{ $appoints->id }})" style="font-size: 1.7rem;">
                       <i class="bi bi-calendar" style="color: #FFA500; font-size: 2.3rem; margin: 0;"></i>
                     </button>
                       </td>
@@ -331,31 +331,26 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             fetch(`/check-conflict/${appointmentId}/${rescheduleDate}/${rescheduleTime}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Error checking conflicts');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.appointmentLimit) {
-                        alert('The daily limit of 5 appointments has already been reached for this date. Please choose another date.');
-                        rescheduleButton.disabled = true;
-                    } else if (data.exactConflict) {
-                        alert('An appointment is already scheduled for the same date and time. Please choose another time.');
-                        rescheduleButton.disabled = true;
-                    } else if (data.timeConflict) {
-                        alert('Another appointment is scheduled within 1 hour of the selected time. Please choose another time.');
-                        rescheduleButton.disabled = true;
-                    } else {
-                        rescheduleButton.disabled = false;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Error checking for conflicts. Please try again.');
-                    rescheduleButton.disabled = true;
-                });
+    .then(response => response.json())
+    .then(data => {
+        if (data.appointmentLimit) {
+            alert('The daily limit of 5 appointments has already been reached for this date. Please choose another date.');
+            rescheduleButton.disabled = true;
+        } else if (data.exactConflict) {
+            alert('An appointment is already scheduled for the same date and time. Please choose another time.');
+            rescheduleButton.disabled = true;
+        } else if (data.timeConflict) {
+            alert('Another appointment is scheduled from ' + data.conflictingTime + ' to ' + data.conflictEndTime + '. Please choose another time.');
+            rescheduleButton.disabled = true;
+        } else {
+            rescheduleButton.disabled = false;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error checking for conflicts. Please try again.');
+        rescheduleButton.disabled = true;
+    });
         } else {
             rescheduleButton.disabled = true;
         }
