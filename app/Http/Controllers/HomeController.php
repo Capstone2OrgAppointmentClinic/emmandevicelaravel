@@ -321,23 +321,44 @@ public function reschedule_appoint(Request $request)
 }
 public function checkConflict($appointmentId, $date, $time)
 {
+    $userId = auth()->id(); // Get current logged-in user
+
+    // ✅ Check if user has already booked 3 appointments (excluding the one being rescheduled)
+    $userAppointmentCount = Appointment::where('user_id', $userId)
+        ->where('id', '!=', $appointmentId)
+        ->count();
+
+    if ($userAppointmentCount >= 3) {
+        return response()->json([
+            'userAppointmentLimit' => true,
+            'appointmentLimit' => false,
+            'exactConflict' => false,
+            'timeConflict' => false,
+            'message' => 'You have already reached your weekly limit of 3 appointments.'
+        ]);
+    }
+
+    // ✅ Check daily appointment limit
     $appointmentCount = Appointment::where('date', $date)
         ->where('id', '!=', $appointmentId)
         ->count();
 
     if ($appointmentCount >= 5) {
         return response()->json([
+            'userAppointmentLimit' => false,
             'appointmentLimit' => true,
             'exactConflict' => false,
             'timeConflict' => false,
         ]);
     }
 
+    // ✅ Check for exact date & time conflict
     $exactConflict = Appointment::where('date', $date)
         ->where('time', $time)
         ->where('id', '!=', $appointmentId)
         ->exists();
 
+    // ✅ Check time conflict within +/- 30 minutes
     $rescheduleDateTime = Carbon::createFromFormat('Y-m-d H:i', $date . ' ' . $time);
     $timeConflict = Appointment::where('date', $date)
         ->where('id', '!=', $appointmentId)
@@ -350,6 +371,7 @@ public function checkConflict($appointmentId, $date, $time)
     if ($timeConflict) {
         $conflictEndTime = Carbon::createFromFormat('H:i:s', $timeConflict->time)->addMinutes(30)->format('h:i A');
         return response()->json([
+            'userAppointmentLimit' => false,
             'appointmentLimit' => false,
             'exactConflict' => false,
             'timeConflict' => true,
@@ -359,7 +381,9 @@ public function checkConflict($appointmentId, $date, $time)
         ]);
     }
 
+    // ✅ No conflicts
     return response()->json([
+        'userAppointmentLimit' => false,
         'appointmentLimit' => false,
         'exactConflict' => $exactConflict,
         'timeConflict' => false,
@@ -373,23 +397,7 @@ public function markAllAsRead(Request $request)
 
     return response()->json(['status' => 'success']);
 }
-public function aboutUs()
-{
-    return view('user.aboutUs');
 
-}
-public function latest()
-{
-    // Fetch the latest announcements
-    $announcements = Announcement::orderBy('created_at', 'desc')->get();
-
-    // Return the view and pass the announcements data
-    return view('user.latest', compact('announcements'));
-}
-public function chatPage()
-{
-    return view('user.chat');
-}
 public function checkWeeklyUserAppointments(Request $request)
 {
     $userId = Auth::id();
@@ -403,4 +411,5 @@ public function checkWeeklyUserAppointments(Request $request)
 
     return response()->json(['count' => $count]);
 }
+
 }

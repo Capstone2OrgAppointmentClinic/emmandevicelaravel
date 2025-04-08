@@ -298,42 +298,49 @@ document.addEventListener('DOMContentLoaded', function () {
     const today = new Date().toISOString().split('T')[0];
     rescheduleDateInput.setAttribute('min', today);
 
-    const minTime = '08:00';
-    const maxTime = '20:00';
-    rescheduleTimeInput.setAttribute('min', minTime);
-    rescheduleTimeInput.setAttribute('max', maxTime);
-
     rescheduleButton.disabled = true;
 
     rescheduleDateInput.addEventListener('change', checkTimeConflict);
     rescheduleTimeInput.addEventListener('change', checkTimeConflict);
 
     function checkTimeConflict() {
-        const appointmentId = document.getElementById('reschedule_appointment_id').value;
-        const rescheduleDate = rescheduleDateInput.value;
-        const rescheduleTime = rescheduleTimeInput.value;
+    const appointmentId = document.getElementById('reschedule_appointment_id').value;
+    const rescheduleDate = rescheduleDateInput.value;
+    const rescheduleTime = rescheduleTimeInput.value;
 
-        if (rescheduleDate && rescheduleTime) {
-            const selectedDate = new Date(rescheduleDate);
-            const dayOfWeek = selectedDate.getDay();
+    if (rescheduleDate && rescheduleTime) {
+        const selectedDate = new Date(rescheduleDate);
+        const dayOfWeek = selectedDate.getDay();
 
-            if (dayOfWeek === 0 || dayOfWeek === 6) {
-                alert('Appointments cannot be rescheduled to Saturday or Sunday.');
-                rescheduleDateInput.value = today;
-                rescheduleButton.disabled = true;
-                return;
-            }
+        if (dayOfWeek === 0 || dayOfWeek === 6) {
+            alert('Appointments cannot be rescheduled to Saturday or Sunday.');
+            rescheduleDateInput.value = today;
+            rescheduleButton.disabled = true;
+            return;
+        }
 
-            if (rescheduleTime < minTime || rescheduleTime > maxTime) {
-                alert('Appointments can only be scheduled between 8:00 AM and 8:00 PM.');
-                rescheduleButton.disabled = true;
-                return;
-            }
+        if (rescheduleTime >= '12:00' && rescheduleTime < '13:00') {
+            alert('Appointments cannot be scheduled during lunch break 12PM to 1PM.');
+            rescheduleButton.disabled = true;
+            return;
+        }
 
-            fetch(`/check-conflict/${appointmentId}/${rescheduleDate}/${rescheduleTime}`)
+        const isMorningSlot = rescheduleTime >= '08:00' && rescheduleTime <= '11:30';
+        const isAfternoonSlot = rescheduleTime >= '13:00' && rescheduleTime <= '16:30';
+
+        if (!isMorningSlot && !isAfternoonSlot) {
+            alert('Appointments can only be scheduled between 8AM to 11:30AM or 1PM to 4:30PM.');
+            rescheduleButton.disabled = true;
+            return;
+        }
+
+        fetch(`/check-conflict/${appointmentId}/${rescheduleDate}/${rescheduleTime}`)
     .then(response => response.json())
     .then(data => {
-        if (data.appointmentLimit) {
+        if (data.userAppointmentLimit) {
+            alert('You have already reached your weekly limit of 3 appointments.');
+            rescheduleButton.disabled = true;
+        } else if (data.appointmentLimit) {
             alert('The daily limit of 5 appointments has already been reached for this date. Please choose another date.');
             rescheduleButton.disabled = true;
         } else if (data.exactConflict) {
@@ -351,11 +358,8 @@ document.addEventListener('DOMContentLoaded', function () {
         alert('Error checking for conflicts. Please try again.');
         rescheduleButton.disabled = true;
     });
-        } else {
-            rescheduleButton.disabled = true;
-        }
     }
-
+}
     let alertDiv = document.querySelector('.alert');
     if (alertDiv) {
         setTimeout(function () {

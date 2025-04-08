@@ -102,4 +102,4 @@ Route::get('/user/chat', [HomeController::class, 'chatPage'])->name('user.chat')
 
 Route::get('/check-weekly-user-appointments', [HomeController::class, 'checkWeeklyUserAppointments']);
 
-Route::get('/check-weekly-limit', [HomeController::class, 'checkWeeklyLimit']);
+Route::get('/check-user-weekly-limit/{appointmentId}', [HomeController::class, 'checkWeeklyLimit']);
