@@ -48,7 +48,7 @@
               <a class="nav-link" href="{{url('/')}}">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="about.html">About Us</a>
+              <a class="nav-link" href="{{ url('aboutUs') }}">About Us</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="doctors.html">Doctors</a>
@@ -132,7 +132,7 @@
 @endif
 
 
-  <div align="center" style="padding: 70px;">
+  <div align="center" style="padding: 40px;">
     <h1 style="font-size: 40px; padding: 15px;  color: #181A18; font-weight: bold;">
         Appointment Schedule
     </h1>
@@ -151,46 +151,43 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($appoint as $appoints)
-                    <tr class="align-middle items-center">
-                    <td style="padding: 12px; font-size: 18px; color: #333;">{{$appoints->service}}</td>
-                    <td style="padding: 12px; font-size: 18px; color: #333;">{{$appoints->date}}</td>
-                    <td style="padding: 12px; font-size: 18px; color: #333;">
-                     {{ date('h:i A', strtotime($appoints->time)) }}
+                @foreach($appoint as $appoints)
+                   <tr class="align-middle items-center">
+                      <td style="padding: 12px; font-size: 18px; color: #333;">{{ $appoints->service }}</td>
+                      <td style="padding: 12px; font-size: 18px; color: #333;">{{ $appoints->date }}</td>
+                      <td style="padding: 12px; font-size: 18px; color: #333;">
+                      {{ date('h:i A', strtotime($appoints->time)) }}
+                </td>
+                      <td style="padding: 12px; font-size: 18px; color: #333;">{{ $appoints->message }}</td>
+                      <td style="padding: 12px; font-size: 18px;">
+                @php $status = strtolower(trim($appoints->status)); 
+                @endphp
+                @if($status == 'in progress')
+                      <span class="badge text-blue-600" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
+                @elseif($status == 'approved')
+                     <span class="badge text-green-500" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
+                @elseif($status == 'canceled')
+                     <span class="badge text-red-500" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
+                @else
+                     <span class="badge text-gray-500" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
+                @endif
+                </td>
+                <td>
+                @if($status == 'in progress')
+                     <button class="btn-lg w-full" onclick="showCancelReasonModal({{ $appoints->id }})" style="font-size: 1.7rem;">
+                     <i class="bi bi-x-lg" style="color: red; font-size: 2.3rem;"></i>
+                     </button>
+                @endif
+                </td>
+                <td>
+                @if($status == 'in progress' || $status == 'approved' || $status == 'canceled')
+                    <button class="btn-lg w-full" onclick="showRescheduleModal({{ $appoints->id }})" style="font-size: 1.7rem;">
+                    <i class="bi bi-calendar" style="color: #FFA500; font-size: 2.3rem;"></i>
+                    </button>
+                @endif
                     </td>
-                        <td style="padding: 12px; font-size: 18px; color: #333;">{{$appoints->message}}</td>
-                        <td style="padding: 12px; font-size: 18px;">
-                    @php
-                    $status = strtolower(trim($appoints->status));
-                    @endphp
-
-                    @if($status == 'in progress')
-                    <span class="badge text-blue-600 flex justify-center items-center w-full h-full mt-[14px]" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
-                    @elseif($status == 'approved')
-                    <span class="badge text-green-500 flex justify-center items-center w-full h-full mt-[14px]" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
-                    @elseif($status == 'canceled')
-                    <span class="badge text-red-500 flex justify-center items-center w-full h-full mt-[14px]" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
-                    @else
-                    <span class="badge text-red-500 flex justify-center items-center w-full h-full mt-[14px]" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
-                    @endif
-                    @if($status == 'approved' || $status == 'canceled')
-                     <td></td>
-                     <td></td>
-                    @else
-                      <td>
-                      <button class="btn-lg w-full" onclick="showCancelReasonModal({{ $appoints->id }})" style="font-size: 1.7rem;">
-                      <i class="bi bi-x-lg" style="color: red; font-size: 2.3rem; margin: 0;"></i>
-                    </button>
-
-                     </td>
-                      <td>
-                      <button class="btn-lg w-full "  onclick="showRescheduleModal({{ $appoints->id }})" style="font-size: 1.7rem;">
-                      <i class="bi bi-calendar" style="color: #FFA500; font-size: 2.3rem; margin: 0;"></i>
-                    </button>
-                      </td>
-                       @endif
                     </tr>
-                    @endforeach
+                @endforeach
                 </tbody>
             </table>
         </div>

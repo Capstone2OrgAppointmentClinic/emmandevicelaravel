@@ -219,7 +219,7 @@ public function checkAppointmentConflict(Request $request)
     if (!($selectedTime->between($morningStart, $morningEnd) || $selectedTime->between($afternoonStart, $afternoonEnd))) {
         return response()->json([
             'conflict' => true,
-            'message' => 'Appointments can only be scheduled between 8:00–11:30 AM or 1PM to 5PM. Lunch break is from 12 PM to 1 PM.'
+            'message' => 'Appointments can only be scheduled between 8AM to 11:30AM or 1PM to 5PM. Lunch break is from 12 PM to 1 PM.'
         ]);
     }
 
@@ -299,7 +299,7 @@ public function reschedule_appoint(Request $request)
             ->exists();
 
         if ($conflict) {
-            return redirect()->back()->with('error', 'Another appointment is scheduled within 1 hour of the selected time. Please choose a different time.');
+            return redirect()->back()->with('error', 'Another appointment is scheduled within 30 mins of the selected time. Please choose a different time.');
         }
 
         $appointment->date = $request->reschedule_date;
@@ -321,9 +321,8 @@ public function reschedule_appoint(Request $request)
 }
 public function checkConflict($appointmentId, $date, $time)
 {
-    $userId = auth()->id(); // Get current logged-in user
+    $userId = auth()->id();
 
-    // ✅ Check if user has already booked 3 appointments (excluding the one being rescheduled)
     $userAppointmentCount = Appointment::where('user_id', $userId)
         ->where('id', '!=', $appointmentId)
         ->count();
@@ -338,7 +337,6 @@ public function checkConflict($appointmentId, $date, $time)
         ]);
     }
 
-    // ✅ Check daily appointment limit
     $appointmentCount = Appointment::where('date', $date)
         ->where('id', '!=', $appointmentId)
         ->count();
@@ -352,13 +350,11 @@ public function checkConflict($appointmentId, $date, $time)
         ]);
     }
 
-    // ✅ Check for exact date & time conflict
     $exactConflict = Appointment::where('date', $date)
         ->where('time', $time)
         ->where('id', '!=', $appointmentId)
         ->exists();
 
-    // ✅ Check time conflict within +/- 30 minutes
     $rescheduleDateTime = Carbon::createFromFormat('Y-m-d H:i', $date . ' ' . $time);
     $timeConflict = Appointment::where('date', $date)
         ->where('id', '!=', $appointmentId)
@@ -377,11 +373,10 @@ public function checkConflict($appointmentId, $date, $time)
             'timeConflict' => true,
             'conflictingTime' => Carbon::createFromFormat('H:i:s', $timeConflict->time)->format('h:i A'),
             'conflictEndTime' => $conflictEndTime,
-            'message' => "Another student already booked this time.",
+            'message' => "Another student already appoint this time.",
         ]);
     }
 
-    // ✅ No conflicts
     return response()->json([
         'userAppointmentLimit' => false,
         'appointmentLimit' => false,
@@ -411,5 +406,9 @@ public function checkWeeklyUserAppointments(Request $request)
 
     return response()->json(['count' => $count]);
 }
+public function aboutus()
+ {
+     return view('user.aboutUs');
+ }
 
 }

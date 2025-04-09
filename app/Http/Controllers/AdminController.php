@@ -356,7 +356,6 @@ public function createAnnouncement(Request $request)
         'updated_at' => now(),
     ]);
 
-    // Redirect to the user 'latest' view after the announcement is created
     return redirect()->route('user.latest')->with('success', 'Announcement created successfully!');
 }
 
