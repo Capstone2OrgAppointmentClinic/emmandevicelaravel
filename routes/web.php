@@ -74,8 +74,11 @@ Route::get('/announcements', [AdminController::class, 'announcements'])->name('a
 
 Route::post('createAnnouncement', [AdminController::class, 'createAnnouncement'])->name('createAnnouncement');
 
+<<<<<<< HEAD
 Route::get('/announcement/{id}', [HomeController::class, 'showAnnouncement'])->name('announcement_details');
 
+=======
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
 Route::post('/cancel_appoint', [HomeController::class, 'cancelAppointment'])->name('cancel.appointment');
 
 Route::post('/reschedule_appoint', [HomeController::class, 'reschedule_appoint'])->name('reschedule_appoint');
@@ -105,3 +108,10 @@ Route::get('/check-weekly-user-appointments', [HomeController::class, 'checkWeek
 Route::get('/check-user-weekly-limit/{appointmentId}', [HomeController::class, 'checkWeeklyLimit']);
 
 Route::get('/aboutUs', [HomeController::class, 'aboutus'])->name('aboutus');
+<<<<<<< HEAD
+=======
+
+Route::get('/announcement', [HomeController::class, 'showAnnouncements']);
+
+Route::get('/latest', [HomeController::class, 'latest']);
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00

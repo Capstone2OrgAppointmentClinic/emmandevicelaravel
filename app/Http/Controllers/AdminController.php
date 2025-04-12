@@ -316,7 +316,11 @@ public function createAppointment(Request $request)
     ]);
 
     // Notify admin of the new appointment
+<<<<<<< HEAD
     $admin = User::where('usertype', 1)->first(); // Admin with usertype 1
+=======
+    $admin = User::where('usertype', 1)->first();
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
     if ($admin) {
         $admin->notify(new NewAppointmentNotification($appointment));
     }
@@ -331,6 +335,7 @@ public function announcements()
 public function createAnnouncement(Request $request)
 {
     $request->validate([
+<<<<<<< HEAD
         'title' => 'required|string|max:255',
         'message' => 'required|string',
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -363,6 +368,45 @@ public function approveAppointment($appointmentId)
 {
     $appointment = Appointment::find($appointmentId);
     $appointment->status = 'Approved';  // Or any other status you set
+=======
+        'title' => 'required',
+        'message' => 'required',
+        'expired_date' => 'required|date|after:today',
+        'type' => 'required',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
+
+    $announcement = new Announcement();
+    $announcement->title = $request->title;
+    $announcement->message = $request->message;
+    $announcement->type = $request->type;
+    $announcement->expired_date = $request->expired_date;
+
+    if ($request->hasFile('image')) {
+        $image = $request->file('image');
+        $imageName = time() . '_' . $image->getClientOriginalName(); 
+        $path = public_path('assets/img/announcement'); 
+
+        if (!file_exists($path)) {
+            mkdir($path, 0755, true);
+        }
+
+        $image->move($path, $imageName);
+
+        $announcement->image = 'assets/img/announcement/' . $imageName;
+    }
+
+    $announcement->save();
+
+    return redirect()->back()->with('success', 'Announcement Created Successfully');
+}
+
+
+public function approveAppointment($appointmentId)
+{
+    $appointment = Appointment::find($appointmentId);
+    $appointment->status = 'Approved'; 
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
     $appointment->save();
 
     // Send notification to the user
@@ -375,7 +419,11 @@ public function approveAppointment($appointmentId)
 public function cancelAppointment($appointmentId)
 {
     $appointment = Appointment::find($appointmentId);
+<<<<<<< HEAD
     $appointment->status = 'Canceled';  // Or any other status
+=======
+    $appointment->status = 'Canceled';
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
     $appointment->save();
 
     
@@ -384,5 +432,8 @@ public function cancelAppointment($appointmentId)
 
     return redirect()->back()->with('message', 'Appointment Canceled');
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
 }

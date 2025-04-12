@@ -12,7 +12,13 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('message');
+<<<<<<< HEAD
             $table->string('image')->nullable();
+=======
+            $table->string('type')->nullable();
+            $table->string('image')->nullable();
+            $table->date('expired_date')->nullable();
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
             $table->timestamps();
         });
     }

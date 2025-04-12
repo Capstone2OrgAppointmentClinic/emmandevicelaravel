@@ -19,6 +19,87 @@
   <link rel="stylesheet" href="../assets/vendor/animate/animate.css">
 
   <link rel="stylesheet" href="../assets/css/theme.css">
+<<<<<<< HEAD
+=======
+
+
+ 
+  <style>
+  .card-horizontal {
+    display: flex;
+    flex-direction: row;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+
+  .card-img-wrapper {
+    position: relative;
+    width: 30%;
+    height: 100%;
+  }
+
+  .card-img-left {
+    width: 30%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;  /* Keeps the top of the image visible */
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    transition: transform 0.3s ease;
+  }
+
+  /* Hover effect on image */
+  .card-img-left:hover {
+    transform: scale(1.05);  /* Slight zoom-in on hover */
+    cursor: pointer;
+  }
+
+  .type-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #007bff;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    border-radius: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    z-index: 2;  /* Ensures it's above the image */
+  }
+
+  .card-body-right {
+    width: 70%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .card-body-right .short-message,
+  .card-body-right .full-message {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .toggle-message {
+    color: black !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease;
+  }
+
+  .hover-message:hover {
+    color: #006400;
+    cursor: pointer;
+  }
+</style>
+
+
+
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
 </head>
 <body>
   <div class="back-to-top"></div>
@@ -43,10 +124,14 @@
               <a class="nav-link" href="{{url('/')}}">Home</a>
             </li>
             <li class="nav-item">
+<<<<<<< HEAD
               <a class="nav-link" href="{{ url('aboutUs') }}">About Us</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="doctors.html">Doctors</a>
+=======
+              <a class="nav-link" href="{{ url('aboutUs') }}">About us</a>
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url('announcement')}}">Announcements</a>
@@ -54,6 +139,12 @@
             <li class="nav-item">
               <a class="nav-link" href="contact.html">Contact</a>
             </li>
+<<<<<<< HEAD
+=======
+            <li class="nav-item">
+              <a class="nav-link" href="https://portal.svfc-edu.com/login">Portal</a>
+            </li>
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
             
             @if(Route::has('login'))
 
@@ -107,10 +198,49 @@
       </div> <!-- .container -->
     </nav>
   </header>
+<<<<<<< HEAD
 
 
 
 
+=======
+ 
+  <div class="container py-5">
+  <h2 class="text-center mb-4">Announcements</h2>
+
+  <div class="row">
+    @foreach($announcements as $announcement)
+      <div class="col-md-12 mb-3">
+        <div class="card card-horizontal">
+
+          {{-- Image on the left --}}
+          @if($announcement->image)
+            <img src="{{ asset($announcement->image) }}" class="card-img-left" alt="Announcement Image">
+          @else
+            <img src="{{ asset('images/default-image.jpg') }}" class="card-img-left" alt="Default Image">
+          @endif
+
+          {{-- Message on the right --}}
+          <div class="card-body-right">
+            <span class="type-badge">{{ $announcement->type }}</span>
+
+            {{-- Full message directly --}}
+            <p class="mb-2">{{ $announcement->message }}</p>
+
+            <div class="mt-auto">
+              <small class="text-muted d-block">📌 {{ $announcement->title }}</small>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    @endforeach
+  </div>
+</div>
+
+
+@include('user.footer')
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
 <script src="../assets/js/jquery-3.5.1.min.js"></script>
 
 <script src="../assets/js/bootstrap.bundle.min.js"></script>
@@ -120,7 +250,10 @@
 <script src="../assets/vendor/wow/wow.min.js"></script>
 
 <script src="../assets/js/theme.js"></script>
+<<<<<<< HEAD
   
+=======
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
 
 </body>
 </html>
