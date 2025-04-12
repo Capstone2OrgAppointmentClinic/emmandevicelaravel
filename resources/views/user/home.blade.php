@@ -14,6 +14,17 @@
   <link rel="stylesheet" href="../assets/css/bootstrap.css">
   <link rel="stylesheet" href="../assets/vendor/owl-carousel/css/owl.carousel.css">
   <link rel="stylesheet" href="../assets/vendor/animate/animate.css">
+<<<<<<< HEAD
+  <link rel="stylesheet" href="../assets/css/theme.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+
+<body class="bg-light">
+
+<header>
+
+=======
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </head>
@@ -21,6 +32,7 @@
 <body class="bg-light">
 
 <header>
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
 @include('user.usernavbar')
     
 </header>
@@ -159,7 +171,11 @@
           <div class="col-lg-6 py-3 wow fadeInUp">
             <h1 style="font-size: 40px; ">Welcome to the <br>Clini-QuickAid Appointment</h1>
             <p class="text-grey mb-4 mt-5"> <b>Prioritize your health with ease! CliniQuickAid allows students in SVFC to conveniently schedule their school  </b> clinic visits for check-ups, consultations, and medical assistance, no more long wait times. Stay healthy and get the care you need, when you need it. Book your appointment now!`</p>
+<<<<<<< HEAD
+            <a href="about.html" class="btn btn-primary" style="background-color:#f204f2 ;">Details...</a>
+=======
             <a href="" class="btn btn-primary" style="background-color:#f204f2 ;">Details...</a>
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
           </div>
           <div class="col-lg-6 wow fadeInRight" data-wow-delay="400ms">
             <div class="img-place custom-img-1">

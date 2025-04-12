@@ -10,7 +10,10 @@ class Announcement extends Model
         'title',
         'message',
         'image',
+<<<<<<< HEAD
+=======
         'date',
         'type',
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
     ];
 }

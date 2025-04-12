@@ -4,6 +4,9 @@
 <head>
     @include('admin.css')
     @include('admin.announcecss')
+<<<<<<< HEAD
+   
+=======
     <style>
         .form-control[type="date"] {
             font-size: 16px;
@@ -61,6 +64,7 @@
             margin-top: 80px;
         }
     </style>
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
 </head>
 
 <body>
@@ -72,17 +76,34 @@
         <div class="container container-wrapper">
             <!-- Announcement Card -->
             <div class="card">
+<<<<<<< HEAD
+                <div class="card-header" style="background-color: ;">
+=======
                 <div class="card-header">
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
                     Create Announcement
                 </div>
                 <div class="card-body">
                     <!-- Show success message -->
                     @if(session('success'))
+<<<<<<< HEAD
+                    <div class="alert alert-success text-center">{{ session('success') }}</div>
+=======
                         <div class="alert alert-success text-center">{{ session('success') }}</div>
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
                     @endif
 
                     <!-- Show errors if validation fails -->
                     @if ($errors->any())
+<<<<<<< HEAD
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+=======
                         <div class="alert alert-danger">
                             <ul>
                                 @foreach ($errors->all() as $error)
@@ -90,6 +111,7 @@
                                 @endforeach
                             </ul>
                         </div>
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
                     @endif
 
                     <!-- Announcement Form -->
@@ -105,6 +127,12 @@
                         <!-- Message Field -->
                         <div class="mb-4">
                             <label for="message">Message</label>
+<<<<<<< HEAD
+                            <textarea class="form-control" name="message" rows="5" placeholder="Enter Announcement Message"
+                                required></textarea>
+                        </div>
+
+=======
                             <textarea class="form-control" name="message" rows="5" placeholder="Enter Announcement Message" required></textarea>
                         </div>
 
@@ -125,6 +153,7 @@
                             <input type="date" class="form-control" name="expired_date" required>
                          </div>
 
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
                         <!-- Image Upload Field -->
                         <div class="mb-4">
                             <label for="image">Upload Image (optional)</label>
@@ -132,7 +161,11 @@
                         </div>
 
                         <!-- Submit Button -->
+<<<<<<< HEAD
+                        <button type="submit" class="btn btn-submit" style="background-color: #AD1457; color: white;">Send Announcement</button>
+=======
                         <button type="submit" class="btn-submit">Send Announcement</button>
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
                     </form>
                 </div>
             </div>

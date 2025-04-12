@@ -19,6 +19,8 @@
   <link rel="stylesheet" href="../assets/vendor/animate/animate.css">
 
   <link rel="stylesheet" href="../assets/css/theme.css">
+<<<<<<< HEAD
+=======
 
 
  
@@ -97,6 +99,7 @@
 
 
 
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
 </head>
 <body>
   <div class="back-to-top"></div>
@@ -121,7 +124,14 @@
               <a class="nav-link" href="{{url('/')}}">Home</a>
             </li>
             <li class="nav-item">
+<<<<<<< HEAD
+              <a class="nav-link" href="{{ url('aboutUs') }}">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="doctors.html">Doctors</a>
+=======
               <a class="nav-link" href="{{ url('aboutUs') }}">About us</a>
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url('announcement')}}">Announcements</a>
@@ -129,9 +139,12 @@
             <li class="nav-item">
               <a class="nav-link" href="contact.html">Contact</a>
             </li>
+<<<<<<< HEAD
+=======
             <li class="nav-item">
               <a class="nav-link" href="https://portal.svfc-edu.com/login">Portal</a>
             </li>
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
             
             @if(Route::has('login'))
 
@@ -185,6 +198,12 @@
       </div> <!-- .container -->
     </nav>
   </header>
+<<<<<<< HEAD
+
+
+
+
+=======
  
   <div class="container py-5">
   <h2 class="text-center mb-4">Announcements</h2>
@@ -221,6 +240,7 @@
 
 
 @include('user.footer')
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
 <script src="../assets/js/jquery-3.5.1.min.js"></script>
 
 <script src="../assets/js/bootstrap.bundle.min.js"></script>
@@ -230,6 +250,10 @@
 <script src="../assets/vendor/wow/wow.min.js"></script>
 
 <script src="../assets/js/theme.js"></script>
+<<<<<<< HEAD
+  
+=======
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
 
 </body>
 </html>

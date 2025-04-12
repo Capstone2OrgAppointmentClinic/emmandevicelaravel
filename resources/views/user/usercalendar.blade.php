@@ -15,11 +15,19 @@
 
    <link rel="stylesheet" href="../assets/css/theme.css">
 
+<<<<<<< HEAD
+   <style>
+   #calendar {
+    max-width: 1300px;
+    margin: 40px auto;
+}
+=======
 <style>
    #calendar {
     max-width: 1300px;
     margin: 40px auto;
     }
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
 </style>
 
 </head>
@@ -40,11 +48,22 @@
 
         <div class="" id="navbarSupport">
           <ul class="navbar-nav ml-auto">
+<<<<<<< HEAD
+            <li class="nav-item ">
+              <a class="nav-link" href="{{url('/')}}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url('aboutUs') }}">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="doctors.html">Doctors</a>
+=======
             <li class="nav-item active">
               <a class="nav-link" href="{{url('/')}}">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url('aboutUs') }}">About us</a>
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url('announcement')}}">Announcements</a>
@@ -52,7 +71,10 @@
             <li class="nav-item">
               <a class="nav-link" href="contact.html">Contact</a>
             </li>
+<<<<<<< HEAD
+=======
             <li class="nav-item"><a class="nav-link" href="https://portal.svfc-edu.com/login">Portal</a></li>
+>>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
             
             @if(Route::has('login'))
 
