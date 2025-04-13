@@ -26,3 +26,5 @@ return new class extends Migration
         });
     }
 };
+
+add_cancel_reason_to_appointments.php

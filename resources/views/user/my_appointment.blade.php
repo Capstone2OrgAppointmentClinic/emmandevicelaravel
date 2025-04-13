@@ -44,22 +44,11 @@
 
         <div class="" id="navbarSupport">
           <ul class="navbar-nav ml-auto">
-<<<<<<< HEAD
-            <li class="nav-item ">
-              <a class="nav-link" href="{{url('/')}}">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url('aboutUs') }}">About Us</a>
-=======
             <li class="nav-item active">
               <a class="nav-link" href="{{url('/')}}">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url('aboutUs') }}">About us</a>
->>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="doctors.html">Doctors</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url('announcement')}}">Announcements</a>

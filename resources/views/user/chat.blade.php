@@ -10,11 +10,7 @@
     #chatbot-messages {
     display: flex;
     flex-direction: column;
-<<<<<<< HEAD
-    align-items: flex-start; /* Align bot messages to the left by default */
-=======
     align-items: flex-start;
->>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
     padding: 10px;
 }
 

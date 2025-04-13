@@ -47,11 +47,6 @@ class HomeController extends Controller
     
     public function index()
 {   
-<<<<<<< HEAD
-    $doctor = Doctor::all();
-    $announcements = Announcement::orderBy('created_at', 'desc')->get();
-    return view('user.home', compact('announcements','doctor'));
-=======
     $today = Carbon::today();
  
     $announcements = Announcement::whereDate('expired_date', '>=', $today)
@@ -59,7 +54,6 @@ class HomeController extends Controller
                                  ->get();
     $doctor = Doctor::all();
     return view('user.home', compact('doctor','announcements'));
->>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
 }
 public function appointment(Request $request)
 {
@@ -260,10 +254,7 @@ public function checkAppointmentConflict(Request $request)
 
 public function announcement()
  {
-<<<<<<< HEAD
-=======
     
->>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
      return view('user.announcement');
  }
  public function checkAppointmentLimit(Request $request)
@@ -424,9 +415,6 @@ public function aboutus()
  {
      return view('user.aboutUs');
  }
-<<<<<<< HEAD
-
-=======
  public function showAnnouncements()
  {
      $today = Carbon::today();
@@ -438,5 +426,4 @@ public function aboutus()
      return view('user.announcement', compact('announcements'));
  }
  
->>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
 }

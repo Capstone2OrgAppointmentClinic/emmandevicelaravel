@@ -98,6 +98,15 @@
             </a>
           </li>
 
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="{{ url('studentlogs') }}">
+              <span class="menu-icon">
+                <i class="mdi mdi-message-text-outline" style="font-size: 18px;"></i>
+              </span>
+              <span class="menu-title" style="color:white; font-size:19px;">Log/History</span>
+            </a>
+          </li>
+
         </ul>
       </nav>
       

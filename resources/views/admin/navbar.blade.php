@@ -6,101 +6,25 @@
             <button class="navbar-toggler navbar-toggler align-self-center mt-2" type="button" data-toggle="minimize">
               <span class="mdi mdi-menu text-white text-[44px]" ></span>
             </button>
-<<<<<<< HEAD
-            < class="navbar-nav navbar-nav-right">
-=======
             <nav class="navbar-nav navbar-nav-right">
->>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
-              <li class="nav-item dropdown d-none d-lg-block">
-                <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-bs-toggle="dropdown" aria-expanded="false" href="#">In development</a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="createbuttonDropdown">
-                  <h6 class="p-3 mb-0">Projects</h6>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-file-outline text-primary"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject ellipsis mb-1">In development</p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-web text-info"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject ellipsis mb-1">In development</p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-layers text-danger"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject ellipsis mb-1">In development</p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <p class="p-3 mb-0 text-center">In development</p>
-                </div>
-              </li>
-              <li class="nav-item nav-settings d-none d-lg-block">
-                <a class="nav-link" href="#">
-                  <i class="mdi mdi-view-grid"></i>
+                <li class="nav-item nav-settings d-none d-lg-block">
+                <a class="nav-link" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+                <img src="{{ asset('assets/img/blog/facebook.png') }}" alt="Facebook" style="height: 24px;">
+            </a>
+            </li>
+            <li class="nav-item nav-settings d-none d-lg-block">
+                <a class="nav-link" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
+                <img src="{{ asset('assets/img/blog/youtube.png') }}" alt="Youtube" style="height: 24px;">
                 </a>
-              </li>
-              <li class="nav-item dropdown border-left">
-                <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="mdi mdi-email"></i>
-                  <span class="count bg-success"></span>
+            </li>
+            <li class="nav-item nav-settings d-none d-lg-block">
+                <a class="nav-link" href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox" target="_blank" rel="noopener noreferrer">
+                <img src="{{ asset('assets/img/blog/gmail.png') }}" alt="Gmail" style="height: 24px;">
                 </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-                  <h6 class="p-3 mb-0">Messages</h6>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <!-- <img src="admin/assets/images/faces/face4.jpg" alt="image" class="rounded-circle profile-pic"> -->
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject ellipsis mb-1">In development</p>
-                      <p class="text-muted mb-0"> In development </p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <!-- <img src="admin/assets/images/faces/face2.jpg" alt="image" class="rounded-circle profile-pic"> -->
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject ellipsis mb-1">In testing</p>
-                      <p class="text-muted mb-0"> In development </p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <!-- <img src="admin/assets/images/faces/face3.jpg" alt="image" class="rounded-circle profile-pic"> -->
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject ellipsis mb-1">In testing</p>
-                      <p class="text-muted mb-0"> In development </p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <p class="p-3 mb-0 text-center">In testing</p>
-                </div>
-              </li>
-              <li class="nav-item dropdown">
+            </li>
+            <li class="nav-item dropdown">
   <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-    <i class="mdi mdi-bell" style="font-size: 20px;"></i>
+    <i class="mdi mdi-bell" style="font-size: 22px;"></i>
     @if(auth()->user()->unreadNotifications->count() > 0)
         <span class="count bg-danger" style="font-size: 12px; padding: 5px 5px;">
             {{ auth()->user()->unreadNotifications->count() }}
@@ -158,6 +82,12 @@
             });
     }
 </script>     
+             <!-- Modal Trigger Button -->
+            <li class="nav-item nav-settings d-none d-lg-block">
+                <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#logsModal">
+                    <i class="mdi mdi-history" style="font-size: 24px; color: white;" title="View Logs History"></i>
+                </button>
+            </li>
               <x-app-layout>
    
               </x-app-layout>

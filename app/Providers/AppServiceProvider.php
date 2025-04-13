@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
+use App\Models\StudentLog;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
         if (Auth::check()) {
             $view->with('unreadNotifications', Auth::user()->unreadNotifications);
         }
+        $logs = StudentLog::latest()->with('student')->paginate(10);
+        $view->with('logs', $logs);
     });
 }
     }

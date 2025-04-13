@@ -15,19 +15,11 @@
 
    <link rel="stylesheet" href="../assets/css/theme.css">
 
-<<<<<<< HEAD
-   <style>
-   #calendar {
-    max-width: 1300px;
-    margin: 40px auto;
-}
-=======
 <style>
    #calendar {
     max-width: 1300px;
     margin: 40px auto;
     }
->>>>>>> ce459b4393ad907b4f5890ca5b6177e181cc4c00
 </style>
 
 </head>
