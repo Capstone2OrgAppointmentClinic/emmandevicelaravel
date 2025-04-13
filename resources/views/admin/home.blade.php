@@ -220,7 +220,6 @@
             var logsModal = new bootstrap.Modal(document.getElementById('logsModal'));
             logsModal.show();
 
-            // Optional: Clean the URL after showing the modal
             if (window.history.replaceState) {
                 const url = new URL(window.location);
                 url.searchParams.delete('logs');
