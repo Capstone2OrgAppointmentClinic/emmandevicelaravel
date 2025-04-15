@@ -34,22 +34,22 @@
             <table class="table table-bordered text-center w-100">
             <thead style="background-color: #AD1457;" class="text-white">
                 <tr>
-                  <th class="text-center text-white">Customer Name</th>
-                  <th class="text-center text-white">Email</th>
-                  <th class="text-center text-white" >Phone</th>
-                  <th class="text-center text-white">Service</th>
-                  <th class="text-center text-white">Date & Time</th>
-                  <th class="text-center text-white">Message</th>
-                  <th class="text-center text-white">Status</th>
-                  <th class="text-center text-white">Action</th>
+                  <th class="text-center text-white" style="width: 150px; word-wrap: break-word; white-space: normal;" >Customer Name</th>
+                  <th class="text-center text-white" style="width: 150px; word-wrap: break-word; white-space: normal;" >Email</th>
+                  <th class="text-center text-white" style="width: 150px; word-wrap: break-word; white-space: normal;" >Phone</th>
+                  <th class="text-center text-white" style="width: 150px; word-wrap: break-word; white-space: normal;">Service</th>
+                  <th class="text-center text-white" style="width: 150px; word-wrap: break-word; white-space: normal;">Date & Time</th>
+                  <th class="text-center text-white" style="width: 150px; word-wrap: break-word; white-space: normal;">Message</th>
+                  <th class="text-center text-white" style="width: 150px; word-wrap: break-word; white-space: normal;">Status</th>
+                  <th class="text-center text-white" style="width: 150px; word-wrap: break-word; white-space: normal;">Action</th>
                 </tr>
               </thead>
 
               <tbody>
                 @foreach($data as $appoint)
                   <tr class="table-light">
-                    <td class="text-center">{{ $appoint->user->name ?? $appoint->name }}</td>
-                    <td class="text-center">{{ $appoint->user->email ?? $appoint->email }}</td>
+                    <td class="text-center" style="width: 150px; word-wrap: break-word; white-space: normal;">{{ $appoint->user->name ?? $appoint->name }}</td>
+                    <td class="text-center" style="width: 150px; word-wrap: break-word; white-space: normal;">{{ $appoint->user->email ?? $appoint->email }}</td>
                     <td class="text-center">{{ $appoint->phone }}</td>
                     <td class="text-center">{{ $appoint->service }}</td>
                     <td class="text-center">{{ $appoint->date }} {{ date('h:i A', strtotime($appoint->time)) }}</td>

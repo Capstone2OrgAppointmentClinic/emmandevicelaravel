@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_navbar.html -->
-        <nav class="navbar p-0 fixed-top d-flex flex-row" style="background-color: #AD1457;">
+        <nav class="navbar p-0 fixed-top d-flex flex-row" style="background-color: gray;">
           
           <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch" >
             <button class="navbar-toggler navbar-toggler align-self-center mt-2" type="button" data-toggle="minimize">
