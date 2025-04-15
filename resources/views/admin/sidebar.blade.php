@@ -1,7 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar" style="background-color: #AD1457 ;">
 
         
-        <ul class="nav">
+        <ul class="nav" style="position: fixed;">
           <li class="nav-item profile">
             <div class="profile-desc">
               <div class="profile-pic">
