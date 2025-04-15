@@ -103,10 +103,11 @@
               <span class="menu-icon">
                 <i class="mdi mdi-message-text-outline" style="font-size: 18px;"></i>
               </span>
-              <span class="menu-title" style="color:white; font-size:19px;">Log/History</span>
+              <span class="menu-title" style="color:white; font-size:19px;">Logs/History</span>
             </a>
           </li>
 
         </ul>
+        
       </nav>
       

@@ -108,7 +108,8 @@ class AdminController extends Controller
     {
         $userCount = User::count();
         $appointmentCount = Appointment::count();
-        return view('admin.home', compact('userCount','appointmentCount')); // Pass variable to view
+        $appointments = Appointment::all();
+        return view('admin.home', compact('userCount','appointmentCount')); 
     }
     
     public function getUsers()
@@ -220,11 +221,11 @@ class AdminController extends Controller
     }
 
     if (preg_match('/\d/', $request->name)) {
-        return redirect()->back()->with('error', 'Name should not contain numbers');
+        return redirect()->back()->with('error', 'Name should not contain number');
     }
 
     if (preg_match('/[a-zA-Z]/', $request->phone)) {
-        return redirect()->back()->with('error', 'Phone number should not contain letters');
+        return redirect()->back()->with('error', 'Phone number should not contain letter');
     }
 
     if (!strpos($request->email, '@gmail.com')) {
@@ -392,11 +393,15 @@ public function cancelAppointment($appointmentId)
 }
 public function viewStudentLogs()
 {
-    $logs = StudentLog::latest()->with('student')->paginate(10); 
+    $logs = StudentLog::whereHas('student', function ($query) {
+        $query->where('usertype', 0); // only students
+    })->latest()->with('student')->paginate(10);
+
     return view('admin.studentlogs', compact('logs'));
 }
 public function showLogs()
 {
+
     $logs = StudentLog::latest()->with('student')->paginate(10);
 
     return view('admin.home', compact('logs'));

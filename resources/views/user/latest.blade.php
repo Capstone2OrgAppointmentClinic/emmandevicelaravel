@@ -161,6 +161,6 @@ $chunks = $announcements->chunk(3);
   });
 </script>
 
-
+</div>
 </div> <!-- .page-section -->
   

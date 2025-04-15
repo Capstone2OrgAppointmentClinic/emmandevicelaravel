@@ -37,8 +37,9 @@ class HomeController extends Controller
             {
                 $userCount = User::where('usertype', 0)->count();
                 $users = User::where('usertype', 0)->get();
-                
-                return view('admin.home', compact('userCount', 'users'));
+                $appointments = Appointment::all();
+                $appointmentCount = $appointments->count();
+                return view('admin.home', compact('userCount', 'users', 'appointmentCount','appointments',));
             }
         }
     
