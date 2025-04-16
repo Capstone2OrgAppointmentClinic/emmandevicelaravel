@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
+<link rel="icon" href="{{ asset('assets/img/adminimg/titleicon.ico') }}" type=" image/icon">
     <!-- Required meta tags -->
     @include('admin.css')
     <style>

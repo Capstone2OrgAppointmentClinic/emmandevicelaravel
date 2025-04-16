@@ -3,6 +3,8 @@
 <head>
     @include('admin.css')
     @include('admin.script')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="{{ asset('assets/img/adminimg/titleicon.ico') }}" type=" image/icon">
 </head>
 <body style="background-color: #FAEBD7;">
     <div class="container-scroller w-full">
@@ -11,7 +13,6 @@
 
        
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
       <div class="main-panel w-full">
          <div class="content-wrapper flex flex-col " style="background-color: #FAEBD7;">

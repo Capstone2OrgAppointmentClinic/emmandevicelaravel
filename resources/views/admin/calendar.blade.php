@@ -3,6 +3,7 @@
 <head>
 
     @include('admin.css')
+    <link rel="icon" href="{{ asset('assets/img/adminimg/titleicon.ico') }}" type=" image/icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.min.js"></script>
