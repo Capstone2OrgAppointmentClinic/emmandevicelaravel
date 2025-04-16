@@ -32,7 +32,6 @@
         <div class="mt-5">
           <h1 class="text-center text-dark py-3 fw-bold" style="font-size: 2rem; margin: 25px;">Appointments</h1>
           <div class="table-responsive">
-            <x-input placeholder="Search Name" class="my-4"></x-input>
             
             <table class="table table-bordered text-center w-100">
             <thead style="background-color: #AD1457;" class="text-white">

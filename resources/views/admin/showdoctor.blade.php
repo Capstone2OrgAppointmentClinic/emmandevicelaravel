@@ -86,8 +86,8 @@
                                 <th class="bg-[#AD1457]">Phone</th>
                                 <th class="bg-[#AD1457]">Speciality</th>
                                 <th class="bg-[#AD1457]">Image</th >
-                                <th class="bg-[#AD1457]">Remove</th>
                                 <th class="bg-[#AD1457]">Update</th>
+                                <th class="bg-[#AD1457]">Remove</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -98,10 +98,10 @@
                                 <td style="color: #333; font-weight: 500;">{{ $doctor->speciality }}</td>
                                 <td><img height="100" width="100" src="doctorimage/{{ $doctor->image }}"></td>
                                 <td>
-                                    <a onclick="return confirm('Are you sure to remove this?')" class="btn btn-danger" href="{{ url('removedoctor', $doctor->id) }}">Remove</a>
+                                    <a class="btn btn-primary" href="{{ url('updatedoctor', $doctor->id) }}">Update</a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary" href="{{ url('updatedoctor', $doctor->id) }}">Update</a>
+                                    <a onclick="return confirm('Are you sure to remove this?')" class="btn btn-danger" href="{{ url('removedoctor', $doctor->id) }}">Remove</a>
                                 </td>
                             </tr>
                             @endforeach

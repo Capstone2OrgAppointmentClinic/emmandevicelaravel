@@ -55,7 +55,6 @@
    
     <div id="userTable" style="display: none; margin-top: 20px;">
         <h3 style="margin-left: 12px; color: black; font-size: 32px;" class="flex justify-center w-full items-center">User's Information</h3>
-        <x-input placeholder="Search Student I.D or Name " class=" my-4" style="width:17rem; color: black;"></x-input>
         <div class="table-responsive">
         <table class="table table-striped">
             <thead>

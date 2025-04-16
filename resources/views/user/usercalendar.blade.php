@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     
     
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -15,6 +14,9 @@
 
    <link rel="stylesheet" href="../assets/css/theme.css">
 
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+   <link rel="icon" href="{{ asset('assets/img/adminimg/titlebar.ico') }}" alt="SVFC" type="image/icon">
 <style>
    #calendar {
     max-width: 1300px;
@@ -39,8 +41,8 @@
         </button>
 
         <div class="" id="navbarSupport">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
+          <ul class="navbar-nav ml-auto nav-menu">
+            <li class="nav-item">
               <a class="nav-link" href="{{url('/')}}">Home</a>
             </li>
             <li class="nav-item">
@@ -59,8 +61,12 @@
 
             
 
-                        <ul class="dropdown-menu">
-                            <a class="dropdown-item" href="{{url('myappointment')}}">Appointment</a>
+            <li class="nav-item dropdown">
+            <a class="nav-link  dropdown-toggle active" style="background: none; color: #AD1457;" href="{{url('user.usercalendar')}}">Calendar</a>
+            <ul class="dropdown-menu">
+                <li>
+                                <a class="dropdown-item" href="{{ route('my_appointment') }}">Appointment</a>
+                           
                           </li>
                         </ul>
                     </li>
@@ -147,6 +153,89 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+
+
+    <style>
+.nav-menu {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.nav-menu .nav-item {
+  position: relative;
+  z-index: 2;
+}
+
+.nav-menu .nav-link {
+  display: inline-block;
+  padding: 10px 20px;
+  color: white;
+  transition: color 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+.nav-menu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--left, 0px);
+  width: var(--width, 0px);
+  height: 100%;
+  background-color: #00D9A5;
+  border-radius: 12px;
+  z-index: 1;
+  opacity: 0.85;
+  transform: scaleX(0.8);
+  transition:
+    left 0.3s ease,
+    width 0.3s ease,
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+.nav-menu:hover::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.nav-menu .nav-item.active .nav-link {
+  font-weight: bold;
+  color: gray;
+}
+
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const navMenu = document.querySelector('.nav-menu');
+    const items = navMenu.querySelectorAll('.nav-item');
+    const activeItem = navMenu.querySelector('.nav-item.active');
+
+    function moveIndicator(target) {
+        const rect = target.getBoundingClientRect();
+        const parentRect = navMenu.getBoundingClientRect();
+        navMenu.style.setProperty('--left', `${target.offsetLeft}px`);
+        navMenu.style.setProperty('--width', `${target.offsetWidth}px`);
+    }
+    if (activeItem) {
+        moveIndicator(activeItem);
+    }
+
+    items.forEach(item => {
+        if (item.classList.contains('login') || item.classList.contains('register')) {
+            return;
+        }
+
+        item.addEventListener('mouseenter', () => moveIndicator(item));
+    });
+
+    navMenu.addEventListener('mouseleave', () => {
+        if (activeItem) moveIndicator(activeItem);
+    });
+});
+</script>
+
+
 </body>
 </html>
     
