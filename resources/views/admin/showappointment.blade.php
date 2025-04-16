@@ -7,6 +7,7 @@
     
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     @include('admin.css')
 
@@ -32,25 +33,32 @@
         <div class="mt-5">
           <h1 class="text-center text-dark py-3 fw-bold" style="font-size: 2rem; margin: 25px;">Appointments</h1>
 
-          @if(session('success'))
+@if(session('success'))
     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
-        <div class="toast show bg-success text-white" role="alert">
+        <div id="autoDismissToast" class="toast align-items-center text-white bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
             <div class="d-flex">
                 <div class="toast-body">
                     {{ session('success') }}
                 </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
     </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toastEl = document.getElementById('autoDismissToast');
+        const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+        toast.show();
+    });
+</script>
 @endif
-
-
-          <div class="table-responsive">
-            <x-input placeholder="Search Name" class="my-4"></x-input>
-            
-            <table class="table table-bordered text-center w-100">
-            <thead style="background-color: #AD1457;" class="text-white">
+          <div class="mb-3">
+              <input type="text" id="searchInput" style="background-color: white; color: black; border: 2px solid #AD1457; width:200px; "class="form-control" placeholder="Search appointments...">
+          </div>
+          <div class="table-responsive">     
+          <table class="table table-bordered text-center w-100">
+          <thead style="background-color: #AD1457;" class="text-white">
                 <tr>
                   <th class="text-center text-white" style="width: 150px; word-wrap: break-word; white-space: normal;" >Customer Name</th>
                   <th class="text-center text-white" style="width: 150px; word-wrap: break-word; white-space: normal;" >Email</th>
@@ -123,13 +131,14 @@
                             <i class="fas fa-times"></i> Cancel
                           </a>
                         </li>
-                        <button class="dropdown-item text-success open-done-modal"
-                         data-id="{{ $appoint->id }}"
-                         data-email="{{ $appoint->user->email ?? $appoint->email }}"
-                         data-name="{{ $appoint->user->name ?? $appoint->name }}">
-                        <i class="fas fa-check-double"></i> Done
-                        </button>
-                        </li>
+                        <li>
+                         <button type="button" class="dropdown-item text-success open-done-modal"
+                          data-id="{{ $appoint->id }}"
+                          data-email="{{ $appoint->user->email ?? $appoint->email }}"
+                          data-name="{{ $appoint->user->name ?? $appoint->name }}">
+                         <i class="fa-solid fa-circle-check"></i> Done
+                         </button>
+                       </li>
                         <li>
                           <a class="dropdown-item text-primary" href="{{ url('emailview', $appoint->id) }}" title="Send Email">
                             <i class="fas fa-envelope"></i> Send Mail
@@ -194,20 +203,6 @@
     });
   });
 </script>
-<script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const toastElement = document.getElementById('success-toast');
-    if (toastElement) {
-      setTimeout(() => {
-        const toast = new bootstrap.Toast(toastElement);
-        toast.hide(); 
-      }, 3000); 
-    }
-  });
-</script>
-
-
-
       <!-- Message Modal -->
       <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -319,37 +314,30 @@
     max-height: 300px;
     overflow-y: auto;
 }
-
 .scrollable-tbody {
     display: block;
     overflow-y: auto;
 }
-
 .scrollable-tbody tr {
     display: table;
     width: 100%;
     table-layout: fixed;
 }
-
 .table thead,
 .table tbody tr {
     width: 100%;
     display: table;
     table-layout: fixed;
 }
-
 .table thead {
     position: sticky;
     top: 0;
     z-index: 2;
     background-color: #f8f9fa;
 }
-
-/* Fix white background */
 .modal-content {
     background-color: #fff;
 }
-
 .modal-header,
 .modal-body,
 .modal-footer {
@@ -357,8 +345,28 @@
     color: #000;
 }
 </style>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('searchInput');
 
-    @include('admin.script')
+    searchInput.addEventListener('input', function () {
+      const filter = searchInput.value.toLowerCase();
+      const rows = document.querySelectorAll('table tbody tr');
+
+      rows.forEach(row => {
+        const statusCell = row.querySelector('td:nth-child(7)');
+        if (statusCell) {
+          const statusText = statusCell.textContent.toLowerCase();
+          if (statusText.includes(filter)) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        }
+      });
+    });
+  });
+</script>
 
   </body>
 </html>

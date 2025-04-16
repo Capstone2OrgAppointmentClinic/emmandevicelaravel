@@ -376,7 +376,7 @@ public function approveAppointment($appointmentId)
     $user = $appointment->user;
     $user->notify(new AppointmentStatusNotification($appointment, 'approved'));
 
-    return redirect()->back()->with('message', 'Appointment Approved');
+    return redirect()->back()->with('success', 'Appointment Approved');
 }
 
 public function cancelAppointment($appointmentId)
@@ -389,7 +389,7 @@ public function cancelAppointment($appointmentId)
     $user = $appointment->user;
     $user->notify(new AppointmentStatusNotification($appointment, 'canceled'));
 
-    return redirect()->back()->with('message', 'Appointment Canceled');
+    return redirect()->back()->with('success', 'Appointment Canceled');
 }
 public function viewStudentLogs()
 {
@@ -424,6 +424,6 @@ public function sendDoneEmail(Request $request)
         $appointment->user->notify(new AppointmentStatusNotification($appointment, 'done'));
     }
 
-    return back()->with('success', 'Email sent and appointment marked as done.');
+    return back()->with('success', 'Email sent appointment done.');
 }
 }
