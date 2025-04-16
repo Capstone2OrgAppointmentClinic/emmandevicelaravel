@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="../assets/css/theme.css">
 
  
-  <style>
+<style>
   .card-horizontal {
     display: flex;
     flex-direction: row;
@@ -42,15 +42,13 @@
     width: 30%;
     height: 100%;
     object-fit: cover;
-    object-position: top;  /* Keeps the top of the image visible */
+    object-position: top;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
     transition: transform 0.3s ease;
   }
-
-  /* Hover effect on image */
   .card-img-left:hover {
-    transform: scale(1.05);  /* Slight zoom-in on hover */
+    transform: scale(1.05);
     cursor: pointer;
   }
 
@@ -64,7 +62,7 @@
     font-size: 0.75rem;
     border-radius: 20px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    z-index: 2;  /* Ensures it's above the image */
+    z-index: 2;
   }
 
   .card-body-right {
@@ -192,7 +190,7 @@
 
  
   <div class="container py-5">
-  <h2 class="text-center mb-4">Announcements</h2>
+  <h2 class="text-center mb-4" style="font-size: 30px;">Announcements</h2>
 
   <div class="row">
     @foreach($announcements as $announcement)

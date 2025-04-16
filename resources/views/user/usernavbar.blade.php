@@ -1,3 +1,4 @@
+@guest
 <style>
 .nav-menu {
   position: relative;
@@ -46,8 +47,8 @@
   font-weight: bold;
   color: gray;
 }
-
 </style>
+@endguest
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const navMenu = document.querySelector('.nav-menu');
@@ -77,7 +78,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
-<nav class="navbar navbar-expand-lg navbar-light shadow-sm bg-light">
+
+     <nav class="navbar navbar-expand-lg navbar-light shadow-sm bg-light">
         <div class="container">
             <img src="../assets/img/person/svfctrans.png" alt="logo" style="width:auto; height: 60px;" />
             <a class="navbar-brand" href="{{url('/')}}">
@@ -96,6 +98,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     <li class="nav-item"><a class="nav-link" href="{{url('announcement')}}">Announcements</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                     <li class="nav-item"><a class="nav-link" href="https://portal.svfc-edu.com/login">Portal</a></li>
+                    
+                    
                     @if(Route::has('login'))
                     @auth
                     
