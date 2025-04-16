@@ -97,7 +97,7 @@
                </tbody>
             </table>
          </div>
-</div>
+       </div>
         <script>
         document.getElementById('toggleUsers').addEventListener('click', function() {
         let userTable = document.getElementById('userTable');
