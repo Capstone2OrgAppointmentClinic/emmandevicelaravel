@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Announcement;
 use App\Notifications\AppointmentStatusNotification;
 use App\Models\StudentLog;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\DoneAppointmentMail;
 
 
 use App\Notifications\SendEmailNotification;
@@ -317,7 +319,6 @@ public function createAppointment(Request $request)
         'user_id' => auth()->id(),
     ]);
 
-    // Notify admin of the new appointment
     $admin = User::where('usertype', 1)->first();
     if ($admin) {
         $admin->notify(new NewAppointmentNotification($appointment));
@@ -372,7 +373,6 @@ public function approveAppointment($appointmentId)
     $appointment->status = 'Approved'; 
     $appointment->save();
 
-    // Send notification to the user
     $user = $appointment->user;
     $user->notify(new AppointmentStatusNotification($appointment, 'approved'));
 
@@ -405,5 +405,25 @@ public function showLogs()
     $logs = StudentLog::latest()->with('student')->paginate(10);
 
     return view('admin.home', compact('logs'));
+}
+public function sendDoneEmail(Request $request)
+{
+    $request->validate([
+        'appointment_id' => 'required|exists:appointments,id',
+        'email' => 'required|email',
+        'message' => 'required|string',
+    ]);
+
+    $appointment = Appointment::findOrFail($request->appointment_id);
+    $appointment->status = 'done';
+    $appointment->save();
+
+    Mail::to($request->email)->send(new DoneAppointmentMail($request->message));
+
+    if ($appointment->user) {
+        $appointment->user->notify(new AppointmentStatusNotification($appointment, 'done'));
+    }
+
+    return back()->with('success', 'Email sent and appointment marked as done.');
 }
 }

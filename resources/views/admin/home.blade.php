@@ -253,7 +253,7 @@
                     <h4>Student Logs</h4>
 
                      <!-- 🔍 Search Input -->
-                <input type="text" class="form-control mb-2 search-input" id="studentSearchInput" placeholder="Search student name...">
+                <input type="text" class="form-control mb-2 search-input" style="width:250px;" id="studentSearchInput" placeholder="Search student name">
                       
                 <div class="table-wrapper">
                         <table class="table table-bordered mb-0">

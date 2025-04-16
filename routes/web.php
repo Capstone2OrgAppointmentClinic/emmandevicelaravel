@@ -111,3 +111,5 @@ Route::get('/latest', [HomeController::class, 'latest']);
 Route::get('/studentlogs', [App\Http\Controllers\AdminController::class, 'viewStudentLogs'])->name('studentlogs');
 
 Route::get('/admin/home', [HomeController::class, 'showLogs'])->name('admin.home');
+
+Route::post('/send-done-email', [AdminController::class, 'sendDoneEmail'])->name('appointments.doneEmail');

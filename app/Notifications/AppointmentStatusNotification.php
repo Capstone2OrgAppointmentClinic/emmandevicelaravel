@@ -28,8 +28,14 @@ class AppointmentStatusNotification extends Notification
 
     public function toDatabase($notifiable)
     {
+        if (strtolower($this->status) === 'done') {
+            $message = "Your appointment for {$this->appointment->service} on {$this->appointment->date} at {$this->appointment->time} is done. Thank you!";
+        } else {
+            $message = "Your appointment for {$this->appointment->service} on {$this->appointment->date} at {$this->appointment->time} has been {$this->status}.";
+        }
+    
         return [
-            'message' => "Your appointment for {$this->appointment->service} on {$this->appointment->date} at {$this->appointment->time} has been {$this->status}.",
+            'message' => $message,
             'appointment_id' => $this->appointment->id,
         ];
     }

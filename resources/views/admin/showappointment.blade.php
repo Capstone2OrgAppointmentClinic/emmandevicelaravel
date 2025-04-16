@@ -31,9 +31,24 @@
       <div class="container-fluid w-100 p-5">
         <div class="mt-5">
           <h1 class="text-center text-dark py-3 fw-bold" style="font-size: 2rem; margin: 25px;">Appointments</h1>
+
+          @if(session('success'))
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
+        <div class="toast show bg-success text-white" role="alert">
+            <div class="d-flex">
+                <div class="toast-body">
+                    {{ session('success') }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+@endif
+
+
           <div class="table-responsive">
             <x-input placeholder="Search Name" class="my-4"></x-input>
-            
+
             <table class="table table-bordered text-center w-100">
             <thead style="background-color: #AD1457;" class="text-white">
                 <tr>
@@ -73,8 +88,11 @@
                           case 'canceled':
                             $statusClass = 'bg-danger';
                             break;
-                          case 'in progress':
+                          case 'pending':
                             $statusClass = 'bg-warning text-dark';
+                            break;
+                          case 'done':
+                            $statusClass = 'bg-info text-white';
                             break;
                           case 'rescheduled':
                             $statusClass = 'bg-primary';
@@ -96,7 +114,7 @@
                       </a>
                       <ul class="dropdown-menu w-100" aria-labelledby="rowActionDropdown{{ $appoint->id }}">
                         <li>
-                          <a class="dropdown-item text-success" href="{{ url('approved', $appoint->id) }}" title="Approve">
+                          <a class="dropdown-item text-success" href="{{ url('approved', $appoint->id) }}" title="Approved">
                             <i class="fa fa-check"></i> Approved
                           </a>
                         </li>
@@ -104,6 +122,13 @@
                           <a class="dropdown-item text-danger" href="{{ url('canceled', $appoint->id) }}" title="Cancel">
                             <i class="fas fa-times"></i> Cancel
                           </a>
+                        </li>
+                        <button class="dropdown-item text-success open-done-modal"
+                         data-id="{{ $appoint->id }}"
+                         data-email="{{ $appoint->user->email ?? $appoint->email }}"
+                         data-name="{{ $appoint->user->name ?? $appoint->name }}">
+                        <i class="fas fa-check-double"></i> Done
+                        </button>
                         </li>
                         <li>
                           <a class="dropdown-item text-primary" href="{{ url('emailview', $appoint->id) }}" title="Send Email">
@@ -119,6 +144,69 @@
           </div>
         </div>
       </div>
+<!-- Done Modal -->
+<div class="modal fade" id="doneModal" tabindex="-1" aria-labelledby="doneModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="POST" action="{{ url('send-done-email') }}">
+      @csrf
+      <input type="hidden" name="appointment_id" id="doneAppointmentId">
+      <input type="hidden" name="email" id="doneAppointmentEmail">
+
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #AD1457; color: white;">
+          <h5 class="modal-title" id="doneModalLabel">Send Message</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="doneMessage" class="form-label">Message</label>
+            <textarea class="form-control" name="message"style=" height:250px;" id="doneMessage" rows="4" required></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Send</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+  <style>
+  #doneMessage {
+    background-color: white;
+    color: black;
+    border: 2px solid #AD1457;
+  }
+</style>
+<script>
+  document.querySelectorAll('.open-done-modal').forEach(button => {
+    button.addEventListener('click', () => {
+      const id = button.getAttribute('data-id');
+      const email = button.getAttribute('data-email');
+      const modal = new bootstrap.Modal(document.getElementById('doneModal'));
+
+      document.getElementById('doneAppointmentId').value = id;
+      document.getElementById('doneAppointmentEmail').value = email;
+
+      modal.show();
+    });
+  });
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const toastElement = document.getElementById('success-toast');
+    if (toastElement) {
+      setTimeout(() => {
+        const toast = new bootstrap.Toast(toastElement);
+        toast.hide(); 
+      }, 3000); 
+    }
+  });
+</script>
+
+
 
       <!-- Message Modal -->
       <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">

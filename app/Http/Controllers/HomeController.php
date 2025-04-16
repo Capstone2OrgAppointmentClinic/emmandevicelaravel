@@ -101,7 +101,7 @@ public function appointment(Request $request)
     $data->phone = $request->number;
     $data->message = $request->message;
     $data->service = $request->service;
-    $data->status = 'In progress';
+    $data->status = 'pending';
     $data->user_id = Auth::user()->id;
 
     $data->save();

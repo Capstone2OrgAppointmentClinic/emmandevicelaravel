@@ -159,25 +159,27 @@
                       <td style="padding: 12px; font-size: 18px;">
                 @php $status = strtolower(trim($appoints->status)); 
                 @endphp
-                @if($status == 'in progress')
+                @if($status == 'pending')
                       <span class="badge text-blue-600" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
                 @elseif($status == 'approved')
                      <span class="badge text-green-500" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
                 @elseif($status == 'canceled')
                      <span class="badge text-red-500" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
+                @elseif($status == 'done')
+                     <span class="badge text-white bg-success" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
                 @else
                      <span class="badge text-gray-500" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
                 @endif
                 </td>
                 <td>
-                @if($status == 'in progress')
+                @if($status == 'pending')
                      <button class="btn-lg w-full" onclick="showCancelReasonModal({{ $appoints->id }})" style="font-size: 1.7rem;">
                      <i class="bi bi-x-lg" style="color: red; font-size: 2.3rem;"></i>
                      </button>
                 @endif
                 </td>
                 <td>
-                @if($status == 'in progress' || $status == 'approved' || $status == 'canceled')
+                @if($status == 'pending' || $status == 'approved' || $status == 'canceled')
                     <button class="btn-lg w-full" onclick="showRescheduleModal({{ $appoints->id }})" style="font-size: 1.7rem;">
                     <i class="bi bi-calendar" style="color: #FFA500; font-size: 2.3rem;"></i>
                     </button>
