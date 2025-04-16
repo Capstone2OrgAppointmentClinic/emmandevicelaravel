@@ -205,8 +205,6 @@
     z-index: 2;
     background-color: #f8f9fa;
 }
-
-/* Fix white background */
 .modal-content {
     background-color: #fff;
 }
@@ -218,12 +216,6 @@
     color: #000;
 }
 </style>     
-
-    <!-- container-scroller -->
-    <!-- plugins:js -->
     
-
-    @include('admin.script')
-    <!-- End custom js for this page -->
   </body>
 </html>

@@ -152,7 +152,7 @@
                     <td style="color: #778899;">{{ $appointment->name }}</td>
                     <td style="color: #778899;">{{ $appointment->service }}</td>
                     <td style="color: #778899;">{{ $appointment->date }}</td>
-                    <td style="color: #778899;">{{ $appointment->time }}</td>
+                    <td style="color: #778899;">{{ \Carbon\Carbon::parse($appointment->time)->format('h:i A') }}</td>
                     <td style="color: #778899;">{{ ucfirst($appointment->status) }}</td>
                     <td>
                         <button class="btn btn-primary viewAppointment" 
@@ -216,7 +216,13 @@
             document.getElementById('modalAppPhone').textContent = this.dataset.phone;
             document.getElementById('modalAppService').textContent = this.dataset.service;
             document.getElementById('modalAppDate').textContent = this.dataset.date;
-            document.getElementById('modalAppTime').textContent = this.dataset.time;
+            function formatTo12Hour(timeStr) {
+            let [hours, minutes] = timeStr.split(':');
+            let ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = (hours % 12) || 12;
+            return `${hours}:${minutes} ${ampm}`;
+            }
+            document.getElementById('modalAppTime').textContent = formatTo12Hour(this.dataset.time);
             document.getElementById('modalAppMessage').textContent = this.dataset.message;
             document.getElementById('modalAppStatus').textContent = this.dataset.status;
         });

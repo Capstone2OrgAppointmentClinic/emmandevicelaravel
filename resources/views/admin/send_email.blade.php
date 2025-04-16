@@ -258,10 +258,5 @@
 }
 </style>
 
-
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-    
-    <!-- End custom js for this page -->
   </body>
 </html>

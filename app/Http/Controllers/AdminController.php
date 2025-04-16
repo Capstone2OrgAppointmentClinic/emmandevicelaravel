@@ -394,7 +394,7 @@ public function cancelAppointment($appointmentId)
 public function viewStudentLogs()
 {
     $logs = StudentLog::whereHas('student', function ($query) {
-        $query->where('usertype', 0); // only students
+        $query->where('usertype', 0); 
     })->latest()->with('student')->paginate(10);
 
     return view('admin.studentlogs', compact('logs'));
