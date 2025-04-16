@@ -26,7 +26,7 @@ class DoneAppointmentMail extends Mailable
     public function envelope(): \Illuminate\Mail\Mailables\Envelope
     {
         return new \Illuminate\Mail\Mailables\Envelope(
-            subject: 'Your Appointment is Completed',
+            subject: 'Appointment Done',
         );
     }
 

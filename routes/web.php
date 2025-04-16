@@ -20,7 +20,7 @@ Route::post('/upload_doctor', [AdminController::class, 'upload']);
 
 Route::post('/appointment', [HomeController::class, 'appointment']);
 
-Route::get('/myappointment', [HomeController::class, 'myappointment']);
+Route::get('/myappointment', [HomeController::class, 'myappointment'])->name('my_appointment');
 
 Route::get('/cancel_appoint/{id}', [HomeController::class, 'cancel_appoint']);
 

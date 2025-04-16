@@ -4,7 +4,8 @@
     @include('admin.css')
     @include('admin.script')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="icon" href="{{ asset('assets/img/adminimg/titleicon.ico') }}" type=" image/icon">
+
+    <link rel="icon" href="{{ asset('assets/img/adminimg/titlebaricon.ico') }}" type="image/icon">
 </head>
 <body style="background-color: #FAEBD7;">
     <div class="container-scroller w-full">
@@ -55,7 +56,6 @@
    
     <div id="userTable" style="display: none; margin-top: 20px;">
         <h3 style="margin-left: 12px; color: black; font-size: 32px;" class="flex justify-center w-full items-center">User's Information</h3>
-        <x-input placeholder="Search Student I.D or Name " class=" my-4" style="width:17rem; color: black;"></x-input>
         <div class="table-responsive">
         <table class="table table-striped">
             <thead>

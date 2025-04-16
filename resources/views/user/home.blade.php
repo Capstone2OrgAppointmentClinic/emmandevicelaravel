@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="copyright" content="MACode ID, https://macodeid.com/">
 
-  <link rel="icon" href="{{ asset('assets/img/adminimg/titleicon.ico') }}" type=" image/icon">
+  <link rel="icon" href="{{ asset('assets/img/adminimg/titlebaricon.ico') }}" type=" image/icon">
   <title>SVFC CliniQuickAid Appointment System</title>
 
   <link rel="stylesheet" href="../assets/css/maicons.css">

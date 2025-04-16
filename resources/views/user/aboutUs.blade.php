@@ -8,13 +8,19 @@
 
   <title>CliniQuickAid</title>
 
+  <link rel="icon" href=" {{ asset('assets/img/adminimg/titlebaricon.ico') }}" type="image/icon">
+
   <link rel="stylesheet" href="../assets/css/maicons.css" />
   <link rel="stylesheet" href="../assets/css/bootstrap.css" />
   <link rel="stylesheet" href="../assets/vendor/owl-carousel/css/owl.carousel.css" />
   <link rel="stylesheet" href="../assets/vendor/animate/animate.css" />
   <link rel="stylesheet" href="../assets/css/theme.css" />
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
+    
+    
+
+    
     html, body {
       height: 100%;
       margin: 0;
@@ -172,7 +178,7 @@
             </button>
 
             <div class="" id="navbarSupport">
-              <ul class="navbar-nav ml-auto">
+              <ul class="navbar-nav ml-auto nav-menu">
                 <li class="nav-item"><a class="nav-link" href="{{url('/')}}">Home</a></li>
                 <li class="nav-item active"><a class="nav-link" href="{{ url('aboutUs') }}">About us</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{url('announcement')}}">Announcements</a></li>
@@ -281,5 +287,85 @@
       if (e.target === modal) modal.style.display = 'none';
     });
   </script>
+
+<style>
+.nav-menu {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.nav-menu .nav-item {
+  position: relative;
+  z-index: 2;
+}
+
+.nav-menu .nav-link {
+  display: inline-block;
+  padding: 10px 20px;
+  color: white;
+  transition: color 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+.nav-menu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--left, 0px);
+  width: var(--width, 0px);
+  height: 100%;
+  background-color: #00D9A5;
+  border-radius: 12px;
+  z-index: 1;
+  opacity: 0.85;
+  transform: scaleX(0.8);
+  transition:
+    left 0.3s ease,
+    width 0.3s ease,
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+.nav-menu:hover::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.nav-menu .nav-item.active .nav-link {
+  font-weight: bold;
+  color: gray;
+}
+
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const navMenu = document.querySelector('.nav-menu');
+    const items = navMenu.querySelectorAll('.nav-item');
+    const activeItem = navMenu.querySelector('.nav-item.active');
+
+    function moveIndicator(target) {
+        const rect = target.getBoundingClientRect();
+        const parentRect = navMenu.getBoundingClientRect();
+        navMenu.style.setProperty('--left', `${target.offsetLeft}px`);
+        navMenu.style.setProperty('--width', `${target.offsetWidth}px`);
+    }
+    if (activeItem) {
+        moveIndicator(activeItem);
+    }
+
+    items.forEach(item => {
+        if (item.classList.contains('login') || item.classList.contains('register')) {
+            return;
+        }
+
+        item.addEventListener('mouseenter', () => moveIndicator(item));
+    });
+
+    navMenu.addEventListener('mouseleave', () => {
+        if (activeItem) moveIndicator(activeItem);
+    });
+});
+</script>
 </body>
 </html>

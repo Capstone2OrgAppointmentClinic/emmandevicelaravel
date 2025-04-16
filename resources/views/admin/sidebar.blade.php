@@ -1,4 +1,10 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar" style="background-color: #AD1457 ;">
+<li class="nav-item menu-items" style=" list-style: none; margin: 20px -10px -40px -10px;>
+            <a class="nav-link" href="{{url(path: 'home')}}">
+
+             <img src="{{ asset('assets/img/person/svfctrans.png') }}" alt="">
+            </a>
+          </li>
 
         
         <ul class="nav" style="position: fixed;">
