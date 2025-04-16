@@ -1,6 +1,7 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_navbar.html -->
-        <nav class="navbar p-0 fixed-top d-flex flex-row" style="background-color: #AD1457;">
+        <nav class="navbar p-0 fixed-top d-flex flex-row" style="background-color: gray;">
           
           <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch" >
             <button class="navbar-toggler navbar-toggler align-self-center mt-2" type="button" data-toggle="minimize">
@@ -9,17 +10,17 @@
             <nav class="navbar-nav navbar-nav-right">
                 <li class="nav-item nav-settings d-none d-lg-block">
                 <a class="nav-link" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
-                <img src="{{ asset('assets/img/blog/facebook.png') }}" alt="Facebook" style="height: 24px;">
+               <i class="bi bi-facebook" style="color: #1877F2; font-size: 1.8rem;"></i>
             </a>
             </li>
             <li class="nav-item nav-settings d-none d-lg-block">
                 <a class="nav-link" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
-                <img src="{{ asset('assets/img/blog/youtube.png') }}" alt="Youtube" style="height: 24px;">
+                <i class="bi bi-youtube" style="color: red; font-size: 2.1rem;"></i>
                 </a>
             </li>
             <li class="nav-item nav-settings d-none d-lg-block">
                 <a class="nav-link" href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox" target="_blank" rel="noopener noreferrer">
-                <img src="{{ asset('assets/img/blog/gmail.png') }}" alt="Gmail" style="height: 24px;">
+                <i class="bi bi-envelope-fill" style="color: orange; font-size: 2rem;"></i>
                 </a>
             </li>
             <li class="nav-item dropdown">
