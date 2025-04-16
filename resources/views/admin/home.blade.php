@@ -3,6 +3,8 @@
 <head>
     @include('admin.css')
     @include('admin.script')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="{{ asset('assets/img/adminimg/titleicon.ico') }}" type=" image/icon">
 </head>
 <body style="background-color: #FAEBD7;">
     <div class="container-scroller w-full">
@@ -11,7 +13,6 @@
 
        
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
       <div class="main-panel w-full">
          <div class="content-wrapper flex flex-col " style="background-color: #FAEBD7;">
@@ -53,25 +54,28 @@
     @include('admin.buttoncss')
    
     <div id="userTable" style="display: none; margin-top: 20px;">
-    <h3 style="margin-left: 12px; color: black;">User's Information</h3>
+        <h3 style="margin-left: 12px; color: black; font-size: 32px;" class="flex justify-center w-full items-center">User's Information</h3>
+        <x-input placeholder="Search Student I.D or Name " class=" my-4" style="width:17rem; color: black;"></x-input>
+        <div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Student Name</th>
-                    <th>Email</th>
-                    <th>Student ID</th>
-                    <th>Year Level</th> 
-                    <th>Status</th>
+                    <th  style="width: 50px; word-wrap: break-word; white-space: normal;">Student Name</th>
+                    <th style="width: 50px; word-wrap: break-word; white-space: normal;">Email</th>
+                    <th style="width: 50px; word-wrap: break-word; white-space: normal;">Student ID</th>
+                    <th style="width: 50px; word-wrap: break-word; white-space: normal;">Year Level</th> 
+                    <th style="width: 50px; word-wrap: break-word; white-space: normal;">Status</th>
+                   
                 </tr>
             </thead>
             <tbody>
                 @foreach($users as $user)
                     <tr>
-                        <td style="color: #778899;">{{ $user->name }}</td>
-                        <td style="color: #778899;">{{ $user->email }}</td>
-                        <td style="color: #778899;">{{ $user->student_id }}</td>
-                        <td style="color: #778899;">{{ $user->year_level }}</td>
-                        <td>
+                        <td style="color: black;" style="width: 50px; word-wrap: break-word; white-space: normal;">{{ $user->name }}</td>
+                        <td style="color: black;" style="width: 50px; word-wrap: break-word; white-space:normal;">{{ $user->email }}</td>
+                        <td style="color: black;" style="width: 50px; word-wrap: break-word; white-space: normal;">{{ $user->student_id }}</td>
+                        <td style="color: black;" style="width: 50px; word-wrap: break-word; white-space: normal;">{{ $user->year_level }}</td>
+                        <td >
                         <button class="btn btn-primary viewUser" 
                          data-name="{{ $user->name}}" 
                          data-email="{{ $user->email}}" 
@@ -84,15 +88,16 @@
                          data-bs-toggle="modal" data-bs-target="#viewUserModal">
                          View
                         </button>
-                        <a href="{{ url('/editUser', $user->id) }}" class="btn btn-warning">Edit</a>
+                        <a href="{{ url('/editUser', $user->id) }}" class="btn btn-warning">Update</a>
                         <a class="btn btn-danger" onclick="return confirm('are you sure to delete this')" href="{{url('deleteUser',$user->id)}}">Delete</a>
                         </td>
+                     
                     </tr>
                   @endforeach
                </tbody>
             </table>
          </div>
-
+</div>
         <script>
         document.getElementById('toggleUsers').addEventListener('click', function() {
         let userTable = document.getElementById('userTable');
