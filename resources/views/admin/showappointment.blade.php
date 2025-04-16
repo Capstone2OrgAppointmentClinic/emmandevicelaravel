@@ -195,7 +195,7 @@
       const email = button.getAttribute('data-email');
       const modal = new bootstrap.Modal(document.getElementById('doneModal'));
 
-      document.getElementById('doneAppointmentId').value = id;
+      document.getElementById('doneAppointmentid').value = id;
       document.getElementById('doneAppointmentEmail').value = email;
 
       modal.show();

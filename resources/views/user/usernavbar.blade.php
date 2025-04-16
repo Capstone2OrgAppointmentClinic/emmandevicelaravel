@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <a class="dropdown-item preview-item" href="{{ route('markAsRead', $notification->id) }}">
                             <div class="preview-item-content">
                                 <p class="preview-subject mb-1">
-                                    {{ $notification->data['message'] }}
+                                    {{ $notification->data['message'] ?? 'You have a new notification.' }}
                                 </p>
                             </div>
                         </a>
