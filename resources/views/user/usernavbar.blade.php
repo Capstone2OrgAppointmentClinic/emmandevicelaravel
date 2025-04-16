@@ -1,8 +1,87 @@
+<style>
+.nav-menu {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.nav-menu .nav-item {
+  position: relative;
+  z-index: 2;
+}
+
+.nav-menu .nav-link {
+  display: inline-block;
+  padding: 10px 20px;
+  color: white;
+  transition: color 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+.nav-menu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--left, 0px);
+  width: var(--width, 0px);
+  height: 100%;
+  background-color: #00D9A5;
+  border-radius: 12px;
+  z-index: 1;
+  opacity: 0.85;
+  transform: scaleX(0.8);
+  transition:
+    left 0.3s ease,
+    width 0.3s ease,
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+.nav-menu:hover::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.nav-menu .nav-item.active .nav-link {
+  font-weight: bold;
+  color: gray;
+}
+
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const navMenu = document.querySelector('.nav-menu');
+    const items = navMenu.querySelectorAll('.nav-item');
+    const activeItem = navMenu.querySelector('.nav-item.active');
+
+    function moveIndicator(target) {
+        const rect = target.getBoundingClientRect();
+        const parentRect = navMenu.getBoundingClientRect();
+        navMenu.style.setProperty('--left', `${target.offsetLeft}px`);
+        navMenu.style.setProperty('--width', `${target.offsetWidth}px`);
+    }
+    if (activeItem) {
+        moveIndicator(activeItem);
+    }
+
+    items.forEach(item => {
+        if (item.classList.contains('login') || item.classList.contains('register')) {
+            return;
+        }
+
+        item.addEventListener('mouseenter', () => moveIndicator(item));
+    });
+
+    navMenu.addEventListener('mouseleave', () => {
+        if (activeItem) moveIndicator(activeItem);
+    });
+});
+</script>
 <nav class="navbar navbar-expand-lg navbar-light shadow-sm bg-light">
         <div class="container">
             <img src="../assets/img/person/svfctrans.png" alt="logo" style="width:auto; height: 60px;" />
             <a class="navbar-brand" href="{{url('/')}}">
-                <span class="text-primary"><span style="color:#f204f2;">Clini</span></span>-QuickAid
+                <span class="text-primary"><span style="color: #f204f2;">Clini</span></span>-QuickAid
             </a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupport"
@@ -11,7 +90,7 @@
             </button>
 
             <div class="" id="navbarSupport">
-                <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto nav-menu">
                     <li class="nav-item active"><a class="nav-link" href="{{url('/')}}">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('aboutUs') }}">About us</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{url('announcement')}}">Announcements</a></li>
@@ -94,22 +173,18 @@
     }
 
 </style>
-
 <!-- Add Bootstrap JS and Popper.js -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-
-
-
                     <x-app-layout>
 
                     </x-app-layout>
                     @else
-                    <li class="nav-item">
+                    <li class="nav-item login">
                         <a class="btn btn-primary ml-lg-3" href="{{route('login')}}"
                             style="background-color: #f204f2;">Login</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item register">
                         <a class="btn btn-primary ml-lg-3" href="{{route('register')}}"
                             style="background-color: #f204f2;">Register</a>
                     </li>
@@ -119,3 +194,19 @@
             </div>
         </div>
     </nav>
+<style>
+.nav-item .btn.btn-primary {
+    background-color: transparent !important;
+    border: 2px solid #f204f2 !important;
+    color: gray !important;
+    font-weight: bold;
+    padding: 10px 20px;
+    text: none !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-item .btn.btn-primary:hover {
+    background-color: #f204f2 !important;
+    color: gray !important;
+}
+</style>

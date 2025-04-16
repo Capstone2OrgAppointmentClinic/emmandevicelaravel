@@ -1,4 +1,4 @@
-<div class="page-section" style="background-color: antiquewhite;">
+<div class="page-section" style="background-color: antiquewhite; height: 800px;">
 <style>
   .card-img-container {
     position: relative;
@@ -55,10 +55,10 @@
 </style>
 
 <div class="container py-5">
-  <h2 class="text-center mb-4">Announcements</h2>
+<h2 class="text-center mb-3">Announcements</h2>
 
 
-  @php
+@php
 $chunks = $announcements->chunk(3);
 @endphp
 
