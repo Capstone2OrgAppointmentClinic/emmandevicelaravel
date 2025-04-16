@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  <link rel="icon" href="{{ asset('assets/img/adminimg/titleicon.ico') }}" type=" image/icon">
+  <link rel="icon" href="{{ asset('assets/img/adminimg/titlebaricon.ico') }}" type=" image/icon">
     <!-- Required meta tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     

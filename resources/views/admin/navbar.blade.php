@@ -15,7 +15,7 @@
             </li>
             <li class="nav-item nav-settings d-none d-lg-block">
                 <a class="nav-link" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
-                <i class="bi bi-youtube" style="color: darkred; font-size: 2.1rem;"></i>
+                <i class="bi bi-youtube" style="color: red; font-size: 2.1rem;"></i>
                 </a>
             </li>
             <li class="nav-item nav-settings d-none d-lg-block">
