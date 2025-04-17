@@ -31,7 +31,7 @@
       <!-- partial -->
       <div class="container-fluid w-100 p-5">
         <div class="mt-5">
-
+          
 @if(session('success'))
     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
         <div id="autoDismissToast" class="toast align-items-center text-white bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
