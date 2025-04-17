@@ -370,9 +370,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </script>
 
-
-
-
 <script src="../assets/js/jquery-3.5.1.min.js"></script>
 
 <script src="../assets/js/bootstrap.bundle.min.js"></script>
@@ -384,6 +381,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="../assets/js/theme.js"></script>
 
 @include('user.calendar')
+
 @guest
 <style>
 .nav-menu {
@@ -432,9 +430,8 @@ document.addEventListener('DOMContentLoaded', function () {
 .nav-menu .nav-item.active .nav-link {
   font-weight: bold;
   color: gray;
-}gguest
+}
 </style>
-@endguest
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const navMenu = document.querySelector('.nav-menu');
@@ -462,7 +459,8 @@ document.addEventListener('DOMContentLoaded', function () {
     navMenu.addEventListener('mouseleave', () => {
         if (activeItem) moveIndicator(activeItem);
     });
-})endguest
+})
 </script>
+@endguest
 </body>
 </html>
