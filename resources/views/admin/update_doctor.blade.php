@@ -303,6 +303,5 @@
 }
 </style>
 
-    @include('admin.script')
 </body>
 </html>

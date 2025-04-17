@@ -197,10 +197,10 @@
                     <x-app-layout></x-app-layout>
 
                   @else
-                    <li class="nav-item">
+                    <li class="nav-item login">
                       <a class="btn btn-primary ml-lg-3" href="{{route('login')}}" style="background-color: #f204f2;">Login</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item register">
                       <a class="btn btn-primary ml-lg-3" href="{{route('register')}}" style="background-color: #f204f2;">Register</a>
                     </li>
                   @endauth
@@ -287,7 +287,7 @@
       if (e.target === modal) modal.style.display = 'none';
     });
   </script>
-
+@guest
 <style>
 .nav-menu {
   position: relative;
@@ -338,6 +338,7 @@
 }
 
 </style>
+@endguest
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const navMenu = document.querySelector('.nav-menu');
@@ -367,5 +368,22 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
+<style>
+.nav-item .btn.btn-primary {
+    background-color: transparent !important;
+    border: 2px solid #f204f2 !important;
+    color: gray !important;
+    font-weight: bold;
+    padding: 10px 20px;
+    text: none !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-item .btn.btn-primary:hover {
+    background-color: #f204f2 !important;
+    color: gray !important;
+}
+</style>
+
 </body>
 </html>

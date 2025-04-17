@@ -342,6 +342,5 @@ window.onload = updateYearOptions;
 }
 </style>
 
-    @include('admin.script')
 </body>
 </html>

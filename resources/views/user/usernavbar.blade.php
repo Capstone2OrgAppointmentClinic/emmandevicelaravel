@@ -103,25 +103,25 @@ document.addEventListener('DOMContentLoaded', function () {
                     @if(Route::has('login'))
                     @auth
                     
-     <!-- Appointment -->
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="{{ url('myappointment') }}">Appointment</a>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="{{ route('user.usercalendar') }}">Calendar</a></li>
-    </ul>
-</li>
+                    <!-- Appointment -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{{ url('myappointment') }}">Appointment</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ route('user.usercalendar') }}">Calendar</a></li>
+                    </ul>
+                </li>
 
-<!-- Notification -->
-<li class="nav-item">
-    <a class="nav-link count-indicator" id="notificationLink" href="#" aria-expanded="false" data-bs-toggle="modal" data-bs-target="#notificationModal">
-        <i class="fas fa-bell" style="font-size: 16px;"></i>
-        @if(auth()->user()->unreadNotifications->count() > 0)
-            <span class="count " style="font-size: 10px; padding: 5px 5px;">
-                {{ auth()->user()->unreadNotifications->count() }}
-            </span>
-        @endif
-    </a>
-</li>
+                <!-- Notification -->
+                <li class="nav-item">
+                    <a class="nav-link count-indicator" id="notificationLink" href="#" aria-expanded="false" data-bs-toggle="modal" data-bs-target="#notificationModal">
+                        <i class="fas fa-bell" style="font-size: 16px;"></i>
+                        @if(auth()->user()->unreadNotifications->count() > 0)
+                            <span class="count " style="font-size: 10px; padding: 5px 5px;">
+                                {{ auth()->user()->unreadNotifications->count() }}
+                            </span>
+                        @endif
+                    </a>
+                </li>
 
 <!-- Modal to display notifications -->
 <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">

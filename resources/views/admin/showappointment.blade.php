@@ -101,11 +101,14 @@
                           case 'done':
                             $statusClass = 'bg-info text-white';
                             break;
-                          case 'rescheduled':
+                          case 'in process':
+                            $statusClass = 'bg-secondary';
+                            break;
+                          case 'reschedule':
                             $statusClass = 'bg-primary';
                             break;
                           default:
-                            $statusClass = 'bg-secondary';
+                            $statusClass = 'bg-dark';
                             break;
                         }
                       @endphp
@@ -116,13 +119,19 @@
                     </td>
 
                     <td class="text-center dropdown">
-                      <a class="btn btn-outline-dark dropdown-toggle w-100" href="#" role="button" id="rowActionDropdown{{ $appoint->id }}" data-bs-toggle="dropdown" aria-expanded="false">
-                        Choose
-                      </a>
-                      <ul class="dropdown-menu w-100" aria-labelledby="rowActionDropdown{{ $appoint->id }}">
+                    @php
+                    $status = strtolower($appoint->status);
+                    @endphp
+
+                  @if(in_array($status, ['pending', 'approved', 'reschedule', 'rescheduled', 'in process', 'done']))
+                    <a class="btn btn-outline-dark dropdown-toggle w-100" href="#" role="button" id="rowActionDropdown{{ $appoint->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                      Choose
+                    </a>
+                    <ul class="dropdown-menu w-100" aria-labelledby="rowActionDropdown{{ $appoint->id }}">
+                      @if(in_array($status, ['pending', 'reschedule', 'rescheduled']))
                         <li>
-                          <a class="dropdown-item text-success" href="{{ url('approved', $appoint->id) }}" title="Approved">
-                            <i class="fa fa-check"></i> Approved
+                          <a class="dropdown-item text-success" href="{{ url('approved', $appoint->id) }}" title="Approve">
+                            <i class="fa fa-check"></i> Approve
                           </a>
                         </li>
                         <li>
@@ -130,21 +139,34 @@
                             <i class="fas fa-times"></i> Cancel
                           </a>
                         </li>
+                      @endif
+                      @if(in_array($status, ['pending', 'approved', 'reschedule', 'rescheduled']))
                         <li>
-                         <button type="button" class="dropdown-item text-success open-done-modal"
-                          data-id="{{ $appoint->id }}"
-                          data-email="{{ $appoint->user->email ?? $appoint->email }}"
-                          data-name="{{ $appoint->user->name ?? $appoint->name }}">
-                         <i class="fa-solid fa-circle-check"></i> Done
-                         </button>
-                       </li>
-                        <li>
-                          <a class="dropdown-item text-primary" href="{{ url('emailview', $appoint->id) }}" title="Send Email">
-                            <i class="fas fa-envelope"></i> Send Mail
+                          <a class="dropdown-item text-info" href="{{ url('process', $appoint->id) }}" title="In Process">
+                            <i class="fas fa-spinner"></i> In Process
                           </a>
                         </li>
-                      </ul>
-                    </td>
+                      @endif
+                      @if(in_array($status, ['pending', 'approved', 'reschedule', 'rescheduled', 'in process']))
+                        <li>
+                          <button type="button" class="dropdown-item text-success open-done-modal"
+                            data-id="{{ $appoint->id }}"
+                            data-email="{{ $appoint->user->email ?? $appoint->email }}"
+                            data-name="{{ $appoint->user->name ?? $appoint->name }}">
+                            <i class="fa-solid fa-circle-check"></i> Done
+                          </button>
+                        </li>
+                      @endif
+                      <li>
+                        <a class="dropdown-item text-primary" href="{{ url('emailview', $appoint->id) }}" title="Send Email">
+                          <i class="fas fa-envelope"></i> Send Mail
+                        </a>
+                      </li>
+                    </ul>
+                  @else
+                    <span class="text-muted"></span>
+                  @endif
+                    </td>         
                   </tr>
                 @endforeach
               </tbody>
@@ -152,11 +174,11 @@
           </div>
         </div>
       </div>
-      
+
 @include('admin.ModalDone')
       
 <!-- Message Modal -->
-      <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+      <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -176,7 +198,228 @@
       </div>
     </div>
 
-@include('admin.logshistory')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $(".view-message").click(function(){
+            var message = $(this).data("message");
+            $("#messageContent").text(message);
+            $("#messageModal").modal("show");
+        });
+    });
+    </script>
+<script>
+    $(document).on("click", ".viewUser", function(){
+        $("#modalUserName").text($(this).data("name"));
+        $("#modalUserEmail").text($(this).data("email"));
+        $("#modalUserPhone").text($(this).data("phone"));
+        $("#modalUserAddress").text($(this).data("address"));
+        $("#modalUserCourse").text($(this).data("course"));
+        $("#modalStudentId").text($(this).data("student-id"));
+        $("#modalEducation").text($(this).data("education"));
+        $("#modalYear").text($(this).data("year"));
+    });
+</script>
+
+<!-- Logs History Modal -->
+<div class="modal fade" id="logsModal" tabindex="-1" aria-labelledby="logsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" style="max-width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-between align-items-center">
+                <h5 class="modal-title" id="logsModalLabel">Logs History</h5>
+                <div class="btn-group" style="padding-left:20px;">
+                    <button class="btn btn-sm btn-outline-primary" id="showStudentLogsBtn">Student Logs</button>
+                    <button class="btn btn-sm btn-outline-success" id="showAdminLogsBtn">Admin Logs</button>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Student Logs Section -->
+                <div id="studentLogsSection">
+                    <h4>Student Logs</h4>
+
+                     <!-- 🔍 Search Input -->
+                <input type="text" class="form-control mb-2 search-input" style="width:250px;" id="studentSearchInput" placeholder="Search student name">
+                      
+                <div class="table-wrapper">
+                        <table class="table table-bordered mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>Login Time</th>
+                                    <th>Logout Time</th>
+                                </tr>
+                            </thead>
+                            <tbody class="scrollable-tbody">
+                                @foreach($logs->where('student.usertype', 0) as $log)
+                                    <tr>
+                                        <td>{{ $log->student->name }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($log->login_at)->format('Y-m-d h:i A') }}</td>
+                                        <td>{{ $log->logout_at ? \Carbon\Carbon::parse($log->logout_at)->format('Y-m-d h:i A') : '—' }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Admin Logs Section -->
+                <div id="adminLogsSection" style="display: none;">
+                    <h4>Admin Logs</h4>
+                
+                <!-- 🔍 Search Input -->
+                <input type="text" class="form-control mb-2 search-input" id="adminSearchInput" style="width:250px;" placeholder="Search admin name...">
+ 
+                    <div class="table-wrapper">
+                        <table class="table table-bordered mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Admin Name</th>
+                                    <th>Login Time</th>
+                                    <th>Logout Time</th>
+                                </tr>
+                            </thead>
+                            <tbody class="scrollable-tbody">
+                                @foreach($logs->where('student.usertype', '!=', 0) as $log)
+                                    <tr>
+                                        <td>{{ $log->student->name }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($log->login_at)->format('Y-m-d h:i A') }}</td>
+                                        <td>{{ $log->logout_at ? \Carbon\Carbon::parse($log->logout_at)->format('Y-m-d h:i A') : '—' }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-3">
+                    {{ $logs->appends(['logs' => 1])->links() }}
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const studentBtn = document.getElementById("showStudentLogsBtn");
+    const adminBtn = document.getElementById("showAdminLogsBtn");
+    const studentSection = document.getElementById("studentLogsSection");
+    const adminSection = document.getElementById("adminLogsSection");
+
+    studentBtn.addEventListener("click", () => {
+        studentSection.style.display = "block";
+        adminSection.style.display = "none";
+    });
+
+    adminBtn.addEventListener("click", () => {
+        studentSection.style.display = "none";
+        adminSection.style.display = "block";
+    });
+
+    const studentSearchInput = document.getElementById("studentSearchInput");
+    studentSearchInput.addEventListener("keyup", function () {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll("#studentLogsSection table tbody tr");
+        rows.forEach(row => {
+            const nameCell = row.querySelector("td");
+            if (nameCell && nameCell.textContent.toLowerCase().includes(filter)) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    });
+
+    const adminSearchInput = document.getElementById("adminSearchInput");
+    adminSearchInput.addEventListener("keyup", function () {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll("#adminLogsSection table tbody tr");
+        rows.forEach(row => {
+            const nameCell = row.querySelector("td");
+            if (nameCell && nameCell.textContent.toLowerCase().includes(filter)) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    });
+});
+</script>
+
+
+@if(request()->has('logs'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var logsModal = new bootstrap.Modal(document.getElementById('logsModal'));
+            logsModal.show();
+
+            if (window.history.replaceState) {
+                const url = new URL(window.location);
+                url.searchParams.delete('logs');
+                window.history.replaceState({}, document.title, url.pathname + url.search);
+            }
+        });
+    </script>
+@endif
+
+<style>
+.table-wrapper {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.scrollable-tbody {
+    display: block;
+    overflow-y: auto;
+}
+
+.scrollable-tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.table thead,
+.table tbody tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+
+.table thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: #f8f9fa;
+}
+
+.modal-content,
+.modal-header,
+.modal-body,
+.modal-footer {
+    background-color: #fff;
+    color: #000;
+}
+.search-input {
+    color: black;
+    background-color: white;
+    border: 1px solid #ccc;
+}
+
+.search-input:focus {
+    background-color: white;
+    color: black;
+    border-color: gray;
+    box-shadow: none;
+}
+</style>
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {

@@ -12,9 +12,6 @@
         @include('admin.sidebar')
         @include('admin.navbar')
 
-       
-
-
       <div class="main-panel w-full">
          <div class="content-wrapper flex flex-col " style="background-color: #FAEBD7;">
      <div class="justify-center p-6 flex-wrap gap-4 md:flex-row md:items-center">
@@ -31,15 +28,15 @@
          </button>
 
         <!-- Appointment Button Box -->
-<button id="toggleAppointment" class="btn box-btn" style="height: auto; width: 260px; padding: 20px 30px; margin: 15px; background-color: #AD1457; color: white; border-radius: 15px; border: none; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
-    <div class="btn-content" style="display: flex; align-items: center; justify-content: space-between;">
-        <i class="fas fa-calendar-check" style="font-size: 40px;"></i>
-        <div style="text-align: right;">
-            <h3 style="font-size: 24px; font-weight: 600; margin: 0;">Appointment</h3>
-            <p style="font-size: 32px; font-weight: 700; margin: 5px 0;">{{ count($appointments ?? []) }}</p>
-        </div>
-    </div>
-</button>
+        <button id="toggleAppointment" class="btn box-btn" style="height: auto; width: 260px; padding: 20px 30px; margin: 15px; background-color: #AD1457; color: white; border-radius: 15px; border: none; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
+            <div class="btn-content" style="display: flex; align-items: center; justify-content: space-between;">
+                <i class="fas fa-calendar-check" style="font-size: 40px;"></i>
+                <div style="text-align: right;">
+                    <h3 style="font-size: 24px; font-weight: 600; margin: 0;">Appointment</h3>
+                    <p style="font-size: 32px; font-weight: 700; margin: 5px 0;">{{ count($appointments ?? []) }}</p>
+                </div>
+            </div>
+        </button>
 
          <!-- Availability Button Box -->
          <button id="toggleAvailability" class="btn box-btn" style="height: auto; width: 260px; padding: 20px 30px; margin: 15px; background-color: #AD1457; color: white; border-radius: 15px; border: none; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
@@ -60,45 +57,78 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th  style="width: 50px; word-wrap: break-word; white-space: normal;">Student Name</th>
-                    <th style="width: 50px; word-wrap: break-word; white-space: normal;">Email</th>
-                    <th style="width: 50px; word-wrap: break-word; white-space: normal;">Student ID</th>
-                    <th style="width: 50px; word-wrap: break-word; white-space: normal;">Year Level</th> 
-                    <th style="width: 50px; word-wrap: break-word; white-space: normal;">Status</th>
-                   
+                    <th>Student Name</th>
+                    <th>Email</th>
+                    <th>Student ID</th>
+                    <th>Year Level</th> 
+                    <th>Status</th>       
                 </tr>
             </thead>
             <tbody>
                 @foreach($users as $user)
                     <tr>
-                        <td style="color: black;" style="width: 50px; word-wrap: break-word; white-space: normal;">{{ $user->name }}</td>
-                        <td style="color: black;" style="width: 50px; word-wrap: break-word; white-space:normal;">{{ $user->email }}</td>
-                        <td style="color: black;" style="width: 50px; word-wrap: break-word; white-space: normal;">{{ $user->student_id }}</td>
-                        <td style="color: black;" style="width: 50px; word-wrap: break-word; white-space: normal;">{{ $user->year_level }}</td>
-                        <td >
-                        <button class="btn btn-primary viewUser" 
-                         data-name="{{ $user->name}}" 
-                         data-email="{{ $user->email}}" 
-                         data-phone="{{ $user->phone}}" 
-                         data-address="{{ $user->address}}"
-                         data-course="{{ $user->course}}" 
-                         data-student-id="{{ $user->student_id}}"
-                         data-education="{{ ucfirst($user->education_level)}}"
-                         data-year="{{ $user->year_level}}"
-                         data-bs-toggle="modal" data-bs-target="#viewUserModal">
-                         View
-                        </button>
-                        <a href="{{ url('/editUser', $user->id) }}" class="btn btn-warning">Update</a>
-                        <a class="btn btn-danger" onclick="return confirm('are you sure to delete this')" href="{{url('deleteUser',$user->id)}}">Delete</a>
-                        </td>
-                     
-                    </tr>
-                  @endforeach
-               </tbody>
-            </table>
-         </div>
-       </div>
-        <script>
+                    <td class="cell-text">{{ $user->name }}</td>
+                    <td class="cell-text">{{ $user->email }}</td>
+                    <td class="cell-text">{{ $user->student_id }}</td>
+                    <td class="cell-text">{{ $user->year_level }}</td>
+                <td>
+                <div class="action-buttons">
+                    <button class="btn btn-primary btn-sm viewUser"
+                        data-name="{{ $user->name }}" 
+                        data-email="{{ $user->email }}" 
+                        data-phone="{{ $user->phone }}" 
+                        data-address="{{ $user->address }}"
+                        data-course="{{ $user->course }}" 
+                        data-student-id="{{ $user->student_id }}"
+                        data-education="{{ ucfirst($user->education_level) }}"
+                        data-year="{{ $user->year_level }}"
+                        data-bs-toggle="modal" data-bs-target="#viewUserModal">
+                        View
+                    </button>
+                    <a href="{{ url('/editUser', $user->id) }}" class="btn btn-warning btn-sm">Update</a>
+                    <a class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete this?')" href="{{ url('deleteUser', $user->id) }}">Delete</a>
+                    <a href="#" class="btn btn-info btn-sm">
+                        <i class="fas fa-history"></i>
+                    </a>
+                </div>
+            </td>  
+        </tr>
+       @endforeach
+    </tbody>
+  </table>
+</div>
+</div>
+<style>
+    table {
+        table-layout: fixed;
+        width: 120%;
+    }
+
+    th, td {
+        padding: 5px 4px;
+        text-align: center;
+        vertical-align: middle;
+        color: black;
+    }
+
+    th:nth-child(1), td:nth-child(1), 
+    th:nth-child(4), td:nth-child(4) 
+    {
+        width: 140px; 
+    }
+
+    .cell-text {
+        word-break: break-word;
+        white-space: normal;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 5px;
+        justify-content: flex-start;
+    }
+</style>
+<script>
         document.getElementById('toggleUsers').addEventListener('click', function() {
         let userTable = document.getElementById('userTable');
         let userCount = this.getAttribute('data-user-count')
@@ -233,7 +263,6 @@
         });
     });
 </script>
-
 <!-- Logs History Modal -->
 <div class="modal fade" id="logsModal" tabindex="-1" aria-labelledby="logsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" style="max-width: 90%;">
@@ -277,13 +306,13 @@
                     </div>
                 </div>
 
-                <!-- Admin Logs Section (Hidden by default) -->
+                <!-- Admin Logs Section -->
                 <div id="adminLogsSection" style="display: none;">
                     <h4>Admin Logs</h4>
                 
                 <!-- 🔍 Search Input -->
-                <input type="text" class="form-control mb-2 search-input" id="adminSearchInput" placeholder="Search admin name...">
-
+                <input type="text" class="form-control mb-2 search-input" id="adminSearchInput" style="width:250px;" placeholder="Search admin name...">
+ 
                     <div class="table-wrapper">
                         <table class="table table-bordered mb-0">
                             <thead class="table-light">
@@ -363,7 +392,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
 </script>
 
 
@@ -433,6 +461,30 @@ document.addEventListener("DOMContentLoaded", function () {
     box-shadow: none;
 }
 </style>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('searchInput');
+
+    searchInput.addEventListener('input', function () {
+      const filter = searchInput.value.toLowerCase();
+      const rows = document.querySelectorAll('table tbody tr');
+
+      rows.forEach(row => {
+        const statusCell = row.querySelector('td:nth-child(7)');
+        if (statusCell) {
+          const statusText = statusCell.textContent.toLowerCase();
+          if (statusText.includes(filter)) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        }
+      });
+    });
+  });
+</script>
 
 </body>
 </html>

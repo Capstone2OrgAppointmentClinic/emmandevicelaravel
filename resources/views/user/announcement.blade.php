@@ -21,17 +21,92 @@
   <link rel="stylesheet" href="../assets/css/theme.css">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
- 
-<<<<<<< HEAD
+  @guest
 <style>
-=======
-  <link rel="icon" href="{{ asset('assets/img/adminimg/titlebaricon.ico') }}" type="image/icon">
-  <style>
->>>>>>> 902e8e068daed5e6fdba9a709fc80551112c2676
+.nav-menu {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.nav-menu .nav-item {
+  position: relative;
+  z-index: 2;
+}
+
+.nav-menu .nav-link {
+  display: inline-block;
+  padding: 10px 20px;
+  color: white;
+  transition: color 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+.nav-menu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--left, 0px);
+  width: var(--width, 0px);
+  height: 100%;
+  background-color: #00D9A5;
+  border-radius: 12px;
+  z-index: 1;
+  opacity: 0.85;
+  transform: scaleX(0.8);
+  transition:
+    left 0.3s ease,
+    width 0.3s ease,
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+.nav-menu:hover::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.nav-menu .nav-item.active .nav-link {
+  font-weight: bold;
+  color: gray;
+}
+</style>
+@endguest
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const navMenu = document.querySelector('.nav-menu');
+    const items = navMenu.querySelectorAll('.nav-item');
+    const activeItem = navMenu.querySelector('.nav-item.active');
+
+    function moveIndicator(target) {
+        const rect = target.getBoundingClientRect();
+        const parentRect = navMenu.getBoundingClientRect();
+        navMenu.style.setProperty('--left', `${target.offsetLeft}px`);
+        navMenu.style.setProperty('--width', `${target.offsetWidth}px`);
+    }
+    if (activeItem) {
+        moveIndicator(activeItem);
+    }
+
+    items.forEach(item => {
+        if (item.classList.contains('login') || item.classList.contains('register')) {
+            return;
+        }
+
+        item.addEventListener('mouseenter', () => moveIndicator(item));
+    });
+
+    navMenu.addEventListener('mouseleave', () => {
+        if (activeItem) moveIndicator(activeItem);
+    });
+});
+</script>
+
+<style>
   .card-horizontal {
     display: flex;
     flex-direction: row;
-    height: 200px;
+    height: 100%;
     overflow: hidden;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -174,13 +249,13 @@
             @else
             
             
-            <li class="nav-item">
+            <li class="nav-item login">
               <a class="btn btn-primary ml-lg-3" href="{{route('login')}}" style="background-color: #f204f2;">Login</a>
             </li>
 
             
             
-            <li class="nav-item">
+            <li class="nav-item register">
               <a class="btn btn-primary ml-lg-3" href="{{route('register')}}" style="background-color: #f204f2;">Register</a>
             </li>
 
@@ -192,9 +267,6 @@
     </nav>
   </header>
 
-
-
- 
   <div class="container py-5">
   <h2 class="text-center mb-4" style="font-size: 30px;">Announcements</h2>
 
@@ -227,6 +299,22 @@
     @endforeach
   </div>
 </div>
+<style>
+.nav-item .btn.btn-primary {
+    background-color: transparent !important;
+    border: 2px solid #f204f2 !important;
+    color: gray !important;
+    font-weight: bold;
+    padding: 10px 20px;
+    text: none !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-item .btn.btn-primary:hover {
+    background-color: #f204f2 !important;
+    color: gray !important;
+}
+</style>
 
 
 @include('user.footer')
@@ -240,84 +328,6 @@
 <script src="../assets/vendor/wow/wow.min.js"></script>
 
 <script src="../assets/js/theme.js"></script>
-<style>
-.nav-menu {
-  position: relative;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
 
-.nav-menu .nav-item {
-  position: relative;
-  z-index: 2;
-}
-
-.nav-menu .nav-link {
-  display: inline-block;
-  padding: 10px 20px;
-  color: white;
-  transition: color 0.3s ease;
-  position: relative;
-  z-index: 2;
-}
-.nav-menu::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: var(--left, 0px);
-  width: var(--width, 0px);
-  height: 100%;
-  background-color: #00D9A5;
-  border-radius: 12px;
-  z-index: 1;
-  opacity: 0.85;
-  transform: scaleX(0.8);
-  transition:
-    left 0.3s ease,
-    width 0.3s ease,
-    transform 0.3s ease,
-    opacity 0.3s ease;
-}
-.nav-menu:hover::before {
-  opacity: 1;
-  transform: scaleX(1);
-}
-
-.nav-menu .nav-item.active .nav-link {
-  font-weight: bold;
-  color: gray;
-}
-
-</style>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const navMenu = document.querySelector('.nav-menu');
-    const items = navMenu.querySelectorAll('.nav-item');
-    const activeItem = navMenu.querySelector('.nav-item.active');
-
-    function moveIndicator(target) {
-        const rect = target.getBoundingClientRect();
-        const parentRect = navMenu.getBoundingClientRect();
-        navMenu.style.setProperty('--left', `${target.offsetLeft}px`);
-        navMenu.style.setProperty('--width', `${target.offsetWidth}px`);
-    }
-    if (activeItem) {
-        moveIndicator(activeItem);
-    }
-
-    items.forEach(item => {
-        if (item.classList.contains('login') || item.classList.contains('register')) {
-            return;
-        }
-
-        item.addEventListener('mouseenter', () => moveIndicator(item));
-    });
-
-    navMenu.addEventListener('mouseleave', () => {
-        if (activeItem) moveIndicator(activeItem);
-    });
-});
-</script>
 </body>
 </html>

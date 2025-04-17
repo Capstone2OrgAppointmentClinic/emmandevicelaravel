@@ -62,7 +62,7 @@
             
 
             <li class="nav-item dropdown">
-            <a class="nav-link  dropdown-toggle active" style="background: none; color: #AD1457;" href="{{url('user.usercalendar')}}">Calendar</a>
+            <a class="nav-link  dropdown-toggle active" style="background: none; color: #00d9a5;" href="{{url('user.usercalendar')}}">Calendar</a>
             <ul class="dropdown-menu">
                 <li>
                                 <a class="dropdown-item" href="{{ route('my_appointment') }}">Appointment</a>
@@ -154,8 +154,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
 
-
-    <style>
+@guest
+<style>
 .nav-menu {
   position: relative;
   display: flex;
@@ -203,8 +203,8 @@
   font-weight: bold;
   color: gray;
 }
-
 </style>
+@endguest
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const navMenu = document.querySelector('.nav-menu');

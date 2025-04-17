@@ -62,7 +62,7 @@
             @auth
 
             <li class="nav-item dropdown">
-            <a class="nav-link  dropdown-toggle active" style="background: none; color: #AD1457;" href="{{url('myappointment')}}">Appointment</a>
+            <a class="nav-link  dropdown-toggle active" style="background: none; color: #00d9a5;" href="{{url('myappointment')}}">Appointment</a>
             <ul class="dropdown-menu">
                 <li>
                                 <a class="dropdown-item" href="{{ route('user.usercalendar') }}">Calendar</a>
@@ -165,8 +165,12 @@
                      <span class="badge text-green-500" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
                 @elseif($status == 'canceled')
                      <span class="badge text-red-500" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
+                @elseif($status == 'in process')
+                     <span class="badge text-white bg-info" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
                 @elseif($status == 'done')
                      <span class="badge text-white bg-success" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
+                @elseif($status == 'reschedule')
+                     <span class="badge text-white bg-primary" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
                 @else
                      <span class="badge text-gray-500" style="font-size: 1.2rem;">{{ ucfirst($appoints->status) }}</span>
                 @endif
@@ -380,7 +384,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="../assets/js/theme.js"></script>
 
 @include('user.calendar')
-
+@guest
 <style>
 .nav-menu {
   position: relative;
@@ -428,9 +432,9 @@ document.addEventListener('DOMContentLoaded', function () {
 .nav-menu .nav-item.active .nav-link {
   font-weight: bold;
   color: gray;
-}
-
+}gguest
 </style>
+@endguest
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const navMenu = document.querySelector('.nav-menu');
@@ -458,7 +462,7 @@ document.addEventListener('DOMContentLoaded', function () {
     navMenu.addEventListener('mouseleave', () => {
         if (activeItem) moveIndicator(activeItem);
     });
-});
+})endguest
 </script>
 </body>
 </html>

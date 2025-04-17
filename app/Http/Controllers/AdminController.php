@@ -378,7 +378,30 @@ public function approveAppointment($appointmentId)
 
     return redirect()->back()->with('success', 'Appointment Approved');
 }
+public function processAppointment($appointmentId)
+{
+    $appointment = Appointment::find($appointmentId);
+    $appointment->status = 'In process';
+    $appointment->save();
 
+    
+    $user = $appointment->user;
+    $user->notify(new AppointmentStatusNotification($appointment, 'In process'));
+
+    return redirect()->back()->with('success', 'Appointment In process');
+}
+public function rescheduleAppointment($appointmentId)
+{
+    $appointment = Appointment::find($appointmentId);
+    $appointment->status = 'reschedule';
+    $appointment->save();
+
+    
+    $user = $appointment->user;
+    $user->notify(new AppointmentStatusNotification($appointment, 'reschedule'));
+
+    return redirect()->back()->with('success', 'Appointment Reschedule');
+}
 public function cancelAppointment($appointmentId)
 {
     $appointment = Appointment::find($appointmentId);

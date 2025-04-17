@@ -1,4 +1,4 @@
-<div class="page-section" style="background-color: antiquewhite; height: 800px;">
+<div class="page-section" style="background-color: antiquewhite; min-height: 800px;">
 <style>
   .card-img-container {
     position: relative;
@@ -50,7 +50,6 @@
 .card {
   border-radius: 12px;
   margin-bottom: 20px;
-  
 }
 </style>
 
