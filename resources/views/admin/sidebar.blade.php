@@ -1,6 +1,6 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar" style="background-color: #AD1457 ;">
-<li class="nav-item menu-items" style=" list-style: none; margin: 20px -10px -40px -10px;>
-            <a class="nav-link" href="{{url(path: 'home')}}">
+<li class="nav-item menu-items" style=" list-style: none; margin: 20px -10px -40px -10px;">
+            <a class="nav-link" href="{{url(path: 'home')}}" style="width: 100px;">
 
              <img src="{{ asset('assets/img/person/svfctrans.png') }}" alt="">
             </a>
@@ -8,14 +8,14 @@
 
         
         <ul class="nav" style="position: fixed;">
-          <li class="nav-item profile">
+          <li class="nav-item profile mb-4" style="margin-top:-2.5rem; margin-left: -1rem;">
             <div class="profile-desc">
               <div class="profile-pic">
                 <div class="count-indicator">
                   
                 </div>
                 <div class="profile-name">
-                  <h5 class="mb-0 font-weight-normal" style="color:white;">Admin</h5>
+                  <h5 class="mb-0 font-weight-normal" style="color:white; font-size:24px;">Hello, </h5>
                 </div>
               </div>
               <a href="#" id="profile-dropdown" data-bs-toggle="dropdown"><i class="mdi mdi-dots-vertical" style="color:white;"></i></a>
@@ -55,9 +55,9 @@
               </div>
             </div>
           </li>
-          <li class="nav-item nav-category">
+          <!-- <li class="nav-item nav-category">
             <span class="nav-link" style="color:white;">Navigation</span>
-          </li>
+          </li> -->
           
           <li class="nav-item menu-items">
             <a class="nav-link" href="{{url(path: 'home')}}">
