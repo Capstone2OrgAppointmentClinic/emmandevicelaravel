@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('appointments', function (Blueprint $table) {
-            // Check if the column does not exist before adding
             if (!Schema::hasColumn('appointments', 'time')) {
                 $table->time('time')->after('date')->nullable();
             }
@@ -25,7 +24,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('appointments', function (Blueprint $table) {
-            // Check if the column exists before dropping it
             if (Schema::hasColumn('appointments', 'time')) {
                 $table->dropColumn('time');
             }

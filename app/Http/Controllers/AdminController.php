@@ -19,7 +19,8 @@ use App\Notifications\AppointmentStatusNotification;
 use App\Models\StudentLog;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\DoneAppointmentMail;
-
+use App\Mail\CancelAppointmentMail;
+use App\Mail\ApprovedAppointmentMail;
 
 use App\Notifications\SendEmailNotification;
 
@@ -418,14 +419,14 @@ public function viewStudentLogs()
 {
     $logs = StudentLog::whereHas('student', function ($query) {
         $query->where('usertype', 0); 
-    })->latest()->with('student')->paginate(10);
+    })->latest()->with('student');
 
     return view('admin.studentlogs', compact('logs'));
 }
 public function showLogs()
 {
 
-    $logs = StudentLog::latest()->with('student')->paginate(10);
+    $logs = StudentLog::latest()->with('student')->get();
 
     return view('admin.home', compact('logs'));
 }
@@ -448,5 +449,45 @@ public function sendDoneEmail(Request $request)
     }
 
     return back()->with('success', 'Email sent appointment done.');
+}
+public function cancel(Request $request)
+{
+    $request->validate([
+        'appointment_id' => 'required|exists:appointments,id',
+        'email' => 'required|email',
+        'message' => 'required|string',
+    ]);
+
+    $appointment = Appointment::findOrFail($request->appointment_id);
+    $appointment->status = 'canceled';
+    $appointment->save();
+
+    Mail::to($request->email)->send(new CancelAppointmentMail($request->message));
+
+    if ($appointment->user) {
+        $appointment->user->notify(new AppointmentStatusNotification($appointment, 'canceled'));
+    }
+
+    return redirect()->back()->with('success', 'Appointment canceled message sent.');
+}
+public function approve(Request $request)
+{
+    $request->validate([
+        'appointment_id' => 'required|exists:appointments,id',
+        'email' => 'required|email',
+        'message' => 'required|string',
+    ]);
+
+    $appointment = Appointment::findOrFail($request->appointment_id);
+    $appointment->status = 'approved';
+    $appointment->save();
+
+    Mail::to($request->email)->send(new ApprovedAppointmentMail($request->message));
+
+    if ($appointment->user) {
+        $appointment->user->notify(new AppointmentStatusNotification($appointment, 'approved'));
+    }
+
+    return redirect()->back()->with('success', 'Appointment approved message sent.');
 }
 }

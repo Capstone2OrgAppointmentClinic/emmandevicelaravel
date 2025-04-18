@@ -81,9 +81,7 @@
                 </div>
                 <div class="card-body">
                     <!-- Show success message -->
-                    @if(session('success'))
-                        <div class="alert alert-success text-center">{{ session('success') }}</div>
-                    @endif
+                  
 
                     <!-- Show errors if validation fails -->
                     @if ($errors->any())
@@ -215,11 +213,6 @@
                     </div>
                 </div>
 
-                <!-- Pagination -->
-                <div class="mt-3">
-                    {{ $logs->appends(['logs' => 1])->links() }}
-                </div>
-            </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

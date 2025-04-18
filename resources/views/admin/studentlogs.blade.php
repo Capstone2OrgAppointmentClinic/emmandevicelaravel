@@ -124,7 +124,7 @@
         </tbody>
     </table>
 
-    {{ $logs->links() }}
+    
 </div>
 
 <!-- Logs History Modal -->
@@ -199,11 +199,7 @@
                     </div>
                 </div>
 
-                <!-- Pagination -->
-                <div class="mt-3">
-                    {{ $logs->appends(['logs' => 1])->links() }}
-                </div>
-            </div>
+               
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

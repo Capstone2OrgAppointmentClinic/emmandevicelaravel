@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
         if (Auth::check()) {
             $view->with('unreadNotifications', Auth::user()->unreadNotifications);
         }
-        $logs = StudentLog::latest()->with('student')->paginate(12);
+        $logs = StudentLog::latest()->with('student')->get();
         $view->with('logs', $logs);
     });
 }

@@ -34,7 +34,7 @@
           
 @if(session('success'))
     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
-        <div id="autoDismissToast" class="toast align-items-center text-white bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
+        <div id="autoDismissToast" class="toast align-items-center text-white bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="1000">
             <div class="d-flex">
                 <div class="toast-body">
                     {{ session('success') }}
@@ -42,17 +42,16 @@
             </div>
         </div>
     </div>
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const toastEl = document.getElementById('autoDismissToast');
-        const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+        const toast = new bootstrap.Toast(toastEl, { delay: 1000 });
         toast.show();
     });
 </script>
 @endif
           <div class="mb-3">
-              <input type="text" id="searchInput" style="background-color: white; color: black; border: 2px solid #AD1457; width:200px; "class="form-control" placeholder="Search appointments...">
+              <input type="text" id="searchInput" style="background-color: white; color: black; border: 2px solid #AD1457; width:200px; "class="form-control" placeholder="Search status">
           </div>
           <div class="table-responsive">     
           <table class="table table-bordered text-center w-100">
@@ -128,15 +127,21 @@
                     </a>
                     <ul class="dropdown-menu w-100" aria-labelledby="rowActionDropdown{{ $appoint->id }}">
                       @if(in_array($status, ['pending', 'reschedule', 'rescheduled']))
-                        <li>
-                          <a class="dropdown-item text-success" href="{{ url('approved', $appoint->id) }}" title="Approve">
-                            <i class="fa fa-check"></i> Approve
-                          </a>
+                      <li>
+                        <button type="button" class="dropdown-item text-success open-approved-modal"
+                            data-id="{{ $appoint->id }}"
+                            data-email="{{ $appoint->user->email ?? $appoint->email }}"
+                            data-name="{{ $appoint->user->name ?? $appoint->name }}">
+                            <i class="fa fa-check"></i> approved
+                          </button>
                         </li>
                         <li>
-                          <a class="dropdown-item text-danger" href="{{ url('canceled', $appoint->id) }}" title="Cancel">
+                        <button type="button" class="dropdown-item text-danger open-cancel-modal"
+                            data-id="{{ $appoint->id }}"
+                            data-email="{{ $appoint->user->email ?? $appoint->email }}"
+                            data-name="{{ $appoint->user->name ?? $appoint->name }}">
                             <i class="fas fa-times"></i> Cancel
-                          </a>
+                          </button>
                         </li>
                       @endif
                       @if(in_array($status, ['pending', 'approved', 'reschedule', 'rescheduled']))
@@ -175,6 +180,52 @@
       </div>
 
 @include('admin.ModalDone')
+
+@include('admin.modalCancel')
+
+<!-- Cancel Modal -->
+<div class="modal fade" id="approvedModal" tabindex="-1" aria-labelledby="approvedModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="POST" action="{{ url('appointment.approved') }}">
+      @csrf
+      <input type="hidden" name="appointment_id" id="approvedappointmentid">
+      <input type="hidden" name="email" id="approvedemail">
+      
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title" id="approvedModalLabel">Approved appointment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="approved_message" class="form-label">Message</label>
+            <textarea class="form-control" name="message" id="approvedmessage" style="background-color:white; height:100px;"rows="4" required></textarea>
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Send</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.open-approved-modal').forEach(button => {
+    button.addEventListener('click', () => {
+      const id = button.getAttribute('data-id');
+      const email = button.getAttribute('data-email');
+      
+      document.getElementById('approvedappointmentid').value = id;
+      document.getElementById('approvedemail').value = email;
+
+      const modal = new bootstrap.Modal(document.getElementById('approvedModal'));
+      modal.show();
+    });
+  });
+</script>
       
 <!-- Message Modal -->
       <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel">
@@ -292,11 +343,7 @@
                     </div>
                 </div>
 
-                <!-- Pagination -->
-                <div class="mt-3">
-                    {{ $logs->appends(['logs' => 1])->links() }}
-                </div>
-            </div>
+                
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -429,19 +476,22 @@ document.addEventListener("DOMContentLoaded", function () {
       const rows = document.querySelectorAll('table tbody tr');
 
       rows.forEach(row => {
+        const nameCell = row.querySelector('td:nth-child(1)');
         const statusCell = row.querySelector('td:nth-child(7)');
-        if (statusCell) {
-          const statusText = statusCell.textContent.toLowerCase();
-          if (statusText.includes(filter)) {
-            row.style.display = '';
-          } else {
-            row.style.display = 'none';
-          }
+
+        const nameText = nameCell ? nameCell.textContent.toLowerCase() : '';
+        const statusText = statusCell ? statusCell.textContent.toLowerCase() : '';
+
+        if (nameText.includes(filter) || statusText.includes(filter)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
         }
       });
     });
   });
 </script>
-@include('admin.script')
+
+
   </body>
 </html>

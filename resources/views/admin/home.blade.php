@@ -52,16 +52,15 @@
     @include('admin.buttoncss')
    
     <div id="userTable" style="display: none; margin-top: 20px;">
-        <h3 style="margin-left: 12px; color: black; font-size: 32px;" class="flex justify-center w-full items-center">User's Information</h3>
         <div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Student Name</th>
-                    <th>Email</th>
+                    <th style="text-align:center;">Email</th>
                     <th>Student ID</th>
                     <th>Year Level</th> 
-                    <th>Status</th>       
+                    <th style="text-align:center;">Status</th>       
                 </tr>
             </thead>
             <tbody>
@@ -106,7 +105,7 @@
 
     th, td {
         padding: 5px 4px;
-        text-align: center;
+        text-align: flex;
         vertical-align: middle;
         color: black;
     }
@@ -144,7 +143,7 @@
     </script>
 
   <div class="modal fade" id="viewUserModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">User Info</h5>
@@ -169,7 +168,6 @@
     </div>
 </div>
 <div id="appointmentTable" style="display: none; margin-top: 20px;">
-    <h3 style="margin-left: 12px; color: black;">Appointment Details</h3>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -265,9 +263,9 @@
 </script>
 <!-- Logs History Modal -->
 <div class="modal fade" id="logsModal" tabindex="-1" aria-labelledby="logsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" style="max-width: 90%;">
-        <div class="modal-content">
-            <div class="modal-header d-flex justify-content-between align-items-center">
+    <div class="modal-dialog" style="max-width: 90%; max-height: 350px;">
+        <div class="modal-content" style="max-height: 350px;">
+            <div class="modal-header d-flex justify-content-between align-items-center" style="background-color: #f8f9fa; color:black;">
                 <h5 class="modal-title" id="logsModalLabel">Logs History</h5>
                 <div class="btn-group" style="padding-left:20px;">
                     <button class="btn btn-sm btn-outline-primary" id="showStudentLogsBtn">Student Logs</button>
@@ -276,21 +274,21 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body" style="background-color:white; color: #000; display: table;">
                 <!-- Student Logs Section -->
-                <div id="studentLogsSection">
+                <div id="studentLogsSection" >
                     <h4>Student Logs</h4>
 
-                     <!-- 🔍 Search Input -->
+                     <!-- 🔍 Search Input --> 
                 <input type="text" class="form-control mb-2 search-input" style="width:250px;" id="studentSearchInput" placeholder="Search student name">
                       
-                <div class="table-wrapper">
-                        <table class="table table-bordered mb-0">
-                            <thead class="table-light">
+                <div class="table-wrapper" style="max-height: 350px; overflow-y: auto;">
+                        <table class="table table-bordered mb-0"style="width: 100%; border-collapse: collapse; table-layout: fixed ;">
+                            <thead class="table-light" style="top: 0; z-index: 1;">
                                 <tr>
-                                    <th>Student Name</th>
-                                    <th>Login Time</th>
-                                    <th>Logout Time</th>
+                                    <th style="width: 33.33%;">Student Name</th>
+                                    <th style="width: 33.33%;">Login Time</th>
+                                    <th style="width: 33.33%;">Logout Time</th>
                                 </tr>
                             </thead>
                             <tbody class="scrollable-tbody">
@@ -306,6 +304,19 @@
                     </div>
                 </div>
 
+<style>
+    .search-input {
+    color: black;
+    background-color: white;
+}
+
+.search-input:focus {
+    background-color: white;
+    color: black;
+    border-color: gray;
+    box-shadow: none;
+}
+</style>
                 <!-- Admin Logs Section -->
                 <div id="adminLogsSection" style="display: none;">
                     <h4>Admin Logs</h4>
@@ -313,13 +324,13 @@
                 <!-- 🔍 Search Input -->
                 <input type="text" class="form-control mb-2 search-input" id="adminSearchInput" style="width:250px;" placeholder="Search admin name...">
  
-                    <div class="table-wrapper">
-                        <table class="table table-bordered mb-0">
-                            <thead class="table-light">
+                    <div class="table-wrapper" style="max-height: 350px; overflow-y: auto; background-color: #f8f9fa">
+                        <table class="table table-bordered mb-0" style="width: 100%; border-collapse: collapse; table-layout: fixed ;">
+                            <thead class="table-light" style="top: 0; z-index: 1;">
                                 <tr>
-                                    <th>Admin Name</th>
-                                    <th>Login Time</th>
-                                    <th>Logout Time</th>
+                                    <th style="width: 33.33%;">Admin Name</th>
+                                    <th style="width: 33.33%;">Login Time</th>
+                                    <th style="width: 33.33%;">Logout Time</th>
                                 </tr>
                             </thead>
                             <tbody class="scrollable-tbody">
@@ -334,13 +345,6 @@
                         </table>
                     </div>
                 </div>
-
-                <!-- Pagination -->
-                <div class="mt-3">
-                    {{ $logs->appends(['logs' => 1])->links() }}
-                </div>
-            </div>
-
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
@@ -409,59 +413,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     </script>
 @endif
-
-<style>
-.table-wrapper {
-    max-height: 350px;
-    overflow-y: auto;
-}
-
-.scrollable-tbody {
-    display: block;
-    overflow-y: auto;
-}
-
-.scrollable-tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-}
-
-.table thead,
-.table tbody tr {
-    width: 100%;
-    display: table;
-    table-layout: fixed;
-}
-
-.table thead {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    background-color: #f8f9fa;
-}
-
-.modal-content,
-.modal-header,
-.modal-body,
-.modal-footer {
-    background-color: #fff;
-    color: #000;
-}
-.search-input {
-    color: black;
-    background-color: white;
-    border: 1px solid #ccc;
-}
-
-.search-input:focus {
-    background-color: white;
-    color: black;
-    border-color: gray;
-    box-shadow: none;
-}
-</style>
-
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {

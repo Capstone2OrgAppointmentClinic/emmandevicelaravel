@@ -87,6 +87,7 @@
 
 
             <x-app-layout>
+                
             </x-app-layout>
 
             @else
@@ -95,30 +96,38 @@
             <li class="nav-item">
               <a class="btn btn-primary ml-lg-3" href="{{route('login')}}">Login</a>
             </li>
-
-            
             
             <li class="nav-item">
               <a class="btn btn-primary ml-lg-3" href="{{route('register')}}">Register</a>
             </li>
-
+              
             @endauth
 
             
             @endif
-         
-        
-        </ul>
-        </div> <!-- .navbar-collapse -->
-      </div> <!-- .container -->
-    </nav>
-  </header>
-
-  @if(session('message'))
-    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-        {{ session('message') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            
+            @if(session('message'))
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
+        <div class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 500px;">
+            <div class="d-flex">
+                <div class="toast-body" style="font-size:20px;">
+                    {{ session('message') }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
     </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toastEl = document.querySelector('.toast');
+        if (toastEl) {
+            const toast = new bootstrap.Toast(toastEl, {
+                delay: 3000  
+            });
+            toast.show();
+        }
+    });
+</script>
 @endif
 
 @if(session('error'))
@@ -129,11 +138,19 @@
 @endif
 
 
+        </ul>
+        </div> <!-- .navbar-collapse -->
+      </div> <!-- .container -->
+    </nav>
+  </header>
+
+ 
+
+
   <div align="center" style="padding: 40px;">
     <h1 style="font-size: 40px; padding: 15px;  color: #181A18; font-weight: bold;">
         Appointment Schedule
     </h1>
-
         <div class="table-responsive">
             <table class="table table-hover table-bordered table-striped mt-4 shadow-lg" style="width: 100%; max-width: 1000px; border-radius: 12px; overflow: hidden;">
                 <thead class="bg-success text-white">

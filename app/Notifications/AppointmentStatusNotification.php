@@ -4,10 +4,7 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Messages\DatabaseMessage;
-
+use Carbon\Carbon;
 class AppointmentStatusNotification extends Notification
 {
     use Queueable;
@@ -28,10 +25,23 @@ class AppointmentStatusNotification extends Notification
 
     public function toDatabase($notifiable)
     {
-        if (strtolower($this->status) === 'done') {
-            $message = "Your appointment for {$this->appointment->service} on {$this->appointment->date} at {$this->appointment->time} is done. Thank you!";
-        } else {
-            $message = "Your appointment for {$this->appointment->service} on {$this->appointment->date} at {$this->appointment->time} has been {$this->status}.";
+        $status = strtolower($this->status);
+
+        $dateTime = Carbon::parse("{$this->appointment->date} {$this->appointment->time}")
+            ->timezone('Asia/Manila');
+    
+        $formattedDate = $dateTime->format('F j, Y');
+        $formattedTime = $dateTime->format('g:i A');
+    
+        if ($status === 'done') {
+            $message = "Your appointment for {$this->appointment->service} on {$formattedDate} at {$formattedTime} is done. Thank you!";
+        } elseif ($status === 'canceled') {
+            $message = "Your appointment for {$this->appointment->service} on {$formattedDate} at {$formattedTime} has been canceled.";
+        } elseif ($status === 'approved') {
+            $message = "Your appointment for {$this->appointment->service} on {$formattedDate} at {$formattedTime} has been approved.";
+        }
+         else {
+            $message = "Your appointment for {$this->appointment->service} on {$formattedDate} at {$formattedTime} has been {$this->status}.";
         }
     
         return [
