@@ -17,6 +17,7 @@ use App\Notifications\NewAppointmentNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\RescheduleNotification;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Appointmentlog;
 
 
 
@@ -39,7 +40,8 @@ class HomeController extends Controller
                 $users = User::where('usertype', 0)->get();
                 $appointments = Appointment::all();
                 $appointmentCount = $appointments->count();
-                return view('admin.home', compact('userCount', 'users', 'appointmentCount','appointments',));
+                
+                return view('admin.home', compact('userCount', 'users', 'appointmentCount','appointments'));
             }
         }
     

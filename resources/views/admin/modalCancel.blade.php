@@ -14,7 +14,7 @@
         
         <div class="modal-body">
           <div class="mb-3">
-            <label for="cancel_message" class="form-label">Message</label>
+            <label for="cancelmessage" class="form-label">Message</label>
             <textarea class="form-control" name="message" id="cancelmessage" style="background-color:white; height:100px;"rows="4" required></textarea>
           </div>
         </div>

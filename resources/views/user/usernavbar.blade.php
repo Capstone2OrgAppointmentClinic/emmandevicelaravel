@@ -101,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     
                     
                     @if(Route::has('login'))
+                    
                     @auth
                     
                     <!-- Appointment -->

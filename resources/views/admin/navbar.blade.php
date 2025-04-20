@@ -1,12 +1,17 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_navbar.html -->
+
         <nav class="navbar p-0 fixed-top d-flex flex-row" style="background-color: gray;">
           
-          <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch" >
+          <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
             <button class="navbar-toggler navbar-toggler align-self-center mt-2" type="button" data-toggle="minimize">
               <span class="mdi mdi-menu text-white text-[44px]" ></span>
             </button>
+            @if(Route::currentRouteName() == 'showappointment')
+            <div class="mb-3" style="padding-top:20px;">
+                <input type="text" id="searchInput" style="background-color: white; color: black; border: 2px solid #AD1457; width:200px;" class="form-control" placeholder="Search status">
+            </div>
+        @endif
             <nav class="navbar-nav navbar-nav-right">
                 <li class="nav-item nav-settings d-none d-lg-block">
                 <a class="nav-link" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">

@@ -86,9 +86,14 @@
                     </button>
                     <a href="{{ url('/editUser', $user->id) }}" class="btn btn-warning btn-sm">Update</a>
                     <a class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete this?')" href="{{ url('deleteUser', $user->id) }}">Delete</a>
-                    <a href="#" class="btn btn-info btn-sm">
-                        <i class="fas fa-history"></i>
-                    </a>
+                    <button class="btn btn-info btn-sm viewHistory"
+                    data-email="{{ $user->email }}"
+                    data-bs-toggle="modal"
+                    data-bs-target="#appointmentHistoryModal">
+                    <i class="fas fa-history"></i>
+                </button>
+
+
                 </div>
             </td>  
         </tr>
@@ -261,6 +266,63 @@
         });
     });
 </script>
+
+<!-- Appointment History Logs Modal -->
+<div class="modal fade" id="appointmentHistoryModal" tabindex="-1" aria-labelledby="appointmentHistoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 90%; max-height: 350px;">
+        <div class="modal-content " style="background-color:white; color:black;">
+            <div class="modal-header" style="background-color:white;">
+                <h5 class="modal-title" id="appointmentHistoryModalLabel">Appointment History</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered" style="background-color:white;">
+                    <thead style="max-height: 350px; overflow-y: auto; background-color:#AD1457;">
+                        <tr>
+                            <th style="width: 30%;color:white;font-size:18px;">Name</th>
+                            <th style="width: 30%;color:white;font-size:18px;">Status</th>
+                            <th style="width: 30%;color:white;font-size:18px;">Date Time</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody">
+                        <!-- Appointments will be populated dynamically by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+const allAppointments = @json($appointments); 
+
+document.querySelectorAll('.viewHistory').forEach(button => {
+    button.addEventListener('click', function () {
+        const email = this.dataset.email;
+        const historyTableBody = document.getElementById('historyTableBody');
+        historyTableBody.innerHTML = '';
+
+        const userAppointments = allAppointments.filter(appointment => appointment.email === email);
+
+        if (userAppointments.length === 0) {
+            historyTableBody.innerHTML = '<tr><td colspan="4" class="text-center">No appointments found.</td></tr>';
+        } else {
+            userAppointments.forEach(appointment => {
+                const row = `<tr>
+                    <td>${appointment.name}</td>
+                    <td>${appointment.status}</td>
+                    <td>${appointment.date} ${appointment.time}</td>
+                </tr>`;
+                historyTableBody.innerHTML += row;
+            });
+        }
+    });
+});
+</script>
+
 <!-- Logs History Modal -->
 <div class="modal fade" id="logsModal" tabindex="-1" aria-labelledby="logsModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="max-width: 90%; max-height: 350px;">
@@ -284,11 +346,11 @@
                       
                 <div class="table-wrapper" style="max-height: 350px; overflow-y: auto;">
                         <table class="table table-bordered mb-0"style="width: 100%; border-collapse: collapse; table-layout: fixed ;">
-                            <thead class="table-light" style="top: 0; z-index: 1;">
+                            <thead class="table-light" style="top: 0; z-index: 1; background-color: #AD1457">
                                 <tr>
-                                    <th style="width: 33.33%;">Student Name</th>
-                                    <th style="width: 33.33%;">Login Time</th>
-                                    <th style="width: 33.33%;">Logout Time</th>
+                                    <th style="width: 33.33%;black;font-size:20px;">Student Name</th>
+                                    <th style="width: 33.33%;black;font-size:20px;">Login Time</th>
+                                    <th style="width: 33.33%;black;font-size:20px;">Logout Time</th>
                                 </tr>
                             </thead>
                             <tbody class="scrollable-tbody">
@@ -303,20 +365,19 @@
                         </table>
                     </div>
                 </div>
+            <style>
+                .search-input {
+                color: black;
+                background-color: white;
+            }
 
-<style>
-    .search-input {
-    color: black;
-    background-color: white;
-}
-
-.search-input:focus {
-    background-color: white;
-    color: black;
-    border-color: gray;
-    box-shadow: none;
-}
-</style>
+            .search-input:focus {
+                background-color: white;
+                color: black;
+                border-color: gray;
+                box-shadow: none;
+            }
+            </style>
                 <!-- Admin Logs Section -->
                 <div id="adminLogsSection" style="display: none;">
                     <h4>Admin Logs</h4>
@@ -328,9 +389,9 @@
                         <table class="table table-bordered mb-0" style="width: 100%; border-collapse: collapse; table-layout: fixed ;">
                             <thead class="table-light" style="top: 0; z-index: 1;">
                                 <tr>
-                                    <th style="width: 33.33%;">Admin Name</th>
-                                    <th style="width: 33.33%;">Login Time</th>
-                                    <th style="width: 33.33%;">Logout Time</th>
+                                    <th style="width: 33.33%;black;font-size:18px;">Admin Name</th>
+                                    <th style="width: 33.33%;black;font-size:18px;">Login Time</th>
+                                    <th style="width: 33.33%;black;font-size:18px;">Logout Time</th>
                                 </tr>
                             </thead>
                             <tbody class="scrollable-tbody">
@@ -436,6 +497,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 </script>
+
 
 </body>
 </html>

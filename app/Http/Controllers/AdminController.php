@@ -21,8 +21,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\DoneAppointmentMail;
 use App\Mail\CancelAppointmentMail;
 use App\Mail\ApprovedAppointmentMail;
-
 use App\Notifications\SendEmailNotification;
+
 
 class AdminController extends Controller
 {
@@ -111,8 +111,8 @@ class AdminController extends Controller
     {
         $userCount = User::count();
         $appointmentCount = Appointment::count();
-        $appointments = Appointment::all();
-        return view('admin.home', compact('userCount','appointmentCount')); 
+        $appointments = Appointment::with('statusHistory')->get();
+        return view('admin.home', compact('userCount','appointmentCount', 'appointments')); 
     }
     
     public function getUsers()
@@ -125,7 +125,8 @@ class AdminController extends Controller
     {
         $users = User::where('usertype', '!=', 1)->count();
         $appointmentCount = Appointment::count();
-    
+        
+
         return view('admin.home', compact('users','appointmentCount'));
     }
     public function editdoctor(Request $request , $id)
@@ -385,7 +386,6 @@ public function processAppointment($appointmentId)
     $appointment->status = 'In process';
     $appointment->save();
 
-    
     $user = $appointment->user;
     $user->notify(new AppointmentStatusNotification($appointment, 'In process'));
 
@@ -397,7 +397,6 @@ public function rescheduleAppointment($appointmentId)
     $appointment->status = 'reschedule';
     $appointment->save();
 
-    
     $user = $appointment->user;
     $user->notify(new AppointmentStatusNotification($appointment, 'reschedule'));
 
@@ -409,7 +408,6 @@ public function cancelAppointment($appointmentId)
     $appointment->status = 'Canceled';
     $appointment->save();
 
-    
     $user = $appointment->user;
     $user->notify(new AppointmentStatusNotification($appointment, 'canceled'));
 
@@ -427,7 +425,7 @@ public function showLogs()
 {
 
     $logs = StudentLog::latest()->with('student')->get();
-
+    
     return view('admin.home', compact('logs'));
 }
 public function sendDoneEmail(Request $request)
@@ -481,6 +479,7 @@ public function approve(Request $request)
     $appointment = Appointment::findOrFail($request->appointment_id);
     $appointment->status = 'approved';
     $appointment->save();
+    
 
     Mail::to($request->email)->send(new ApprovedAppointmentMail($request->message));
 

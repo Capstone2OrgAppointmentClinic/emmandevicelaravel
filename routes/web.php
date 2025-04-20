@@ -121,3 +121,7 @@ Route::post('/send-done-email', [AdminController::class, 'sendDoneEmail'])->name
 Route::post('/appointment.cancel', [AdminController::class, 'cancel'])->name('appointment/cancel');
 
 Route::post('/appointment.approved', [AdminController::class, 'approve'])->name('appointment/approved');
+
+Route::get('/appointment-history', [AdminController::class, 'showAppointmentHistoryLogs'])->name('appointment.history');
+
+Route::get('/showappointment', [AdminController::class, 'showAppointment'])->name('showappointment');

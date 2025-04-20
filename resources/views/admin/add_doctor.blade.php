@@ -91,68 +91,142 @@
     </div>
 </div>
 <!-- Logs History Modal -->
-<div class="modal fade" id="logsModal" tabindex="-1" aria-labelledby="logsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" style="max-width: 90%;">
+<div class="modal fade" id="logsModal" tabindex="-1" aria-labelledby="logsModalLabel">
+    <div class="modal-dialog" style="max-width: 90%;">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header d-flex justify-content-between align-items-center" style="background-color: #f8f9fa; color:black;">
                 <h5 class="modal-title" id="logsModalLabel">Logs History</h5>
+                <div class="btn-group" style="padding-left:20px;">
+                    <button class="btn btn-sm btn-outline-primary" id="showStudentLogsBtn">Student Logs</button>
+                    <button class="btn btn-sm btn-outline-success" id="showAdminLogsBtn">Admin Logs</button>
+                </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div class="modal-body" style="background-color: white;">
-            <div id="logsContent">
-                <!-- Student Logs -->
-                <h4>Student Logs</h4>
-                <div class="table-wrapper">
-                    <table class="table table-bordered mb-0">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Student Name</th>
-                                <th>Login Time</th>
-                                <th>Logout Time</th>
-                            </tr>
-                        </thead>
-                        <tbody class="scrollable-tbody">
-                            @foreach($logs->where('student.usertype', 0) as $log)
-                                <tr>
-                                    <td>{{ $log->student->name }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($log->login_at)->format('Y-m-d h:i A') }}</td>
-                                    <td>{{ $log->logout_at ? \Carbon\Carbon::parse($log->logout_at)->format('Y-m-d h:i A') : '—' }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+            <div class="modal-body" style="background-color:white; color: #000; display: table;">
+                <!-- Student Logs Section -->
+                <div id="studentLogsSection" >
+                    <h4>Student Logs</h4>
 
-                <!-- Admin Logs -->
-                <h4 class="mt-5">Admin Logs</h4>
-                <div class="table-wrapper">
-                    <table class="table table-bordered mb-0">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Admin Name</th>
-                                <th>Login Time</th>
-                                <th>Logout Time</th>
-                            </tr>
-                        </thead>
-                        <tbody class="scrollable-tbody">
-                            @foreach($logs->where('student.usertype', '!=', 0) as $log)
+                     <!-- 🔍 Search Input --> 
+                <input type="text" class="form-control mb-2 search-input" style="width:250px;" id="studentSearchInput" placeholder="Search student name">
+                      
+                <div class="table-wrapper" style="max-height: 350px; overflow-y: auto;">
+                        <table class="table table-bordered mb-0"style="width: 100%; border-collapse: collapse; table-layout: fixed ;">
+                            <thead class="table-light" style="top: 0; z-index: 1; background-color: #AD1457">
                                 <tr>
-                                    <td>{{ $log->student->name }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($log->login_at)->format('Y-m-d h:i A') }}</td>
-                                    <td>{{ $log->logout_at ? \Carbon\Carbon::parse($log->logout_at)->format('Y-m-d h:i A') : '—' }}</td>
+                                    <th style="width: 33.33%;black;font-size:20px;">Student Name</th>
+                                    <th style="width: 33.33%;black;font-size:20px;">Login Time</th>
+                                    <th style="width: 33.33%;black;font-size:20px;">Logout Time</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody class="scrollable-tbody">
+                                @foreach($logs->where('student.usertype', 0) as $log)
+                                    <tr>
+                                        <td>{{ $log->student->name }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($log->login_at)->format('Y-m-d h:i A') }}</td>
+                                        <td>{{ $log->logout_at ? \Carbon\Carbon::parse($log->logout_at)->format('Y-m-d h:i A') : '—' }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+            <style>
+                .search-input {
+                color: black;
+                background-color: white;
+            }
 
+            .search-input:focus {
+                background-color: white;
+                color: black;
+                border-color: gray;
+                box-shadow: none;
+            }
+            </style>
+                <!-- Admin Logs Section -->
+                <div id="adminLogsSection" style="display: none;">
+                    <h4>Admin Logs</h4>
+                
+                <!-- 🔍 Search Input -->
+                <input type="text" class="form-control mb-2 search-input" id="adminSearchInput" style="width:250px;" placeholder="Search admin name...">
+ 
+                    <div class="table-wrapper" style="max-height: 350px; overflow-y: auto; background-color: #f8f9fa">
+                        <table class="table table-bordered mb-0" style="width: 100%; border-collapse: collapse; table-layout: fixed ;">
+                            <thead class="table-light" style="top: 0; z-index: 1;">
+                                <tr>
+                                    <th style="width: 33.33%;black;font-size:18px;">Admin Name</th>
+                                    <th style="width: 33.33%;black;font-size:18px;">Login Time</th>
+                                    <th style="width: 33.33%;black;font-size:18px;">Logout Time</th>
+                                </tr>
+                            </thead>
+                            <tbody class="scrollable-tbody">
+                                @foreach($logs->where('student.usertype', '!=', 0) as $log)
+                                    <tr>
+                                        <td>{{ $log->student->name }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($log->login_at)->format('Y-m-d h:i A') }}</td>
+                                        <td>{{ $log->logout_at ? \Carbon\Carbon::parse($log->logout_at)->format('Y-m-d h:i A') : '—' }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const studentBtn = document.getElementById("showStudentLogsBtn");
+    const adminBtn = document.getElementById("showAdminLogsBtn");
+    const studentSection = document.getElementById("studentLogsSection");
+    const adminSection = document.getElementById("adminLogsSection");
+
+    studentBtn.addEventListener("click", () => {
+        studentSection.style.display = "block";
+        adminSection.style.display = "none";
+    });
+
+    adminBtn.addEventListener("click", () => {
+        studentSection.style.display = "none";
+        adminSection.style.display = "block";
+    });
+
+    const studentSearchInput = document.getElementById("studentSearchInput");
+    studentSearchInput.addEventListener("keyup", function () {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll("#studentLogsSection table tbody tr");
+        rows.forEach(row => {
+            const nameCell = row.querySelector("td");
+            if (nameCell && nameCell.textContent.toLowerCase().includes(filter)) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    });
+
+    const adminSearchInput = document.getElementById("adminSearchInput");
+    adminSearchInput.addEventListener("keyup", function () {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll("#adminLogsSection table tbody tr");
+        rows.forEach(row => {
+            const nameCell = row.querySelector("td");
+            if (nameCell && nameCell.textContent.toLowerCase().includes(filter)) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    });
+});
+</script>
+
+
 @if(request()->has('logs'))
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -167,48 +241,7 @@
         });
     </script>
 @endif
+@include('admin.script')
 
-<style>
-.table-wrapper {
-    max-height: 300px;
-    overflow-y: auto;
-}
-
-.scrollable-tbody {
-    display: block;
-    overflow-y: auto;
-}
-
-.scrollable-tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-}
-
-.table thead,
-.table tbody tr {
-    width: 100%;
-    display: table;
-    table-layout: fixed;
-}
-
-.table thead {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    background-color: #f8f9fa;
-}
-.modal-content {
-    background-color: #fff;
-}
-
-.modal-header,
-.modal-body,
-.modal-footer {
-    background-color: #fff;
-    color: #000;
-}
-</style>     
-    
   </body>
 </html>
