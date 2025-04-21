@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->timestamp('login_at')->nullable();
             $table->timestamp('logout_at')->nullable();
+            $table->string('device')->nullable();
             $table->timestamps();
     
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

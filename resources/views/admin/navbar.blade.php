@@ -15,17 +15,17 @@
             <nav class="navbar-nav navbar-nav-right">
                 <li class="nav-item nav-settings d-none d-lg-block">
                 <a class="nav-link" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
-               <i class="bi bi-facebook" style="color: lightblue; font-size: 1.8rem;"></i>
+               <i class="bi bi-facebook" style="color: blue; font-size: 1.8rem;"></i>
             </a>
             </li>
             <li class="nav-item nav-settings d-none d-lg-block">
                 <a class="nav-link" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
-                <i class="bi bi-youtube" style="color: red; font-size: 2.1rem;"></i>
+                <i class="bi bi-youtube" style="color: #B22222   ; font-size: 2.1rem;"></i>
                 </a>
             </li>
             <li class="nav-item nav-settings d-none d-lg-block">
                 <a class="nav-link" href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox" target="_blank" rel="noopener noreferrer">
-                <i class="bi bi-envelope-fill" style="color: orange; font-size: 1.9rem;"></i>
+                <i class="bi bi-envelope-at-fill" style="color: orange; font-size: 1.9rem;"></i>
                 </a>
             </li>
             <li class="nav-item dropdown">

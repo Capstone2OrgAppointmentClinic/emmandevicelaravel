@@ -29,7 +29,7 @@
       @include('admin.navbar')
 
       <!-- partial -->
-      <div class="container-fluid w-100 p-5">
+      <div class="container-fluid w-100  mt-5">
         <div class="mt-5">
           
 @if(session('success'))
@@ -232,24 +232,30 @@
     <div class="modal-dialog modal-xl" style="max-width: 90%;">
         <div class="modal-content">
             <div class="modal-header d-flex justify-content-between align-items-center">
-                <h5 class="modal-title" id="logsModalLabel">Logs History</h5>
-                <div class="btn-group" style="padding-left:20px;">
-                    <button class="btn btn-sm btn-outline-primary" id="showStudentLogsBtn">Student Logs</button>
-                    <button class="btn btn-sm btn-outline-success" id="showAdminLogsBtn">Admin Logs</button>
+
+            <div class="btn-group">
+                    <button class="btn btn-sm btn-outline-primary" id="showStudentLogsBtn" style="width: 150px;">Student Logs</button>
+                    <button class="btn btn-sm btn-outline-success" id="showAdminLogsBtn" style="width: 150px;">Admin Logs</button>
                 </div>
+<div class="flex justify-center w-full items-center">
+<h5 class="modal-title" id="logsModalLabel" style="margin-right: 250px;">Logs History</h5>
+
+</div>
+
+
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
                 <!-- Student Logs Section -->
                 <div id="studentLogsSection">
-                    <h4>Student Logs</h4>
+      
 
                      <!-- 🔍 Search Input -->
                 <input type="text" class="form-control mb-2 search-input" style="width:250px;" id="studentSearchInput" placeholder="Search student name">
                       
-                <div class="table-wrapper">
-                        <table class="table table-bordered mb-0">
+                <div class="table-wrapper table-responsive">
+                        <table class="table table-bordered mb-0 ">
                             <thead class="table-light">
                                 <tr>
                                     <th>Student Name</th>
@@ -272,7 +278,7 @@
 
                 <!-- Admin Logs Section -->
                 <div id="adminLogsSection" style="display: none;">
-                    <h4>Admin Logs</h4>
+             
                 
                 <!-- 🔍 Search Input -->
                 <input type="text" class="form-control mb-2 search-input" id="adminSearchInput" style="width:250px;" placeholder="Search admin name...">

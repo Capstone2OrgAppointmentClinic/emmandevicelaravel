@@ -19,7 +19,7 @@
   transition: color 0.3s ease;
   position: relative;
   z-index: 2;
-}
+}z
 .nav-menu::before {
   content: '';
   position: absolute;

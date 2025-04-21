@@ -11,6 +11,7 @@ class StudentLog extends Model
         'name',
         'login_at',
         'logout_at',
+        'device',
     ];
 
     public function student()

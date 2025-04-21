@@ -36,9 +36,9 @@
                     <!-- Availability Button Box -->
                     <button id="toggleAvailability" class="btn box-btn" style="height: auto; width: 260px; padding: 20px 30px; margin: 15px; background-color: #AD1457; color: white; border-radius: 15px; border: none; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
                         <div class="btn-content" style="display: flex; align-items: center; justify-content: space-between;">
-                            <i class="fas fa-clock" style="font-size: 40px;"></i>
+                            <i class="	fas fa-capsules" style="font-size: 40px;"></i>
                             <div style="text-align: right;">
-                                <h3 style="font-size: 24px; font-weight: 600; margin: 0;">Availability</h3>
+                                <h3 style="font-size: 24px; font-weight: 600; margin: 0;">Medicine</h3>
                                 <p style="font-size: 32px; font-weight: 700; margin: 5px 0;">↓</p>
                             </div>
                         </div>
@@ -97,7 +97,7 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th style=" color: black">#</th>
+                                <th style=" color: black">AID</th>
                                 <th style=" color: black;">Student Name</th>
                                 <th style=" color: black;">Service</th>
                                 <th style=" color: black;">Date</th>
