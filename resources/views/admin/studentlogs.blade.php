@@ -2,352 +2,295 @@
 <html lang="en">
 
 <head>
-
-<link rel="icon" href="{{ asset('assets/img/adminimg/titlebaricon.ico') }}" type=" image/icon">
+    <link rel="icon" href="{{ asset('assets/img/adminimg/titlebaricon.ico') }}" type="image/icon">
     @include('admin.css')
     @include('admin.announcecss')
 
     <style>
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+        }
 
-    table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-        margin-bottom: 40px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
-        border-radius: 12px;
-        overflow: hidden;
-    }
+        h2, h4 {
+            color: #1f2937;
+            font-weight: 600;
+        }
 
-    th, td {
-        padding: 14px 20px;
-        text-align: left;
-        background-color: #ffffff;
-    }
+        .container,
+        .container-fluid {
+            max-width: 100% !important;
+            padding: 0;
+            margin: 0;
+            background: transparent;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+        }
 
-    th {
-        background-color: #f1f5f9;
-        font-weight: 600;
-        color: #374151;
-    }
+        .table-section {
+            margin-top: 40px;
+        }
 
-    tr:not(:last-child) td {
-        border-bottom: 1px solid #e5e7eb;
-    }
+        .table-wrapper {
+            overflow-x: auto;
+        }
 
-    tr:hover td {
-        background-color: #f9fafb;
-    }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
 
-    h2, h4 {
-        color: #1f2937;
-        font-weight: 600;
-        margin-top: 25px;
-    }
+        th,
+        td {
+            padding: 14px 20px;
+            text-align: left;
+            background-color: #ffffff;
+        }
 
-    .container {
-        background-color: #ffffff;
-        padding: 30px;
-        border-radius: 16px;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-        margin-top: 40px;
-    }
+        /* truncate long text in all cells */
+        td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-    .table-section {
-        margin-top: 40px;
-    }
+        th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+            color: #374151;
+        }
 
-    .pagination {
-        display: flex;
-        justify-content: center;
-        margin-top: 30px;
-    }
-</style>
+        tr:not(:last-child) td {
+            border-bottom: 1px solid #e5e7eb;
+        }
 
+        tr:hover td {
+            background-color: #f9fafb;
+        }
+
+        .table thead th {
+            background-color: #f8f9fa;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .search-input {
+            color: #fff;
+            background-color: #AD1457;
+            border: none;
+            border-radius: 12px;
+            padding: 8px 16px;
+            font-weight: 500;
+        }
+
+        .search-input::placeholder {
+            color: #ffe6ec;
+        }
+
+        .search-input:focus {
+            background-color: #AD1457;
+            color: #fff;
+            box-shadow: none;
+            outline: none;
+        }
+
+        .mark {
+            background-color: yellow;
+            padding: 0 2px;
+            border-radius: 3px;
+        }
+
+        .nav-tabs .nav-link.active {
+            background-color: #AD1457;
+            color: white;
+            border: none;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .nav-tabs .nav-link {
+            border: none;
+            color: #AD1457;
+        }
+    </style>
 </head>
 
-<body style="background-color: #FAEBD7;">
+<body>
     <div class="container-scroller">
         @include('admin.sidebar')
         @include('admin.navbar')
 
-        <div class="container-fluid w-100 p-5">
-<div class="container">
-    <h2 class="mb-4">Logs History</h2>
-    
-    <!-- Student Logs Table -->
-    <h4>Student Logs</h4>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Student Name</th>
-                <th>Login Time</th>
-                <th>Logout Time</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($logs as $log)
-                @if($log->student && $log->student->usertype == 0)
-                    <tr>
-                        <td>{{ $log->student->name }}</td>
-                        <td>{{ \Carbon\Carbon::parse($log->login_at)->format('Y-m-d h:i A') }}</td>
-                        <td>{{ $log->logout_at ? \Carbon\Carbon::parse($log->logout_at)->format('Y-m-d h:i A') : '—' }}</td>
-                    </tr>
-                @endif
-            @endforeach
-        </tbody>
-    </table>
+        <div class="container-fluid mt-5">
+            <div class="w-100">
+                <h2 class="mb-4">Logs History</h2>
 
-    <!-- Admin Logs Table -->
-    <h4 style=" margin-top: 60px;">Admin Logs</h4>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Admin Name</th>
-                <th>Login Time</th>
-                <th>Logout Time</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($logs as $log)
-                @if($log->student && $log->student->usertype != 0)
-                    <tr>
-                        <td>{{ $log->student->name }}</td>
-                        <td>{{ \Carbon\Carbon::parse($log->login_at)->format('Y-m-d h:i A') }}</td>
-                        <td>{{ $log->logout_at ? \Carbon\Carbon::parse($log->logout_at)->format('Y-m-d h:i A') : '—' }}</td>
-                    </tr>
-                @endif
-            @endforeach
-        </tbody>
-    </table>
+                <!-- Tabs -->
+                <ul class="nav nav-tabs card-header-tabs w-full" id="logTabs" role="tablist" style="display: flex; align-items: stretch; width: 100%;">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="student-tab" data-bs-toggle="tab" href="#studentLogsSection" role="tab" style="width: 86.5vh;">Student Logs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="admin-tab" data-bs-toggle="tab" href="#adminLogsSection" role="tab" style="width: 86.5vh;">Admin Logs</a>
+                    </li>
+                </ul>
 
-    
-</div>
+                <!-- Tab Content -->
+                <div class="tab-content mt-3">
+                    <!-- Student Logs Section -->
+                    <div class="tab-pane fade show active" id="studentLogsSection" role="tabpanel">
+                        <input type="text" class="form-control mb-3 search-input rounded-lg border bg-gray-100 py-4" style="width:250px;" id="studentSearchInput" placeholder="Search student name...">
 
-<!-- Logs History Modal -->
-<div class="modal fade" id="logsModal" tabindex="-1" aria-labelledby="logsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" style="max-width: 90%;">
-        <div class="modal-content">
-            <div class="modal-header d-flex justify-content-between align-items-center">
-                <h5 class="modal-title" id="logsModalLabel">Logs History</h5>
-                <div class="btn-group" style="padding-left:20px;">
-                    <button class="btn btn-sm btn-outline-primary" id="showStudentLogsBtn">Student Logs</button>
-                    <button class="btn btn-sm btn-outline-success" id="showAdminLogsBtn">Admin Logs</button>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-                <!-- Student Logs Section -->
-                <div id="studentLogsSection">
-                    <h4>Student Logs</h4>
-
-                     <!-- 🔍 Search Input -->
-                <input type="text" class="form-control mb-2 search-input" style="width:250px;" id="studentSearchInput" placeholder="Search student name">
-                      
-                <div class="table-wrapper">
-                        <table class="table table-bordered mb-0">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Student Name</th>
-                                    <th>Login Time</th>
-                                    <th>Logout Time</th>
-                                </tr>
-                            </thead>
-                            <tbody class="scrollable-tbody">
+                        <div class="table-wrapper rounded-lg sty">
+                            <table class="mb-0">
+                                <colgroup>
+                                    <col style="width: 20%;">
+                                    <col style="width: 20%;">
+                                    <col style="width: 20%;">
+                                    <col style="width: 20%;">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th style="background-color: #AD1457; color: white;">Student Name</th>
+                                        <th style="background-color: #AD1457; color: white;">Login Time</th>
+                                        <th style="background-color: #AD1457; color: white;">Logout Time</th>
+                                        <th style="background-color: #AD1457; color: white;">Device Used for Login</th>
+                                        <th style="background-color: #AD1457; color: white;">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                 @foreach($logs->where('student.usertype', 0) as $log)
+    <tr>
+        <td style="background-color: gray;">{{ $log->student->name }}</td>
+        <td style="background-color: gray;">{{ \Carbon\Carbon::parse($log->login_at)->format('Y-m-d h:i A') }}</td>
+        <td style="background-color: gray;">{{ $log->logout_at ? \Carbon\Carbon::parse($log->logout_at)->format('Y-m-d h:i A') : '—' }}</td>
+        <td style="background-color: gray;" title="{{ $log->device }}">{{ $log->device ?? 'Unknown' }}</td>
+        <td style="background-color: gray;">
+    @if($log->logout_at == null)
+        <span class="badge bg-success">Online</span>
+    @else
+        <span class="badge bg-secondary">Logged Out</span>
+    @endif
+</td>
+    </tr>
+    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Admin Logs Section -->
+                    <div class="tab-pane fade" id="adminLogsSection" role="tabpanel">
+                        <input type="text" class="form-control mb-3 search-input rounded-lg border bg-gray-100 py-4" style="width:250px;" id="adminSearchInput" placeholder="Search admin name...">
+
+                        <div class="table-wrapper rounded-lg">
+                            <table class="mb-0">
+                                <colgroup>
+                                    <col style="width: 20%;">
+                                    <col style="width: 20%;">
+                                    <col style="width: 20%;">
+                                    <col style="width: 20%;">
+                                </colgroup>
+                                <thead>
                                     <tr>
-                                        <td>{{ $log->student->name }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($log->login_at)->format('Y-m-d h:i A') }}</td>
-                                        <td>{{ $log->logout_at ? \Carbon\Carbon::parse($log->logout_at)->format('Y-m-d h:i A') : '—' }}</td>
+                                        <th style="background-color: #AD1457; color: white;">Admin Name</th>
+                                        <th style="background-color: #AD1457; color: white;">Login Time</th>
+                                        <th style="background-color: #AD1457; color: white;">Logout Time</th>
+                                        <th style="background-color: #AD1457; color: white;">Device Used for Login</th>
+                                        <th style="background-color: #AD1457; color: white;">Status</th>
+
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody style="background-color: gray; border-radius: 50%;">
+                                    @foreach($logs->where('student.usertype', '!=', 0) as $log)
+                                    <tr>
+                                        <td style="background-color: gray;">{{ $log->student->name }}</td>
+                                        <td style="background-color: gray;">{{ \Carbon\Carbon::parse($log->login_at)->format('Y-m-d h:i A') }}</td>
+                                        <td style="background-color: gray;">{{ $log->logout_at ? \Carbon\Carbon::parse($log->logout_at)->format('Y-m-d h:i A') : '—' }}</td>
+                                        <td style="background-color: gray;" title="{{ $log->device }}">{{ $log->device ?? 'Unknown' }}</td>
+                                        <td style="background-color: gray;">
+    @if($log->logout_at == null)
+        <span class="badge bg-success">Online</span>
+    @else
+        <span class="badge bg-secondary">Logged Out</span>
+    @endif
+</td>
+
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Admin Logs Section -->
-                <div id="adminLogsSection" style="display: none;">
-                    <h4>Admin Logs</h4>
-                
-                <!-- 🔍 Search Input -->
-                <input type="text" class="form-control mb-2 search-input" id="adminSearchInput" style="width:250px;" placeholder="Search admin name...">
- 
-                    <div class="table-wrapper">
-                        <table class="table table-bordered mb-0">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Admin Name</th>
-                                    <th>Login Time</th>
-                                    <th>Logout Time</th>
-                                </tr>
-                            </thead>
-                            <tbody class="scrollable-tbody">
-                                @foreach($logs->where('student.usertype', '!=', 0) as $log)
-                                    <tr>
-                                        <td>{{ $log->student->name }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($log->login_at)->format('Y-m-d h:i A') }}</td>
-                                        <td>{{ $log->logout_at ? \Carbon\Carbon::parse($log->logout_at)->format('Y-m-d h:i A') : '—' }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-               
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="logsModal" tabindex="-1" aria-labelledby="logsModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl" style="max-width: 90%;">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex justify-content-between align-items-center">
+                            <h5 class="modal-title" id="logsModalLabel">Logs History</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Content is already displayed above -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                function addSearchFunctionality(inputId, sectionId) {
+                    const input = document.getElementById(inputId);
+                    input.addEventListener("input", function () {
+                        const filter = this.value.toLowerCase();
+                        const rows = document.querySelectorAll(`#${sectionId} table tbody tr`);
+
+                        rows.forEach(row => {
+                            const nameCell = row.querySelector("td");
+                            if (nameCell) {
+                                const text = nameCell.textContent.toLowerCase();
+                                if (text.includes(filter)) {
+                                    row.style.display = "";
+                                    nameCell.innerHTML = nameCell.textContent.replace(
+                                        new RegExp(`(${filter})`, 'gi'),
+                                        `<mark>$1</mark>`
+                                    );
+                                } else {
+                                    row.style.display = "none";
+                                }
+                            }
+                        });
+                    });
+                }
+
+                document.addEventListener("DOMContentLoaded", function () {
+                    addSearchFunctionality("studentSearchInput", "studentLogsSection");
+                    addSearchFunctionality("adminSearchInput", "adminLogsSection");
+                });
+            </script>
+
+            @if(request()->has('logs'))
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    var logsModal = new bootstrap.Modal(document.getElementById('logsModal'));
+                    logsModal.show();
+
+                    if (window.history.replaceState) {
+                        const url = new URL(window.location);
+                        url.searchParams.delete('logs');
+                        window.history.replaceState({}, document.title, url.pathname + url.search);
+                    }
+                });
+            </script>
+            @endif
         </div>
     </div>
-</div>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const studentBtn = document.getElementById("showStudentLogsBtn");
-    const adminBtn = document.getElementById("showAdminLogsBtn");
-    const studentSection = document.getElementById("studentLogsSection");
-    const adminSection = document.getElementById("adminLogsSection");
 
-    studentBtn.addEventListener("click", () => {
-        studentSection.style.display = "block";
-        adminSection.style.display = "none";
-    });
-
-    adminBtn.addEventListener("click", () => {
-        studentSection.style.display = "none";
-        adminSection.style.display = "block";
-    });
-
-    const studentSearchInput = document.getElementById("studentSearchInput");
-    studentSearchInput.addEventListener("keyup", function () {
-        const filter = this.value.toLowerCase();
-        const rows = document.querySelectorAll("#studentLogsSection table tbody tr");
-        rows.forEach(row => {
-            const nameCell = row.querySelector("td");
-            if (nameCell && nameCell.textContent.toLowerCase().includes(filter)) {
-                row.style.display = "";
-            } else {
-                row.style.display = "none";
-            }
-        });
-    });
-
-    const adminSearchInput = document.getElementById("adminSearchInput");
-    adminSearchInput.addEventListener("keyup", function () {
-        const filter = this.value.toLowerCase();
-        const rows = document.querySelectorAll("#adminLogsSection table tbody tr");
-        rows.forEach(row => {
-            const nameCell = row.querySelector("td");
-            if (nameCell && nameCell.textContent.toLowerCase().includes(filter)) {
-                row.style.display = "";
-            } else {
-                row.style.display = "none";
-            }
-        });
-    });
-});
-</script>
-
-
-@if(request()->has('logs'))
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var logsModal = new bootstrap.Modal(document.getElementById('logsModal'));
-            logsModal.show();
-
-            if (window.history.replaceState) {
-                const url = new URL(window.location);
-                url.searchParams.delete('logs');
-                window.history.replaceState({}, document.title, url.pathname + url.search);
-            }
-        });
-    </script>
-@endif
-
-<style>
-.table-wrapper {
-    max-height: 350px;
-    overflow-y: auto;
-}
-
-.scrollable-tbody {
-    display: block;
-    overflow-y: auto;
-}
-
-.scrollable-tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-}
-
-.table thead,
-.table tbody tr {
-    width: 100%;
-    display: table;
-    table-layout: fixed;
-}
-
-.table thead {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    background-color: #f8f9fa;
-}
-
-.modal-content,
-.modal-header,
-.modal-body,
-.modal-footer {
-    background-color: #fff;
-    color: #000;
-}
-.search-input {
-    color: black;
-    background-color: white;
-    border: 1px solid #ccc;
-}
-
-.search-input:focus {
-    background-color: white;
-    color: black;
-    border-color: gray;
-    box-shadow: none;
-}
-</style>
-
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const searchInput = document.getElementById('searchInput');
-
-    searchInput.addEventListener('input', function () {
-      const filter = searchInput.value.toLowerCase();
-      const rows = document.querySelectorAll('table tbody tr');
-
-      rows.forEach(row => {
-        const statusCell = row.querySelector('td:nth-child(7)');
-        if (statusCell) {
-          const statusText = statusCell.textContent.toLowerCase();
-          if (statusText.includes(filter)) {
-            row.style.display = '';
-          } else {
-            row.style.display = 'none';
-          }
-        }
-      });
-    });
-  });
-</script>
-
-@include('admin.script')
-    </div>
+    @include('admin.script')
 </body>
 
 </html>

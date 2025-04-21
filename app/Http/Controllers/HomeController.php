@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Notification;
 use App\Notifications\RescheduleNotification;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Appointmentlog;
+use App\Models\StudentLog;
+
 
 
 
@@ -429,4 +431,16 @@ public function aboutus()
      return view('user.announcement', compact('announcements'));
  }
  
+ public function forceLogout($log_id)
+{
+    $log = StudentLog::findOrFail($log_id);
+
+    if ($log->logout_at === null) {
+        $log->logout_at = now();
+        $log->save();
+    }
+
+    return back()->with('success', 'User was logged out successfully.');
+}
+
 }

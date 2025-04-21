@@ -125,3 +125,8 @@ Route::post('/appointment.approved', [AdminController::class, 'approve'])->name(
 Route::get('/appointment-history', [AdminController::class, 'showAppointmentHistoryLogs'])->name('appointment.history');
 
 Route::get('/showappointment', [AdminController::class, 'showAppointment'])->name('showappointment');
+
+Route::put('/admin/force-logout/{id}', [App\Http\Controllers\AdminController::class, 'forceLogout'])->name('admin.forceLogout');
+
+
+Route::put('/force-logout/{log_id}', [HomeController::class, 'forceLogout'])->name('force.logout');

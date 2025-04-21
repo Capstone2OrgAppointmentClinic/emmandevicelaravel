@@ -489,4 +489,23 @@ public function approve(Request $request)
 
     return redirect()->back()->with('success', 'Appointment approved message sent.');
 }
+
+public function forceLogout($log_id)
+{
+    $log = StudentLog::findOrFail($log_id);
+    $log->logout_at = now();
+    $log->save();
+
+    // If the user being force logged out is the currently authenticated user
+    if ($log->user_id == Auth::id()) {
+        Auth::logout(); // Logs out the current session
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+
+        return redirect('/login')->with('message', 'You have been forcefully logged out.');
+    }
+
+    return back()->with('success', 'User has been forcefully logged out.');
+}
+
 }
