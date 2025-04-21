@@ -12,7 +12,7 @@
         @include('admin.navbar')
         <div class="main-panel w-full">
             <div class="content-wrapper flex flex-col" style="background-color: #FAEBD7;">
-                <div class="justify-center p-6 flex-wrap gap-4 md:flex-row md:items-center">
+                <div class="justify-center p-6 flex-wrap gap-3 md:flex-row md:items-center flex w-full items-center">
                     <!-- Users Button Box -->
                     <button id="toggleUsers" class="btn box-btn" style="height: auto; width: 260px; padding: 20px 30px; margin: 15px; background-color: #AD1457; color: white; border-radius: 15px; border: none; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
                         <div class="btn-content" style="display: flex; align-items: center; justify-content: space-between;">
@@ -139,18 +139,19 @@
                 <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="viewUserModalLabel">User Info</h5>
+                <h5 class="modal-title flex justify-center w-full items-center text-lg" id="viewUserModalLabel">{{ $appointment->name }} Information</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <p><strong>Name:</strong> <span id="modalUserName"></span></p>
-                <p><strong>Name:</strong> <span id="modalUserName"></span></p>
-
-                <p><strong>Name:</strong> <span id="modalUserName"></span></p>
-
-                <p><strong>Name:</strong> <span id="modalUserName"></span></p>
-
-                <p><strong>Name:</strong> <span id="modalUserName"></span></p>
+                <p><strong>I.D: </strong><span id="modalUserId"></span></p>
+                <p><strong>Student ID: </strong><span id="modalUserStudentId"></span></p>
+                <p><strong>Name: </strong> <span id="modalUserName"></span></p>
+                <p><strong>Email: </strong> <span id="modalUserEmail"></span></p>
+                <p><strong>Phone Number: </strong> <span id="modalUserPhone"></span></p>
+                <p><strong>Address: </strong> <span id="modalUserAddress"></span></p>
+                <p><strong>Course: </strong> <span id="modalUserCourse"></span></p>
+                <p><strong>Educational Level: </strong> <span id="modalUserEducational_Level    "></span></p>
+           
 
             </div>
             <div class="modal-footer">

@@ -84,6 +84,25 @@
         <span class="menu-title" style="color:white; font-size:19px;">Logs/History</span>
       </a>
     </li>
+
+    <li class="nav-item menu-items">
+      <a class="nav-link" href="#">
+        <span class="menu-icon">
+          <i class="mdi mdi-message-text-outline" style="font-size: 18px;"></i>
+        </span>
+        <span class="menu-title" style="color:white; font-size:19px;">Users</span>
+      </a>
+    </li>
+
+    <li class="nav-item menu-items">
+      <a class="nav-link" href="#">
+        <span class="menu-icon">
+          <i class="mdi mdi-message-text-outline" style="font-size: 18px;"></i>
+        </span>
+        <span class="menu-title" style="color:white; font-size:19px;">Medicine</span>
+      </a>
+    </li>
+
   </ul>
 </nav>
 

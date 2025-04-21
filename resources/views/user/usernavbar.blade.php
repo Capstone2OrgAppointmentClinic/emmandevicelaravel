@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <li class="nav-item active"><a class="nav-link" href="{{url('/')}}">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('aboutUs') }}">About us</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{url('announcement')}}">Announcements</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href=" {{ url('/Student/Home/Contact') }}">Contact</a></li>
                     <li class="nav-item"><a class="nav-link" href="https://portal.svfc-edu.com/login">Portal</a></li>
                     
                     

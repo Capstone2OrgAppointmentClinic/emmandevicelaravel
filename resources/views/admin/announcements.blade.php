@@ -130,7 +130,7 @@
 
                         <!-- Image Upload Field -->
                         <div class="mb-4">
-                            <label for="image">Upload Image (optional)</label>
+                            <label for="image">Image Announcement</label>
                             <input type="file" class="custom-file-input" name="image" accept="image/*">
                         </div>
 

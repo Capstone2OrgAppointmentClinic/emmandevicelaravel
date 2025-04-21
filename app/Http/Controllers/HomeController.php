@@ -443,4 +443,8 @@ public function aboutus()
     return back()->with('success', 'User was logged out successfully.');
 }
 
+public function userContact () 
+{
+    return view ('user.contact');
+}
 }
