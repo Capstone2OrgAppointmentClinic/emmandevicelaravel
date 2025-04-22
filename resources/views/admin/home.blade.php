@@ -67,7 +67,7 @@
             }
         });
     });
-</script>
+</script> <!-- This is script use for  Search bar for User in Dashboard  of Admin Panel Users, can able to search name and student ID-->
 
                             <thead>
                                 <tr>
