@@ -60,7 +60,7 @@
     <th id="phoneHeader" class="text-center text-white" style="width: 150px; word-wrap: break-word; white-space: normal;">Phone</th>
     <th id="serviceHeader" class="text-center text-white" style="width: 150px; word-wrap: break-word; white-space: normal;">Service</th>
     <th id="dateHeader" class="text-center text-white" style="width: 150px; word-wrap: break-word; white-space: normal;">Date & Time</th>
-    <th id="messageHeader" class="text-center text-white" style="width: 150px; word-wrap: break-word; white-space: normal;">Message</th>
+    <th id="messageHeader" class="text-center text-white" style="width: 150px; word-wrap: break-word; white-space: normal;">Purpose</th>
     <th id="statusHeader" class="text-center text-white" style="width: 150px; word-wrap: break-word; white-space: normal;">Status</th>
     <th id="actionHeader" class="text-center text-white" style="width: 150px; word-wrap: break-word; white-space: normal;">Action</th>
   </tr>
@@ -186,16 +186,17 @@
 @include('admin.modalApproved')
       
 <!-- Message Modal -->
-      <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel">
+      <div class="modal fade rounded-lg" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="messageModalLabel">Message</h5>
+          <div class="modal-content" style="border-radius: 1rem 1rem 0 0;">
+            <div class="modal-header w-full"  style="background-color: #AD1457; color: white; border-radius: 1rem 1rem 0 0;">
+              <h5 class="modal-title flex justify-center w-full items-center text-[24px]" id="messageModalLabel"\><i class="bi bi-calendar-check"></i>
+              &nbsp;Purpose of Appointment</h5>
               <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+       
               </button>
             </div>
-            <div class="modal-body" id="messageContent">
+            <div class="modal-body flex justify-start  items-baseline" id="messageContent" style="margin-top: 20px; margin-left: -10px; background-color: white; padding: 10px 50px 50px 50px; background: transparent;">
               <!-- Message will be dynamically updated here -->
             </div>
             <div class="modal-footer">
@@ -205,7 +206,17 @@
         </div>
       </div>
     </div>
+    <style>
+  .modal-content {
+    border: none !important;
+  }
 
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    border: none !important;
+  }
+</style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     $(document).ready(function(){

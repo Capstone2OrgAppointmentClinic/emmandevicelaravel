@@ -128,13 +128,13 @@
         const rows = document.querySelectorAll('#appointmentTable tbody tr');
 
         rows.forEach(row => {
-            const service = row.cells[2].textContent.toLowerCase();
             const name = row.cells[1].textContent.toLowerCase();
+            const service = row.cells[2].textContent.toLowerCase();
             const date = row.cells[3].textContent.toLowerCase();
             const status = row.cells[4].textContent.toLowerCase();
             const time = row.cells[5].textContent.toLowerCase();
 
-            if (service.includes(filter) || name.includes(filter) || date.includes(filter) ||  status.includes(filter)) {
+            if (service.includes(filter) || name.includes(filter) || date.includes(filter) ||  status.includes(filter) || time.includes(filter)) {
                 row.style.display = '';
             } else {
                 row.style.display = 'none';
@@ -182,32 +182,41 @@
                     </table>
                 </div>
                 <!-- Modals for viewing records -->
-                <div class="modal fade" id="viewUserModal" tabindex="-1" aria-labelledby="viewUserModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title flex justify-center w-full items-center text-lg" id="viewUserModalLabel">{{ $appointment->name }} Information</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <p><strong>I.D: </strong><span id="modalUserId"></span></p>
-                <p><strong>Student ID: </strong><span id="modalUserStudentId"></span></p>
-                <p><strong>Name: </strong> <span id="modalUserName"></span></p>
-                <p><strong>Email: </strong> <span id="modalUserEmail"></span></p>
-                <p><strong>Phone Number: </strong> <span id="modalUserPhone"></span></p>
-                <p><strong>Address: </strong> <span id="modalUserAddress"></span></p>
-                <p><strong>Course: </strong> <span id="modalUserCourse"></span></p>
-                <p><strong>Educational Level: </strong> <span id="modalUserEducational_Level    "></span></p>
-           
+               <!-- Modal -->
+               <div class="modal fade" id="viewUserModal" tabindex="-1" aria-labelledby="viewUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered max-w-4/12">
+    <div class="modal-content rounded-4 shadow-lg border-0">
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
+      <!-- Modal Header -->
+      <div class="modal-header bg-primary text-white rounded-top-4 d-flex align-items-center border-0">
+        <i class="bi bi-info-circle-fill me-2 fs-4"></i>
+        <h5 class="modal-title fw-semibold" id="viewUserModalLabel">
+          {{ $appointment->name }} Information
+        </h5>
+        <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body bg-white text-dark px-4 py-3">
+        <p><strong>I.D:</strong> <span id="modalUserId"></span></p>
+        <p><strong>Student ID:</strong> <span id="modalUserStudentId"></span></p>
+        <p><strong>Name:</strong> <span id="modalUserName"></span></p>
+        <p><strong>Email:</strong> <span id="modalUserEmail"></span></p>
+        <p><strong>Phone Number:</strong> <span id="modalUserPhone"></span></p>
+        <p><strong>Address:</strong> <span id="modalUserAddress"></span></p>
+        <p><strong>Course:</strong> <span id="modalUserCourse"></span></p>
+        <p><strong>Educational Level:</strong> <span id="modalUserEducational_Level"></span></p>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer bg-light border-0 rounded-bottom-4 justify-content-center">
+        <button type="button" class="btn btn-outline-primary px-4" data-bs-dismiss="modal">Close</button>
+      </div>
+
     </div>
-                
-                </div>
+  </div>
+</div>
+
                 <div class="modal fade" id="viewAppointmentModal"id="viewUserModal" tabindex="-1" aria-labelledby="viewUserModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-md">
         <div class="modal-content">
