@@ -59,8 +59,9 @@
         rows.forEach(row => {
             const studentId = row.cells[1].textContent.toLowerCase();
             const studentName = row.cells[2].textContent.toLowerCase();
+            const studentEmail = row.cells[3].textContent.toLowerCase();
 
-            if (studentId.includes(filter) || studentName.includes(filter)) {
+            if (studentId.includes(filter) || studentName.includes(filter) || studentEmail.includes(filter)) {
                 row.style.display = '';
             } else {
                 row.style.display = 'none';
@@ -102,7 +103,7 @@
                                                     View
                                                 </button>
                                                 <a href="{{ url('/editUser', $user->id) }}" class="btn btn-warning btn-sm">Update</a>
-                                                <a class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete this?')" href="{{ url('deleteUser', $user->id) }}">Delete</a>
+                                                <a class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete this?')" href="{{ url('deleteUser', $user->id) }}">Remove</a>
                                                 <a href="#" class="btn btn-info btn-sm"><i class="fas fa-history"></i></a>
                                             </div>
                                         </td>
