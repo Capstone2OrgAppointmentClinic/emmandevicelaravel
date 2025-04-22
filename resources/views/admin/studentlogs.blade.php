@@ -157,7 +157,7 @@
                                         <th style="background-color: #AD1457; color: white;">Login Time</th>
                                         <th style="background-color: #AD1457; color: white;">Logout Time</th>
                                         <th style="background-color: #AD1457; color: white;">Device Used for Login</th>
-
+                
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -167,7 +167,7 @@
         <td style="background-color: gray;">{{ \Carbon\Carbon::parse($log->login_at)->format('Y-m-d h:i A') }}</td>
         <td style="background-color: gray;">{{ $log->logout_at ? \Carbon\Carbon::parse($log->logout_at)->format('Y-m-d h:i A') : '—' }}</td>
         <td style="background-color: gray;" title="{{ $log->device }}">{{ $log->device ?? 'Unknown' }}</td>
-     
+       
     </tr>
     @endforeach
                                 </tbody>
@@ -193,8 +193,7 @@
                                         <th style="background-color: #AD1457; color: white;">Login Time</th>
                                         <th style="background-color: #AD1457; color: white;">Logout Time</th>
                                         <th style="background-color: #AD1457; color: white;">Device Used for Login</th>
-              
-
+                                    
                                     </tr>
                                 </thead>
                                 <tbody style="background-color: gray; border-radius: 50%;">
@@ -204,6 +203,7 @@
                                         <td style="background-color: gray;">{{ \Carbon\Carbon::parse($log->login_at)->format('Y-m-d h:i A') }}</td>
                                         <td style="background-color: gray;">{{ $log->logout_at ? \Carbon\Carbon::parse($log->logout_at)->format('Y-m-d h:i A') : '—' }}</td>
                                         <td style="background-color: gray;" title="{{ $log->device }}">{{ $log->device ?? 'Unknown' }}</td>
+                                      
 
                                     </tr>
                                     @endforeach
@@ -230,35 +230,32 @@
             </div>
 
             <script>
-                function addSearchFunctionality(inputId, sectionId) {
-                    const input = document.getElementById(inputId);
-                    input.addEventListener("input", function () {
-                        const filter = this.value.toLowerCase();
-                        const rows = document.querySelectorAll(`#${sectionId} table tbody tr`);
+    function addSearchFunctionality(inputId, sectionId) {
+        const input = document.getElementById(inputId);
+        input.addEventListener("input", function () {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll(`#${sectionId} table tbody tr`);
 
-                        rows.forEach(row => {
-                            const nameCell = row.querySelector("td");
-                            if (nameCell) {
-                                const text = nameCell.textContent.toLowerCase();
-                                if (text.includes(filter)) {
-                                    row.style.display = "";
-                                    nameCell.innerHTML = nameCell.textContent.replace(
-                                        new RegExp(`(${filter})`, 'gi'),
-                                        `<mark>$1</mark>`
-                                    );
-                                } else {
-                                    row.style.display = "none";
-                                }
-                            }
-                        });
-                    });
+            rows.forEach(row => {
+                const nameCell = row.querySelector("td");
+                if (nameCell) {
+                    const text = nameCell.textContent.toLowerCase();
+                    if (text.includes(filter)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
                 }
+            });
+        });
+    }
 
-                document.addEventListener("DOMContentLoaded", function () {
-                    addSearchFunctionality("studentSearchInput", "studentLogsSection");
-                    addSearchFunctionality("adminSearchInput", "adminLogsSection");
-                });
-            </script>
+    document.addEventListener("DOMContentLoaded", () => {
+        addSearchFunctionality("studentSearchInput", "studentLogsSection");
+        addSearchFunctionality("adminSearchInput", "adminLogsSection");
+    });
+</script>
+
 
             @if(request()->has('logs'))
             <script>
