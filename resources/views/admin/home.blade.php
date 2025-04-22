@@ -49,7 +49,7 @@
                 <div id="userTable" style="display: none; margin-top: 20px;">
                     <div class="table-responsive">
                         <table class="table table-striped">
-                        <x-input placeholder=" Student ID or Name" class="mb-4" style="width: 270px; color: black;" id="studentId"></x-input>
+                        <x-input placeholder="Search by Student ID, Name, or Email" class="mb-4" style="width: 300px; color: black;" id="studentId"></x-input>
                       
 <script>
     document.getElementById('studentId').addEventListener('keyup', function () {
@@ -116,6 +116,32 @@
                 <!-- Appointment Table -->
                 <div id="appointmentTable" style="display: none; margin-top: 20px;">
                     <table class="table table-striped">
+                          <!-- Users Table -->
+                <div id="userTable" style="display: none; margin-top: 20px;">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                        <x-input placeholder="Search records..." class="mb-4" style="width: 300px; color: black;" id="appointmentId"></x-input>
+                      
+                        <script>
+    document.getElementById('appointmentId').addEventListener('keyup', function () {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll('#appointmentTable tbody tr');
+
+        rows.forEach(row => {
+            const service = row.cells[2].textContent.toLowerCase();
+            const name = row.cells[1].textContent.toLowerCase();
+            const date = row.cells[3].textContent.toLowerCase();
+            const status = row.cells[4].textContent.toLowerCase();
+            const time = row.cells[5].textContent.toLowerCase();
+
+            if (service.includes(filter) || name.includes(filter) || date.includes(filter) ||  status.includes(filter)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+    </script>
                         <thead>
                             <tr>
                                 <th style=" color: black">AID</th>
@@ -134,7 +160,7 @@
                                     <td style="color: #AD1457; font-weight: bold;">{{ $appointment->name }}</td>
                                     <td style="color: #AD1457; font-weight: bold;">{{ $appointment->service }}</td>
                                     <td style="color: #AD1457; font-weight: bold;">{{ $appointment->date }}</td>
-                                    <td style="color: #AD1457; font-weight: bold;">{{ \Carbon\Carbon::parse($appointment->time)->format('h:i A') }}</td>
+                                    <td style="color: #AD1457; font-weight: bold;">{{ \Carbon\Carbon::parse($appointment->time)->format('M d, Y - h:i A') }}</td>
                                     <td style="color: #AD1457; font-weight: bold; text-transform: uppercase;">{{ ucfirst($appointment->status) }}</td>
                                     <td>
                                         <button class="btn btn-primary viewAppointment"
