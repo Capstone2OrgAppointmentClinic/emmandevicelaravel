@@ -32,7 +32,17 @@ class AdminController extends Controller
        
        return view('admin.add_doctor');
 
+    }public function index(Request $request)
+    {
+        $column = $request->input('sort_column', 'name');  // Default to 'name'
+        $direction = $request->input('sort_direction', 'asc');  // Default to 'asc'
+        
+        $appointments = Appointment::orderBy($column, $direction)->get();
+    
+        return view('admin.dashboard', compact('appointments'));
     }
+
+
 
     public function upload(Request $request)
     {

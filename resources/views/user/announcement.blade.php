@@ -10,6 +10,7 @@
 
   <title>CliniQuickAid</title>
 
+  
   <link rel="stylesheet" href="../assets/css/maicons.css">
 
   <link rel="stylesheet" href="../assets/css/bootstrap.css">
@@ -270,6 +271,7 @@ document.addEventListener('DOMContentLoaded', function () {
   <div class="container py-5">
   <h2 class="text-center mb-4" style="font-size: 30px;">Announcements</h2>
 
+  <i class=""></i>
   <div class="row">
     @foreach($announcements as $announcement)
       <div class="col-md-12 mb-3">

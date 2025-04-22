@@ -12,10 +12,10 @@
         @include('admin.navbar')
         <div class="main-panel w-full">
             <div class="content-wrapper flex flex-col" style="background-color: #FAEBD7;">
-                <div class="justify-center p-6 flex-wrap gap-3 md:flex-row md:items-center flex w-full items-center">
+                <div class="justify-center p-6 flex-wrap gap-3 md:flex-row md:items-center flex w-full items-center" style="justify-content: space-between;">
                     <!-- Users Button Box -->
-                    <button id="toggleUsers" class="btn box-btn" style="height: auto; width: 260px; padding: 20px 30px; margin: 15px; background-color: #AD1457; color: white; border-radius: 15px; border: none; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
-                        <div class="btn-content" style="display: flex; align-items: center; justify-content: space-between;">
+                    <button id="toggleUsers" class="btn box-btn" style="height: auto; width: 320px; padding: 20px 30px; margin: 15px; background-color: #AD1457; color: white; border-radius: 15px; border: none; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
+                        <div class="btn-content" style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 10px;">
                             <i class="fas fa-user" style="font-size: 40px;"></i>
                             <div style="text-align: right;">
                                 <h3 style="font-size: 24px; font-weight: 600; margin: 0;">Users</h3>
@@ -24,8 +24,8 @@
                         </div>
                     </button>
                     <!-- Appointment Button Box -->
-                    <button id="toggleAppointment" class="btn box-btn" style="height: auto; width: 260px; padding: 20px 30px; margin: 15px; background-color: #AD1457; color: white; border-radius: 15px; border: none; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
-                        <div class="btn-content" style="display: flex; align-items: center; justify-content: space-between;">
+                    <button id="toggleAppointment" class="btn box-btn" style="height: auto; width: 320px; padding: 20px 30px; margin: 15px; background-color: #AD1457; color: white; border-radius: 15px; border: none; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
+                        <div class="btn-content" style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 10px;">
                             <i class="fas fa-calendar-check" style="font-size: 40px;"></i>
                             <div style="text-align: right;">
                                 <h3 style="font-size: 24px; font-weight: 600; margin: 0;">Appointment</h3>
@@ -34,8 +34,8 @@
                         </div>
                     </button>
                     <!-- Availability Button Box -->
-                    <button id="toggleAvailability" class="btn box-btn" style="height: auto; width: 260px; padding: 20px 30px; margin: 15px; background-color: #AD1457; color: white; border-radius: 15px; border: none; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
-                        <div class="btn-content" style="display: flex; align-items: center; justify-content: space-between;">
+                    <button id="toggleAvailability" class="btn box-btn" style="height: auto; width: 320px; padding: 20px 30px; margin: 15px; background-color: #AD1457; color: white; border-radius: 15px; border: none; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
+                        <div class="btn-content" style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 10px;">
                             <i class="	fas fa-capsules" style="font-size: 40px;"></i>
                             <div style="text-align: right;">
                                 <h3 style="font-size: 24px; font-weight: 600; margin: 0;">Medicine</h3>
@@ -49,6 +49,26 @@
                 <div id="userTable" style="display: none; margin-top: 20px;">
                     <div class="table-responsive">
                         <table class="table table-striped">
+                        <x-input placeholder=" Student ID or Name" class="mb-4" style="width: 270px; color: black;" id="studentId"></x-input>
+                      
+<script>
+    document.getElementById('studentId').addEventListener('keyup', function () {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll('#userTable tbody tr');
+
+        rows.forEach(row => {
+            const studentId = row.cells[1].textContent.toLowerCase();
+            const studentName = row.cells[2].textContent.toLowerCase();
+
+            if (studentId.includes(filter) || studentName.includes(filter)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+</script>
+
                             <thead>
                                 <tr>
                                     <th style=" color: black;">#</th>
