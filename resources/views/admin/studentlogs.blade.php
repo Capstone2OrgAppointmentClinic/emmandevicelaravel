@@ -157,7 +157,7 @@
                                         <th style="background-color: #AD1457; color: white;">Login Time</th>
                                         <th style="background-color: #AD1457; color: white;">Logout Time</th>
                                         <th style="background-color: #AD1457; color: white;">Device Used for Login</th>
-                                        <th style="background-color: #AD1457; color: white;">Status</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -167,13 +167,7 @@
         <td style="background-color: gray;">{{ \Carbon\Carbon::parse($log->login_at)->format('Y-m-d h:i A') }}</td>
         <td style="background-color: gray;">{{ $log->logout_at ? \Carbon\Carbon::parse($log->logout_at)->format('Y-m-d h:i A') : '—' }}</td>
         <td style="background-color: gray;" title="{{ $log->device }}">{{ $log->device ?? 'Unknown' }}</td>
-        <td style="background-color: gray;">
-    @if($log->logout_at == null)
-        <span class="badge bg-success">Online</span>
-    @else
-        <span class="badge bg-secondary">Logged Out</span>
-    @endif
-</td>
+     
     </tr>
     @endforeach
                                 </tbody>
@@ -199,7 +193,7 @@
                                         <th style="background-color: #AD1457; color: white;">Login Time</th>
                                         <th style="background-color: #AD1457; color: white;">Logout Time</th>
                                         <th style="background-color: #AD1457; color: white;">Device Used for Login</th>
-                                        <th style="background-color: #AD1457; color: white;">Status</th>
+              
 
                                     </tr>
                                 </thead>
@@ -210,13 +204,6 @@
                                         <td style="background-color: gray;">{{ \Carbon\Carbon::parse($log->login_at)->format('Y-m-d h:i A') }}</td>
                                         <td style="background-color: gray;">{{ $log->logout_at ? \Carbon\Carbon::parse($log->logout_at)->format('Y-m-d h:i A') : '—' }}</td>
                                         <td style="background-color: gray;" title="{{ $log->device }}">{{ $log->device ?? 'Unknown' }}</td>
-                                        <td style="background-color: gray;">
-    @if($log->logout_at == null)
-        <span class="badge bg-success">Online</span>
-    @else
-        <span class="badge bg-secondary">Logged Out</span>
-    @endif
-</td>
 
                                     </tr>
                                     @endforeach
