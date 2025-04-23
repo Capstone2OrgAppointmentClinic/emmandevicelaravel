@@ -20,6 +20,20 @@
         transform: scale(1.05);
         /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); */
     }
+    .modal-footer .btn {
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #6c757d !important;
+        color: white !important;
+        border-color: #6c757d !important;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333 !important;
+        border-color: #bd2130 !important;
+    }
 </style>
 </head>
 <body style="background-color: #FAEBD7;">
@@ -34,7 +48,7 @@
                         <div class="btn-content" style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 10px;">
                             <i class="fas fa-user" style="font-size: 40px;"></i>
                             <div style="text-align: right;">
-                                <h3 style="font-size: 24px; font-weight: 600; margin: 0;">Users</h3>
+                                <h3 style="font-size: 24px; font-weight: 600; margin: 0;">Students</h3>
                                 <p style="font-size: 32px; font-weight: 700; margin: 5px 0;">{{ count($users ?? []) }}</p>
                             </div>
                         </div>
@@ -62,7 +76,7 @@
                 </div>
                 @include('admin.buttoncss')
                 <!-- Users Table -->
-                <div id="userTable" style="display: none; margin-top: 20px;">
+                <div id="userTable" style="display: none; margin-top: 20px; margin-right: -20px;">
                     <div class="table-responsive">
                         <table class="table table-striped">
                         <x-input placeholder="Search by Student ID, Name, or Email" class="mb-4" style="width: 300px; color: black;" id="studentId"></x-input>
@@ -119,7 +133,7 @@
                                                     View
                                                 </button>
                                                 <a href="{{ url('/editUser', $user->id) }}" class="btn btn-warning btn-sm statusbtn">Update</a>
-                                                <a class="btn btn-danger btn-sm statusbtn" onclick="return confirm('Are you sure to delete this?')" href="{{ url('deleteUser', $user->id) }}">Remove</a>
+                                                <a class="btn btn-danger btn-sm statusbtn" id="viewRemoveModal"  data-bs-toggle="modal" data-bs-target="#myRemoteModal"data-href="{{ url('deleteUser', $user->id) }}" data-name="{{ $user->name }}">Remove</a>
                                                 <a href="#" class="btn btn-info btn-sm statusbtn"><i class="fas fa-history"></i></a>
                                             </div>
                                         </td>
@@ -128,7 +142,55 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div>\
+
+                                 <!-- Confirmation Remove Modal -->
+<div class="modal fade" id="myRemoteModal" tabindex="-1" aria-labelledby="removeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4" style="background-color: #f8f9fa;">
+
+            <!-- Modal Header -->
+            <div class="modal-header border-0 pb-0" style="background-color: gray;">
+                <h5 class="modal-title fw-bold flex justify-center w-full items-center" id="removeModalLabel" style="font-size: 1.5rem; color: orange; padding-bottom: 1rem;">⚠️ Confirm Deletion</h5>
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body text-center text-dark py-4">
+                <p class="mb-1" style="font-size: 1.1rem;">Are you absolutely sure you want to delete</p>
+                <h5 class="fw-semibold text-uppercase text-danger" style="font-size: 1.5rem;"><span id="userName"></span></h5>
+                <p class="text-muted">This action cannot be undone.</p>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer border-0 d-flex justify-content-center gap-3 pb-4">
+                <button type="button" class="btn btn-outline-secondary px-4 rounded-pill" data-bs-dismiss="modal" style="background-color: gray;">
+                    Cancel
+                </button>
+                <a id="confirmDeleteBtn" href="#" class="btn btn-danger px-4 rounded-pill">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const modal = document.getElementById('myRemoteModal');
+        modal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const name = button.getAttribute('data-name');
+            const href = button.getAttribute('data-href');
+
+            document.getElementById('userName').textContent = name;
+            document.getElementById('confirmDeleteBtn').setAttribute('href', href);
+        });
+    });
+</script>
+
+
                 <!-- Appointment Table -->
                 <div id="appointmentTable" style="display: none; margin-top: 20px;">
                     <table class="table table-striped">
@@ -197,6 +259,10 @@
                         </tbody>
                     </table>
                 </div>
+
+
+
+
                 <!-- Modals for viewing records -->
                <!-- Modal -->
                <div class="modal fade" id="viewUserModal" tabindex="-1" aria-labelledby="viewUserModalLabel" aria-hidden="true">

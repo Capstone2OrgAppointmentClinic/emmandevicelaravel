@@ -100,9 +100,11 @@
                                 <td>
                                     <a class="btn btn-primary" href="{{ url('updatedoctor', $doctor->id) }}">Update</a>
                                 </td>
-                                <td>
-                                    <a onclick="return confirm('Are you sure to remove this?')" class="btn btn-danger" href="{{ url('removedoctor', $doctor->id) }}">Remove</a>
-                                </td>
+                                <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"  data-url="{{ url('removedoctor', $doctor->id) }}" data-doctor-name="{{ $doctor->name }}">Remove
+    </button>
+</td>
+
+
                             </tr>
                             @endforeach
                         </tbody>
@@ -111,6 +113,44 @@
             </div>
         </div>
     </div>
+
+<!-- Confirm Delete Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-3 shadow">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Removal</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to remove <span id="doctorName" style="font-weight: bold;"></span>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a id="confirmDeleteBtn" href="#" class="btn btn-danger">Yes, Remove</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const confirmDeleteModal = document.getElementById('confirmDeleteModal');
+    confirmDeleteModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const url = button.getAttribute('data-url');
+        const doctorName = button.getAttribute('data-doctor-name'); // Get the doctor's name
+
+        // Set the doctor's name inside the modal body
+        document.getElementById('doctorName').textContent = doctorName;
+
+        // Set the URL for the confirm button
+        const confirmBtn = document.getElementById('confirmDeleteBtn');
+        confirmBtn.setAttribute('href', url);
+    });
+</script>
+
+
+
 <!-- Logs History Modal -->
 <div class="modal fade" id="logsModal" tabindex="-1" aria-labelledby="logsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" style="max-width: 90%;">

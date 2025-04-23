@@ -1,7 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar" style="background-color: #AD1457;">
   <li class="nav-item menu-items flex w-full justify-center items-center" style="list-style: none; margin: 10px -10px -40px -10px;">
     <a class="nav-link" href="{{url(path: 'home')}}">
-      <img src="{{ asset('assets/img/person/svfctrans.png') }}" alt="" style="width:100px; height:auto;">
+      <img src="{{ asset('assets/img/person/svfctrans.png') }}" alt="" style="width:100px;  height:auto;">
     </a>
   </li>
 
@@ -19,7 +19,7 @@
 
         
         <ul class="nav" style="position: fixed;">
-          <li class="nav-item profile mb-4" style="margin-top:-2.5rem; margin-left: -1rem;">
+          <li class="nav-item profile mb-4" style="margin-top:-2.5rem; margin-left: -1rem;"></li>
             <div class="profile-desc">
               <div class="profile-pic">
                 <div class="count-indicator">

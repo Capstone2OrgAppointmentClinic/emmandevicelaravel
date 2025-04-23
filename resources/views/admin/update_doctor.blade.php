@@ -147,12 +147,7 @@
                             <input style="color: #333; font-weight: 500;" type="text" name="phone" value="{{ $data->phone }}" required>
                         </div>
 
-                        <!-- Speciality -->
-                        <div class="form-group">
-                            <label>Speciality</label>
-                            <input style="color: #333; font-weight: 500;" type="text" name="speciality" value="{{ $data->speciality }}" required>
-                        </div>
-
+                
                         <!-- Current Image -->
                         <div class="form-group image-container">
                             <label>Current Image</label><br>

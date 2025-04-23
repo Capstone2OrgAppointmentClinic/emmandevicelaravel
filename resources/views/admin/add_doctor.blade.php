@@ -67,14 +67,10 @@
             </div>
 
             <div style="margin-bottom: 15px;">
-                <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Speciality</label>
-                <select name="speciality" required
-                    style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; color: #333; font-size: 16px;">
-                    <option value="">Select Speciality</option>
-                    <option value="head nurse">Clinic Staff</option>
-                    <option value="nurse">Registered Nurse</option>
-                    <option value="Physicians">Physician / Surgeon</option>
-                </select>
+            <label for="specialty" style="color:#333; display: block; font-weight: 600; margin-bottom: 8px;">Specialty:</label>
+            <input type="text" name="speciality" class="form-control rounded-lg bg-white" value="{{ old('speciality', $doctor->speciality ?? '') }}" style="color: black;" placeholder="Add Specialty (e.g Nurse, Practitioner)" style=" font-size: 16px;">
+
+
             </div>
 
             <div style="margin-bottom: 15px;">
