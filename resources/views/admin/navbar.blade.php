@@ -7,11 +7,11 @@
             <button class="navbar-toggler navbar-toggler align-self-center mt-2" type="button" data-toggle="minimize">
               <span class="mdi mdi-menu text-white text-[44px]" ></span>
             </button>
-            @if(Route::currentRouteName() == 'showappointment')
+            <!-- @if(Route::currentRouteName() == 'showappointment')
             <div class="mb-3" style="padding-top:20px;">
                 <input type="text" id="searchInput" style="background-color: white; color: black; border: 2px solid #AD1457; width:200px;" class="form-control" placeholder="Search status">
             </div>
-        @endif
+        @endif -->
             <nav class="navbar-nav navbar-nav-right">
                 <li class="nav-item nav-settings d-none d-lg-block">
                 <a class="nav-link" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">

@@ -5,6 +5,22 @@
     @include('admin.script')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="icon" href="{{ asset('assets/img/adminimg/titlebaricon.ico') }}" type="image/icon">
+    <style>
+    .statusbtn {
+        padding: 10px 15px;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .statusbtn:hover {
+        background-color: #45a049;
+        transform: scale(1.05);
+        /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); */
+    }
+</style>
 </head>
 <body style="background-color: #FAEBD7;">
     <div class="container-scroller w-full">
@@ -77,7 +93,7 @@
                                     <th style=" color:black;">Student Name</th>
                                     <th style="text-align:center; color: black;">Email</th>
                                     <th style=" color: black;">Year Level</th>
-                                    <th style="text-align:center;">Status</th>
+                                    <th style="text-align:center; color: black;">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -90,7 +106,7 @@
                                         <td class="cell-text" style=" color: #AD1457; font-weight: bold;">{{ $user->year_level }}</td>
                                         <td>
                                             <div class="action-buttons">
-                                                <button class="btn btn-primary btn-sm viewUser"
+                                                <button class="btn btn-primary btn-sm viewUser statusbtn"
                                                     data-name="{{ $user->name }}"
                                                     data-email="{{ $user->email }}"
                                                     data-phone="{{ $user->phone }}"
@@ -102,9 +118,9 @@
                                                     data-bs-toggle="modal" data-bs-target="#viewUserModal">
                                                     View
                                                 </button>
-                                                <a href="{{ url('/editUser', $user->id) }}" class="btn btn-warning btn-sm">Update</a>
-                                                <a class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete this?')" href="{{ url('deleteUser', $user->id) }}">Remove</a>
-                                                <a href="#" class="btn btn-info btn-sm"><i class="fas fa-history"></i></a>
+                                                <a href="{{ url('/editUser', $user->id) }}" class="btn btn-warning btn-sm statusbtn">Update</a>
+                                                <a class="btn btn-danger btn-sm statusbtn" onclick="return confirm('Are you sure to delete this?')" href="{{ url('deleteUser', $user->id) }}">Remove</a>
+                                                <a href="#" class="btn btn-info btn-sm statusbtn"><i class="fas fa-history"></i></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -150,7 +166,7 @@
                                 <th style=" color: black;">Date</th>
                                 <th style=" color: black;">Time</th>
                                 <th style=" color: black;">Status</th>
-                                <th style=" color: black;">Info</th>
+                                <th style=" color: black;">Student Information</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -163,7 +179,7 @@
                                     <td style="color: #AD1457; font-weight: bold;">{{ \Carbon\Carbon::parse($appointment->time)->format('M d, Y - h:i A') }}</td>
                                     <td style="color: #AD1457; font-weight: bold; text-transform: uppercase;">{{ ucfirst($appointment->status) }}</td>
                                     <td>
-                                        <button class="btn btn-primary viewAppointment"
+                                        <button class="btn btn-primary viewAppointment statusbtn"
                                             data-name="{{ $appointment->name }}"
                                             data-email="{{ $appointment->email }}"
                                             data-phone="{{ $appointment->phone }}"
@@ -188,12 +204,12 @@
     <div class="modal-content rounded-4 shadow-lg border-0">
 
       <!-- Modal Header -->
-      <div class="modal-header bg-primary text-white rounded-top-4 d-flex align-items-center border-0">
+      <div class="modal-header bg-primary text-white rounded-top-4 d-flex justify-start w-full  border-0">
         <i class="bi bi-info-circle-fill me-2 fs-4"></i>
-        <h5 class="modal-title fw-semibold" id="viewUserModalLabel">
+        <h5 class="modal-title fw-semibold" id="viewUserModalLabel  f">
           {{ $appointment->name }} Information
         </h5>
-        <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+        <!-- <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="modal" aria-label="Close"></button> -->
       </div>
 
       <!-- Modal Body -->

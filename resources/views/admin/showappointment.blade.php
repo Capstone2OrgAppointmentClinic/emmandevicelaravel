@@ -53,6 +53,7 @@
 
           <div class="table-responsive">     
           <table class="table table-bordered text-center w-100 ">
+          <x-input placeholder="Search records..." class="w-[270px] flex h-auto my-4 mt-5" id="searchInput" style=" color: black;"></x-input>
           <thead style="background-color: #AD1457;" class="text-white">
   <tr>
     <th id="nameHeader" class="text-center text-white" style="width: 150px; word-wrap: break-word; white-space: normal;">Customer Name</th>
@@ -151,7 +152,7 @@
                           </a>
                         </li>
                       @endif
-                      @if(in_array($status, ['pending', 'approved', 'reschedule', 'rescheduled', 'in process']))
+                      @if(in_array($status, ['Pending', 'Approved', 'Reschedule', 'Rescheduled', 'In Process']))
                         <li>
                           <button type="button" class="dropdown-item text-success open-done-modal"
                             data-id="{{ $appoint->id }}"
@@ -188,19 +189,19 @@
 <!-- Message Modal -->
       <div class="modal fade rounded-lg" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel">
         <div class="modal-dialog">
-          <div class="modal-content" style="border-radius: 1rem 1rem 0 0;">
+          <div class="modal-content" style="border-radius: 1rem 1rem 0 0; background-color:#FAEBD7 ;">
             <div class="modal-header w-full"  style="background-color: #AD1457; color: white; border-radius: 1rem 1rem 0 0;">
-              <h5 class="modal-title flex justify-center w-full items-center text-[24px]" id="messageModalLabel"\><i class="bi bi-calendar-check"></i>
+              <h5 class="modal-title flex justify-center w-full items-center text-[24px]" id="messageModalLabel"><i class="bi bi-calendar-check"></i>
               &nbsp;Purpose of Appointment</h5>
               <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
        
               </button>
             </div>
-            <div class="modal-body flex justify-start  items-baseline" id="messageContent" style="margin-top: 20px; margin-left: -10px; background-color: white; padding: 10px 50px 50px 50px; background: transparent;">
+            <div class="modal-body flex justify-start  items-baseline" id="messageContent" style="margin-top: 20px; background-color: white; padding: 10px 50px 50px 50px; background: transparent;">
               <!-- Message will be dynamically updated here -->
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <div class="modal-footer flex justify-center w-full items-center" style="background-color: #FAEBD7;">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width: 150px; height: 30px; border-radius: 5px; background-color: #0090e7;">Close</button>
             </div>
           </div>
         </div>
@@ -453,12 +454,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
       rows.forEach(row => {
         const nameCell = row.querySelector('td:nth-child(1)');
+        const emailCell = row.querySelector('td:nth-child(2)');
+        const phoneCell = row.querySelector('td:nth-child(3)');
+        const serviceCell = row.querySelector('td:nth-child(4)');
+        const dateCell = row.querySelector('td:nth-child(5)');
         const statusCell = row.querySelector('td:nth-child(7)');
 
         const nameText = nameCell ? nameCell.textContent.toLowerCase() : '';
+        const emailText = emailCell ? emailCell.textContent.toLowerCase() : '';
+        const phoneText = phoneCell ? phoneCell.textContent.toLowerCase() : '';
+        const serviceText = serviceCell ? serviceCell.textContent.toLowerCase() : '';
+        const dateText = dateCell ? dateCell.textContent.toLowerCase() : '';
         const statusText = statusCell ? statusCell.textContent.toLowerCase() : '';
 
-        if (nameText.includes(filter) || statusText.includes(filter)) {
+        if (nameText.includes(filter) || phoneText.includes(filter) || dateText.includes(filter) || serviceText.includes (filter) ||  statusText.includes(filter) || emailText.includes(filter) ) {
           row.style.display = '';
         } else {
           row.style.display = 'none';
@@ -467,6 +476,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 </script>
+
+
 <script src="admin/assets/js/off-canvas.js"></script>
 <script src="admin/assets/js/hoverable-collapse.js"></script>
 <script src="admin/assets/js/misc.js"></script>
