@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="icon" href="{{ asset('assets/img/adminimg/titlebaricon.ico') }}" type="icon/image">
 
     <style type="text/css">
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
     label
     {
-      display: inline:block;
+      display: inline-block;
       
       width: 100px;
     }
@@ -62,7 +73,7 @@
 
             <div style="margin-bottom: 15px;">
                 <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Phone</label>
-                <input type="text" name="number" placeholder="Write the Number" required
+                <input type="number" name="number" placeholder="Write the Number" required class=" no-spinner"
                     style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; color: #333; font-size: 16px;">
             </div>
 
@@ -75,6 +86,7 @@
 
             <div style="margin-bottom: 15px;">
                 <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Doctor Image</label>
+                
                 <input type="file" name="file" required
                     style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; color: #333; font-size: 16px;">
             </div>

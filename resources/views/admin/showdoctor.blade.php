@@ -138,7 +138,7 @@
     confirmDeleteModal.addEventListener('show.bs.modal', function (event) {
         const button = event.relatedTarget;
         const url = button.getAttribute('data-url');
-        const doctorName = button.getAttribute('data-doctor-name'); // Get the doctor's name
+        const aName = button.getAttribute('data-doctor-name'); // Get the doctor's name
 
         // Set the doctor's name inside the modal body
         document.getElementById('doctorName').textContent = doctorName;

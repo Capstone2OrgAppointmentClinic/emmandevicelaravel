@@ -95,7 +95,7 @@ class AdminController extends Controller
     public function showdoctor()
     {
       $data=doctor::all();
-      return view('admin.showdoctor',compact('data'));
+      return view('admin.showdoctor',compact('data'))->with('message', 'Succesfully updated the information');
     }
 
     public function removedoctor($id)
@@ -139,34 +139,35 @@ class AdminController extends Controller
 
         return view('admin.home', compact('users','appointmentCount'));
     }
-    public function editdoctor(Request $request , $id)
+    public function editdoctor(Request $request, $id)
     {
-
-      $doctor = doctor::find($id);
-
-      $doctor->name=$request->name;
-
-      $doctor->phone=$request->phone;
-
-      $doctor->speciality=$request->speciality;
-
-      $image=$request->file;
-
-      if($image){
-
-      }
-
-      $imagename=time().'.'.$image->getClientOriginalExtension();
-
-      $request->file->move('doctorimage', $imagename);
-
-      $doctor->image=$imagename;
-
-      $doctor->save();
-
-      return redirect()->back()->with('message','Doctor Update Successful');
-
+        $doctor = Doctor::find($id); // Retrieve the doctor
+    
+        // Update doctor information
+        $doctor->name = $request->name;
+        $doctor->phone = $request->phone;
+        $doctor->speciality = $request->speciality;
+    
+        // ✅ Check if image is uploaded
+        if ($request->hasFile('file')) {
+            $image = $request->file('file');
+            $imagename = time() . '.' . $image->getClientOriginalExtension();
+    
+            // Store the image in the 'public/doctorimage' directory
+            $image->storeAs('public/doctorimage', $imagename);
+    
+            // ✅ Save the new image name in the database
+            $doctor->image = $imagename;
+        }
+    
+        // Save the updated doctor data
+        $doctor->save();
+    
+        // Redirect with success message
+        return redirect()->route('showdoctor')->with('message', 'Doctor Update Successful');
     }
+    
+    
 
     public function emailview($id)
     {

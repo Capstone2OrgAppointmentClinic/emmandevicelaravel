@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" href=" {{ asset('assets/img/adminimg/titlebaricon.ico') }}"  type="icon/image">
     <base href="/public">
     
     @include('admin.css')
