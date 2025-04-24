@@ -76,7 +76,10 @@
             <!-- Announcement Card -->
             <div class="card">
 
-                <div class="card-header">
+            <div>
+                <a style="color: white; background-color: #AD1457; padding: 10px; border-radius: 5px; margin-bottom: 1rem; font-weight: bold;" href="{{ route('viewAnnounce') }}">View Announcement</a>
+            </div>
+                <div class="card-header rounded-lg">
                     Create Announcement
                 </div>
                 <div class="card-body">

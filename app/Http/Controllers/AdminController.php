@@ -523,4 +523,9 @@ public function forceLogout($log_id)
     return back()->with('success', 'User has been forcefully logged out.');
 }
 
+public function viewAnnouncement () {
+    
+    
+    return view('admin.viewAnnouncement');
+}
 }

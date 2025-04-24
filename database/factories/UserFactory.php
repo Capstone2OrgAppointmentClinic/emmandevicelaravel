@@ -39,7 +39,7 @@ class UserFactory extends Factory
 
             // Your custom fields
             'year_level' => $this->faker->randomElement(['1st Year', '2nd Year', '3rd Year', '4th Year']),
-            'student_id' => 'SVFC-' . str_pad($this->faker->unique()->numberBetween(1, 999), 3, '0', STR_PAD_LEFT),
+            'student_id' => 'SVFC-' . str_pad($this->faker->unique()->numberBetween(1, 999999), 3, '0', STR_PAD_LEFT) . '-' .  str_pad($this->faker->unique()->numberBetween(1,999999), 3, '0', STR_PAD_LEFT),
         ];
     }
 

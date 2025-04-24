@@ -405,6 +405,8 @@ public function markAllAsRead(Request $request)
 
 public function checkWeeklyUserAppointments(Request $request)
 {
+    
+    dd($request);
     $userId = Auth::id();
     $date = Carbon::parse($request->query('date'));
     $startOfWeek = $date->copy()->startOfWeek(Carbon::MONDAY);

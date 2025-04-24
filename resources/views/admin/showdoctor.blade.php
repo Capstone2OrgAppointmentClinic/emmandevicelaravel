@@ -122,24 +122,25 @@
                 <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Removal</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                Are you sure you want to remove <span id="doctorName" style="font-weight: bold;"></span>?
+            <div class="modal-body mt-2">
+             <span class=" text-lg">Are you sure you want to remove <span id="doctorName" style="font-weight: bold;"></span> ?</span><br>
+                <!-- <h1 style="color:  gray; font-size:  12px;"> This will be not dispaly in the Health Care Teams section if you proceed to remove</h1> -->
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <div class="flex w-full justify-end items-end p-4">
+                <button type="button" class="btn btn-secondary mr-4" data-bs-dismiss="modal">Cancel</button>
                 <a id="confirmDeleteBtn" href="#" class="btn btn-danger">Yes, Remove</a>
             </div>
         </div>
     </div>
 </div>
 
-
+`
 <script>
     const confirmDeleteModal = document.getElementById('confirmDeleteModal');
     confirmDeleteModal.addEventListener('show.bs.modal', function (event) {
         const button = event.relatedTarget;
         const url = button.getAttribute('data-url');
-        const aName = button.getAttribute('data-doctor-name'); // Get the doctor's name
+        const doctorName = button.getAttribute('data-doctor-name'); // Get the doctor's name
 
         // Set the doctor's name inside the modal body
         document.getElementById('doctorName').textContent = doctorName;

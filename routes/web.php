@@ -128,7 +128,8 @@ Route::get('/showappointment', [AdminController::class, 'showAppointment'])->nam
 
 Route::put('/admin/force-logout/{id}', [App\Http\Controllers\AdminController::class, 'forceLogout'])->name('admin.forceLogout');
 
-
 Route::put('/force-logout/{log_id}', [HomeController::class, 'forceLogout'])->name('force.logout');
 
 Route::get('/Student/Home/Contact', [HomeController::class, 'userContact'])->name('contact');
+
+Route::get('/announcement/viewAnnoucement', [AdminController::class, ' viewAnnouncement'])->name('viewAnnounce');
