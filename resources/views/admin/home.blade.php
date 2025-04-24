@@ -273,7 +273,7 @@
       <div class="modal-header bg-primary text-white rounded-top-4 d-flex justify-start w-full  border-0">
         <i class="bi bi-info-circle-fill me-2 fs-4"></i>
         <h5 class="modal-title fw-semibold" id="viewUserModalLabel  f">
-          {{ $appointment->name }} Information
+           Information
         </h5>
         <!-- <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="modal" aria-label="Close"></button> -->
       </div>

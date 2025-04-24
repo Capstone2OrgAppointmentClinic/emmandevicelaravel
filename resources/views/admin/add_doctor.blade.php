@@ -123,9 +123,9 @@ input[type=number] {
                         <table class="table table-bordered mb-0"style="width: 100%; border-collapse: collapse; table-layout: fixed ;">
                             <thead class="table-light" style="top: 0; z-index: 1; background-color: #AD1457">
                                 <tr>
-                                    <th style="width: 33.33%;black;font-size:20px;">Student Name</th>
-                                    <th style="width: 33.33%;black;font-size:20px;">Login Time</th>
-                                    <th style="width: 33.33%;black;font-size:20px;">Logout Time</th>
+                                    <th style="width: 33.33%;    color:black;    font-size:20px;">Student Name</th>
+                                    <th style="width: 33.33%;    color:black;    font-size:20px;">Login Time</th>
+                                    <th style="width: 33.33%;    color:black;    font-size:20px;">Logout Time</th>
                                 </tr>
                             </thead>
                             <tbody class="scrollable-tbody">

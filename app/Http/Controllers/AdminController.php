@@ -94,15 +94,19 @@ class AdminController extends Controller
     
     public function showdoctor()
     {
-      $data=doctor::all();
+      $data = doctor::where('status', 'active')->get();
+
       return view('admin.showdoctor',compact('data'))->with('message', 'Succesfully updated the information');
     }
 
     public function removedoctor($id)
     {
       $data=doctor::find($id);
+      
 
-      $data->delete();
+      $data->status = 'inactive'; //Only works as removed
+
+      $data->save();
 
       return redirect()->back();
     
