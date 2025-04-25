@@ -28,7 +28,7 @@ input[type=number] {
 
   </head>
   <body style="background-color: #FAEBD7;">
-    <div class="container-scroller">
+    <div class="container-scroller" style="background-color: #FAEBD7;">
       <div class="row p-0 m-0 proBanner" id="proBanner">
         <div class="col-md-12 p-0 m-0">
           <div class="">

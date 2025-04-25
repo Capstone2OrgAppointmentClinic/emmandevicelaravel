@@ -138,7 +138,7 @@
                 </ul>
 
                 <!-- Tab Content -->
-                <div class="tab-content mt-3">
+                <div class="tab-content mt-3" style="border: none;">
                     <!-- Student Logs Section -->
                     <div class="tab-pane fade show active" id="studentLogsSection" role="tabpanel">
                         <input type="text" class="form-control mb-3 search-input rounded-lg border bg-gray-100 py-4" style="width:250px;" id="studentSearchInput" placeholder="Search student name...">
@@ -176,7 +176,7 @@
                     </div>
 
                     <!-- Admin Logs Section -->
-                    <div class="tab-pane fade" id="adminLogsSection" role="tabpanel">
+                    <div class="tab-pane fade" id="adminLogsSection" role="tabpanel" style="border: none;">
                         <input type="text" class="form-control mb-3 search-input rounded-lg border bg-gray-100 py-4" style="width:250px;" id="adminSearchInput" placeholder="Search admin name...">
 
                         <div class="table-wrapper rounded-lg">

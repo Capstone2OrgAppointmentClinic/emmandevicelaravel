@@ -66,8 +66,8 @@
 
 <link href="/src/styles.css" rel="stylesheet">
 </head>
-<body>
-    <div class="container-scroller">
+<body >
+    <div class="container-scroller" style="background-color: #FAEBD7;">
         <!-- Sidebar -->
         @include('admin.sidebar')
 
@@ -76,7 +76,7 @@
 
         <!-- Main Content -->
         <div class="container-fluid page-body-wrapper">
-            <div class="container d-flex justify-content-center">
+            <div class="container d-flex justify-content-center" >
                 <div class="table-container">
                     <h2 class="text-center" style="color: #333; font-size: 32px;">Manage Doctors</h2>
                     <a href="{{ url('add_doctor_view') }}" class="btn text-white" style="background-color: #AD1457;">Add Doctor</a>                    <table>

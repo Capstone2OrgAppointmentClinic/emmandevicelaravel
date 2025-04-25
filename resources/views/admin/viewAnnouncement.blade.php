@@ -154,18 +154,73 @@
             <span class="type-badge">{{ $announcement->type }}</span>
 
             {{-- Full message directly --}}
+            <div class="mt-auto text-red-500;" style="color: #AD1457; font-weight: bold;">
+            
+              <small class=" d-block text-2xl ">📌 {{ $announcement->title }} </small>
+            </div>
             <div class="scroll">
             <p class="mb-2 ">{{ $announcement->message }}</p> 
             </div>
-            <div class="mt-auto">
-              <small class="text-muted d-block">📌 {{ $announcement->title }} <br> Upload on : <span class=" flex justify-end items-end w-full text-[32px]"><a><i class="bi bi-trash"></i></a></span></small>
-            </div>
+            <span class=" flex justify-end items-end w-full text-[32px]"> <span class="text-sm text-gray-500 flex justify-start w-full items-start">Upload on : {{ \Carbon\Carbon::parse($announcement->created_at)->format('h:i:s A - F j, Y (l)') }}</span>
+                <a class="mr-4"><i class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#updateModal"></i></a>
+                <a><i class="bi bi-trash" data-bs-toggle="modal" data-bs-target="#deleteModal"></i></a></span>
+                
           </div>
 
         </div>
       </div>
     @endforeach
   </div>
+
+
+<!-- Edit the Announcement Modal-->
+ <div class="modal fade" id="updateModal" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: white;">
+
+        <div class="modal-header" style="border: none;">
+            <span>This is header</span>
+        </div>
+        <div class="modal-body" style="border: none;">
+            <span>this is message</span>
+        </div>
+
+        <div class="modal-footer" style="border: none; font-family:Arial, Helvetica, sans-serif; font-size: 0.8rem;  margin-bottom: 5px;">
+        
+            <button type="submit" aria-hidden="false" data-bs-dismiss="modal" style="background-color: #007bff;" class="rounded-lg p-2 text-white">Cancel</button>
+            <button type="submit" style="background-color: #5CE65C;" class="rounded-lg p-2 text-white">Update</button>
+        </div>
+        </div>
+    </div>
+ </div>
+
+
+
+
+<!-- Confirmation remove Announcement Modal-->
+ <div  class="modal fade" id="deleteModal" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: white;">
+
+        <div class="modal-header" style="border: none;">
+            <h5 class="modal-title" id="deleteModalLabel" > Title</h5>
+          
+        </div>
+        <div class="modal-body" style="border: none;">
+
+        <span class="message"> This is message</span>
+    </div>
+    <span class="text-gray-500 text-sm ml-4">This can't be undone once you already remove this announcement.</span>
+
+        <div class="modal-footer" style="border: none; font-family:Arial, Helvetica, sans-serif; font-size: 0.8rem;margin-bottom: 5px;">
+          
+            <button type="submit" aria-hidden="false" data-bs-dismiss="modal" class="p-2 rounded-lg text-white" style="background-color: #007bff; " >Cancel</button>
+            <button type="submit" class="p-2 bg-red-600 rounded-lg text-white">Yes, Remove</button>
+        </div>
+        </div>
+
+    </div>
+ </div>
 
 
   <script src="../assets/js/jquery-3.5.1.min.js"></script>

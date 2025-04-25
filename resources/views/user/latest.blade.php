@@ -63,9 +63,9 @@
 
     <!-- Check if there are any announcements -->
     @if($announcements->isEmpty())
-      <!-- Heroicon for No Announcements -->
-      <x-heroicon-o-inbox class="h-12 w-12 text-gray-500 mb-3" />
-      <p>No Announcements Available</p>
+  <div class="flex justify-center items-center w-full">
+    <span>hi</span> 
+  </div>
     @else
       @php
         $chunks = $announcements->chunk(3);
