@@ -1,5 +1,5 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar" style="background-color: #AD1457;">
-  <li class="nav-item menu-items flex w-full justify-center items-center" style="list-style: none; margin: 10px -10px -40px -10px;">
+  <li class="nav-item menu-items  style=" margin-left: -1rem;"flex w-full justify-center items-center" style="list-style: none; margin: 10px -10px -40px -10px;">
     <a class="nav-link" href="{{url(path: 'home')}}">
       <img src="{{ asset('assets/img/person/svfctrans.png') }}" alt="" style="width:100px;  height:auto;">
     </a>
@@ -28,10 +28,10 @@
                 <div class="profile-name">
                 </div>
               </div>
-              
+             
       
           
-          <li class="nav-item menu-items">
+          <li class="nav-item menu-items" style=" margin-left: -1rem;" >
             <a class="nav-link" href="{{url(path: 'home')}}">
               <span class="menu-icon">
                 <i class="mdi mdi-file-document-box" style="font-size: 18px;"></i>
@@ -40,7 +40,7 @@
             </a>
           </li>
 
-    <li class="nav-item menu-items">
+    <li class="nav-item menu-items" style=" margin-left: -1rem;">
       <a class="nav-link" href="{{url(path: 'showappointment')}}">
         <span class="menu-icon">
           <i class="mdi mdi-file-document-box" style="font-size: 18px;"></i>
@@ -49,7 +49,7 @@
       </a>
     </li>
 
-    <li class="nav-item menu-items">
+    <li class="nav-item menu-items" style=" margin-left: -1rem;">
       <a class="nav-link" href="{{url('showdoctor')}}">
         <span class="menu-icon">
           <i class="mdi mdi-account-box-multiple" style="font-size: 18px;"></i>
@@ -58,7 +58,7 @@
       </a>
     </li>
 
-    <li class="nav-item menu-items">
+    <li class="nav-item menu-items" style=" margin-left: -1rem;">
       <a class="nav-link" href="{{url('calendar')}}">
         <span class="menu-icon">
           <i class="mdi mdi-calendar-month-outline" style="font-size: 18px;"></i>
@@ -67,7 +67,7 @@
       </a>
     </li>
 
-    <li class="nav-item menu-items">
+    <li class="nav-item menu-items" style=" margin-left: -1rem;">
       <a class="nav-link" href="{{ url('announcements') }}">
         <span class="menu-icon">
           <i class="mdi mdi-message-text-outline" style="font-size: 18px;"></i>
@@ -76,7 +76,7 @@
       </a>
     </li>
 
-    <li class="nav-item menu-items">
+    <li class="nav-item menu-items" style=" margin-left: -1rem;">
       <a class="nav-link" href="{{ url('studentlogs') }}">
         <span class="menu-icon">
           <i class="mdi mdi-message-text-outline" style="font-size: 18px;"></i>
@@ -85,7 +85,7 @@
       </a>
     </li>
 
-    <li class="nav-item menu-items">
+    <li class="nav-item menu-items" style=" margin-left: -1rem;">
       <a class="nav-link" href="#">
         <span class="menu-icon">
           <i class="mdi mdi-message-text-outline" style="font-size: 18px;"></i>
@@ -94,7 +94,7 @@
       </a>
     </li>
 
-    <li class="nav-item menu-items">
+    <li class="nav-item menu-items" style=" margin-left: -1rem;">
       <a class="nav-link" href="#">
         <span class="menu-icon">
           <i class="mdi mdi-message-text-outline" style="font-size: 18px;"></i>

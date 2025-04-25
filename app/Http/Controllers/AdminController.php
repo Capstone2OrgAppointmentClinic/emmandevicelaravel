@@ -525,7 +525,10 @@ public function forceLogout($log_id)
 
 public function viewannounce () {
 
-    return view('admin.viewAnnouncement');
+
+    $announcements = Announcement::all();
+    
+    return view('admin.viewAnnouncement', compact('announcements'));
 }
 
 

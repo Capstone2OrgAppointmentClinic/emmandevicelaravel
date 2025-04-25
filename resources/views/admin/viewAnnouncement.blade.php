@@ -1,19 +1,181 @@
-<x-app-layout>
-<link href="/src/styles.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-@include('admin.css')
-@include('admin.script')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href=" {{ asset('assets/img/adminimg/titlebaricon.ico') }}" type="image/icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Announcement</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @include('admin.css')
+    @include('admin.script')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="stylesheet" href="../assets/css/maicons.css">
 
 
-<div class=" container-scroller w-full" style=" background-color: #FAEBD7;">
-        @include('admin.sidebar')
-        @include('admin.navbar')
-<div class=" main-panel w-full h-full">
-<div class="content-wrapper flex flex-col" style="background-color: #FAEBD7;">
-<div class="justify-center p-6 flex-wrap gap-3 md:flex-row md:items-center flex w-full items-center" style="justify-content: space-between;">
-<h1 class="text-black">test</h1>
-</div>
-</div>
-</div>
-</div>
-</x-app-layout>
+
+<link rel="stylesheet" href="../assets/vendor/owl-carousel/css/owl.carousel.css">
+
+<link rel="stylesheet" href="../assets/vendor/animate/animate.css">
+
+<link rel="stylesheet" href="../assets/css/theme.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+  .card-horizontal {
+    display: flex;
+    flex-direction: row;
+    height: 200px;
+    /* overflow: hidden; */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+
+  .card-img-wrapper {
+    position: relative;
+    width: 30%;
+    height: 100%;
+  }
+
+  .card-img-left {
+    width: 30%;
+    height: 100%;
+    object-fit:cover;
+    object-position: center;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    transition: transform 0.3s ease;
+  }
+  .card-img-left:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+
+  .type-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #007bff;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    border-radius: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+  }
+
+  .card-body-right {
+    background-color: white;
+    width: 70%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .card-body-right .short-message,
+  .card-body-right .full-message {
+  width: 300px;              /* Set your preferred width */
+  height: 150px;             /* Set a fixed height */
+  overflow-y: auto;          /* Enables vertical scroll when content overflows */
+  overflow-x: hidden;        /* Prevents horizontal scrolling */
+  word-wrap: break-word;     /* Ensures long words wrap properly */
+  padding: 10px;             /* Optional: for spacing inside */
+  border: 1px solid #ccc;    /* Optional: visual styling */
+  box-sizing: border-box;    /* Ensures padding stays within set width */
+}
+
+
+  .toggle-message {
+    color: black !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease;
+  }
+
+  .hover-message:hover {
+    color: #006400;
+    cursor: pointer;
+  }
+
+  .scroll {
+  height: 200px;           /* Set fixed height */
+  overflow-y: auto;        /* Scrollbar appears when content overflows */
+  overflow-x: hidden;      /* Optional: hide horizontal scroll */
+  padding: 10px;           /* Optional spacing */
+  box-sizing: border-box;  /* Include padding in the height */
+  margin-bottom: 10px;
+  border: none;
+}
+
+</style>
+</head>
+
+<body style="background-color: #FAEBD7;">
+    <div class="container-scroller">
+      <div class="row p-0 m-0 proBanner" id="proBanner">
+        <div class="col-12 p-0 m-0">
+          <div class="ps-lg-1">
+            <div class="d-flex align-items-center justify-content-between"></div>
+          </div>
+          <div class="d-flex align-items-center justify-content-between"></div>
+        </div>
+      </div>
+
+         <!-- partial:partials/_sidebar.html -->
+         @include('admin.sidebar')
+      <!-- partial -->
+      @include('admin.navbar')
+
+
+            <!-- partial -->
+            <div class="container-fluid w-100  mt-5" style="background-color: #FAEBD7;">
+        <div class="mt-5">
+
+<!-- Announcement -->
+<div class="row">
+    @foreach($announcements as $announcement)
+      <div class="col-md-12 mb-3">
+        <div class="card card-horizontal">
+
+          {{-- Image on the left --}}
+          @if($announcement->image)
+            <img src="{{ asset($announcement->image) }}" class="card-img-left" alt="Announcement Image">
+          @else
+            <img src="{{ asset('assets/img/adminimg/noimageskeleton.png') }}" class="card-img-left" alt="Default Image"  >
+          @endif
+
+          {{-- Message on the right --}}
+          <div class="card-body-right">
+            <span class="type-badge">{{ $announcement->type }}</span>
+
+            {{-- Full message directly --}}
+            <div class="scroll">
+            <p class="mb-2 ">{{ $announcement->message }}</p> 
+            </div>
+            <div class="mt-auto">
+              <small class="text-muted d-block">📌 {{ $announcement->title }} <br> Upload on : <span class=" flex justify-end items-end w-full text-[32px]"><a><i class="bi bi-trash"></i></a></span></small>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    @endforeach
+  </div>
+
+
+  <script src="../assets/js/jquery-3.5.1.min.js"></script>
+
+<script src="../assets/js/bootstrap.bundle.min.js"></script>
+
+<script src="../assets/vendor/owl-carousel/js/owl.carousel.min.js"></script>
+
+<script src="../assets/vendor/wow/wow.min.js"></script>
+
+<script src="../assets/js/theme.js"></script>
+</body>
+</html>

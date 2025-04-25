@@ -29,7 +29,7 @@
       @include('admin.navbar')
 
       <!-- partial -->
-      <div class="container-fluid w-100  mt-5">
+      <div class="container-fluid w-100  mt-5" style="background-color: #FAEBD7;">
         <div class="mt-5">
           
 @if(session('success'))

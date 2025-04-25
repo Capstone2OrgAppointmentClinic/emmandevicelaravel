@@ -27,16 +27,5 @@
     });
     </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).on("click", ".viewUser", function(){
-        $("#modalUserName").text($(this).data("name"));
-        $("#modalUserEmail").text($(this).data("email"));
-        $("#modalUserPhone").text($(this).data("phone"));
-        $("#modalUserAddress").text($(this).data("address"));
-        $("#modalUserCourse").text($(this).data("course"));
-        $("#modalStudentId").text($(this).data("student-id"));
-        $("#modalEducation").text($(this).data("education"));
-        $("#modalYear").text($(this).data("year"));
-    });
-</script>
+
 

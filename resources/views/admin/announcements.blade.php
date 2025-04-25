@@ -118,10 +118,14 @@
                         <div class="mb-4">
                             <label for="type">Announcement</label>
                             <select class="form-control" name="type" required>
-                            <option value="" disabled>-- Select Type --</option>
+                            <option value="" disabled selected>-- Select Type --</option>
+                            <option value="Announcement">Announcement</option>
+                            <option value="Suspension">Suspension</option>
+                            <option value="Notice: Clinic Closed">Notice: Clinic Closed</option>
+                            <option value="Announcement">School Activity</option>
                             <option value="School Event">School Event</option>
                             <option value="Holiday">Holiday</option>
-                            <option value="Suspension">Suspension</option>
+                            <option value="Special Holiday">Special Holiday</option>
                          </select>
                         </div>
 
