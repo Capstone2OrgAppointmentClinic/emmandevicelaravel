@@ -123,7 +123,7 @@
         @include('admin.sidebar')
         @include('admin.navbar')
 
-        <div class="container-fluid mt-5">
+        <div class="container-fluid mt-5" style=" background-color: #FAEBD7;">
             <div class="w-100">
                 <h2 class="mb-4">Logs History</h2>
 

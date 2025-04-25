@@ -67,7 +67,7 @@
 
 <body style="background-color: #FAEBD7;">
     
-    <div class="container-scroller">
+    <div class="container-scroller" style="background-color: #FAEBD7;">
         @include('admin.sidebar')
         @include('admin.navbar')
 
@@ -76,8 +76,8 @@
             <!-- Announcement Card -->
             <div class="card">
 
-            <div>
-                <a style="color: white; background-color: #AD1457; padding: 10px; border-radius: 5px; margin-bottom: 1rem; font-weight: bold;" href="{{ route('viewAnnounce') }}">View Announcement</a>
+            <div class="mb-4 mt-4">
+                <a style="color: white; background-color: #AD1457; padding: 10px; border-radius: 5px; margin-bottom: 1rem; font-weight: bold;; " href="{{ route('viewAnnouncements') }}">View Announcement</a>
             </div>
                 <div class="card-header rounded-lg">
                     Create Announcement

@@ -132,4 +132,4 @@ Route::put('/force-logout/{log_id}', [HomeController::class, 'forceLogout'])->na
 
 Route::get('/Student/Home/Contact', [HomeController::class, 'userContact'])->name('contact');
 
-Route::get('/announcement/viewAnnoucement', [AdminController::class, ' viewAnnouncement'])->name('viewAnnounce');
+Route::get('/viewAnnouncements', [AdminController::class, 'viewannounce'])->name('viewAnnouncements');
