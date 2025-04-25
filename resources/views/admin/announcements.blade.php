@@ -292,7 +292,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <style>
 .table-wrapper {
-    max-height: 350px;
+    max-height: 450px;
     overflow-y: auto;
 }
 

@@ -152,7 +152,7 @@
                           </a>
                         </li>
                       @endif
-                      @if(in_array($status, ['Pending', 'Approved', 'Reschedule', 'Rescheduled', 'In Process']))
+                      @if(in_array($status, ['pending', 'approved', 'reschedule', 'rescheduled', 'in process']))
                         <li>
                           <button type="button" class="dropdown-item text-success open-done-modal"
                             data-id="{{ $appoint->id }}"

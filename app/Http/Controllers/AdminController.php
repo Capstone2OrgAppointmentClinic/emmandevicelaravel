@@ -22,7 +22,7 @@ use App\Mail\DoneAppointmentMail;
 use App\Mail\CancelAppointmentMail;
 use App\Mail\ApprovedAppointmentMail;
 use App\Notifications\SendEmailNotification;
-
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {

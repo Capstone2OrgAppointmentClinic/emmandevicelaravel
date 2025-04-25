@@ -339,16 +339,26 @@
                     });
                 </script>
                 <!-- Remaining scripts unchanged -->
-
+                <script>
+    $(document).ready(function(){
+        $(".view-message").click(function(){
+            var message = $(this).data("message");
+            $("#messageContent").text(message);
+            $("#messageModal").modal("show");
+        });
+    });
+    </script>
                 <script>
     $(document).on("click", ".viewUser", function(){
+        $("#modalUserId").text($(this).data("id"));
+        $("#modalUserStudentId").text($(this).data("student-id"));
         $("#modalUserName").text($(this).data("name"));
         $("#modalUserEmail").text($(this).data("email"));
         $("#modalUserPhone").text($(this).data("phone"));
         $("#modalUserAddress").text($(this).data("address"));
         $("#modalUserCourse").text($(this).data("course"));
         $("#modalStudentId").text($(this).data("student-id"));
-        $("#modalEducation").text($(this).data("education"));
+        $("#modalUserEducational_Level").text($(this).data("education"));
         $("#modalYear").text($(this).data("year"));
     });
 </script>
@@ -356,7 +366,7 @@
 <!-- Logs History Modal -->
 <div class="modal fade" id="logsModal" tabindex="-1" aria-labelledby="logsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" style="max-width: 90%;">
-        <div class="modal-content">
+        <div class="modal-content" style="background-color:white;">
             <div class="modal-header d-flex justify-content-between align-items-center">
 
             <div class="btn-group">
@@ -378,9 +388,9 @@
       
 
                      <!-- 🔍 Search Input -->
-                <input type="text" class="form-control mb-2 search-input" style="width:250px;" id="studentSearchInput" placeholder="Search student name">
+                <input type="text" class="form-control mb-2 search-input" style="width:250px;background-color:white;color:black;" id="studentSearchInput" placeholder="Search student name">
                       
-                <div class="table-wrapper table-responsive">
+                <div class="table-wrapper table-responsive" style=" max-height: 450px;overflow-y: auto;">
                         <table class="table table-bordered mb-0 ">
                             <thead class="table-light">
                                 <tr>
@@ -407,9 +417,9 @@
              
                 
                 <!-- 🔍 Search Input -->
-                <input type="text" class="form-control mb-2 search-input" id="adminSearchInput" style="width:250px;" placeholder="Search admin name...">
+                <input type="text" class="form-control mb-2 search-input" id="adminSearchInput" style="width:250px; background-color:white;color:black;" placeholder="Search admin name...">
  
-                    <div class="table-wrapper">
+                    <div class="table-wrapper" style=" max-height: 450px;overflow-y: auto;">
                         <table class="table table-bordered mb-0">
                             <thead class="table-light">
                                 <tr>
