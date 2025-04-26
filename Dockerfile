@@ -15,28 +15,29 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     nodejs \
     npm \
-    && docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install Composer
+# Install Composer (using Composer's latest version)
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Set working directory
+# Set the working directory inside the container
 WORKDIR /var/www
 
-# Copy project files
+# Copy the application files to the working directory
 COPY . .
 
-# Install PHP dependencies
-RUN composer install
+# Install PHP dependencies (without dev dependencies and optimized autoloader)
+RUN composer install --no-dev --optimize-autoloader
 
-# Install Node.js dependencies
+# Install Node.js dependencies and build the project
 RUN npm install && npm run build
 
-# Set permissions
+# Set permissions for the application files
 RUN chown -R www-data:www-data /var/www
 
-# Expose port 8000
+# Expose the port that the app will run on
 EXPOSE 8000
 
-# Start the PHP server
-CMD php artisan migrate --force && php artisan serve
+# Run migrations and start the PHP server
+CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
