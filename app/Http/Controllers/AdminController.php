@@ -350,14 +350,6 @@ public function announcements()
 
 public function createAnnouncement(Request $request)
 {
-<<<<<<< HEAD
-
-    //Using Token to have a different token per submit of announcement
-
-    #
-
-=======
->>>>>>> d092c475a73b320e04b0d0ac0799191bf28263e0
     $request->validate([
         'title' => 'required',
         'message' => 'required',
