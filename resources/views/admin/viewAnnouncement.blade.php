@@ -178,17 +178,17 @@
     <div class="modal-dialog">
         <div class="modal-content" style="background-color: white;">
 
-        <div class="modal-header flex w-full justify-center items-center text-xl text-white" style="border: none; background-color: #60A5FA; font-weight: bold;">
-            <span>UPDATE ANNOUNCEMENT</span>
+        <div class="modal-header" style="border: none;">
+            <span>This is header</span>
         </div>
-        <div class="modal-body m-4" style="border: none;">
-            <span></span>
+        <div class="modal-body" style="border: none;">
+            <span>this is message</span>
         </div>
 
         <div class="modal-footer" style="border: none; font-family:Arial, Helvetica, sans-serif; font-size: 0.8rem;  margin-bottom: 5px;">
         
-            <button type="submit" aria-hidden="false" data-bs-dismiss="modal" style="background-color: gray;" class="rounded-lg p-2 text-white">Cancel</button>
-            <button type="submit" style="background-color: #007bff;" class="rounded-lg p-2 text-white">Update</button>
+            <button type="submit" aria-hidden="false" data-bs-dismiss="modal" style="background-color: #007bff;" class="rounded-lg p-2 text-white">Cancel</button>
+            <button type="submit" style="background-color: #5CE65C;" class="rounded-lg p-2 text-white">Update</button>
         </div>
         </div>
     </div>
@@ -202,21 +202,20 @@
     <div class="modal-dialog">
         <div class="modal-content" style="background-color: white;">
 
-        <div class="modal-header bg-red-600 flex w-full justify-center items-center text-white text-xl " style="border: none; font-weight: bold;">
-            <h5 class="modal-title" id="deleteModalLabel" > <i class="bi bi-exclamation-circle-fill text-orange-300 text-2xl"></i> &nbsp; DELETE ANNOUNCENNT</h5>
+        <div class="modal-header" style="border: none;">
+            <h5 class="modal-title" id="deleteModalLabel" > Title</h5>
           
         </div>
-        <div class="modal-body" style="border: none; word-break: break-all;">
+        <div class="modal-body" style="border: none;">
 
-        <span class="message flex w-full justify-center items-center text-lg mb-2"> Are you sure you want to REMOVE Annoucement </span>
-        <span class="w-full flex justify-center items-center text-2xl text-red-500">{{ $announcement->title }}</span>
+        <span class="message"> This is message</span>
     </div>
-    <span class="text-gray-500 text-sm ml-4 mb-4">This can't be undone once you already remove this announcement.</span>
+    <span class="text-gray-500 text-sm ml-4">This can't be undone once you already remove this announcement.</span>
 
         <div class="modal-footer" style="border: none; font-family:Arial, Helvetica, sans-serif; font-size: 0.8rem;margin-bottom: 5px;">
           
             <button type="submit" aria-hidden="false" data-bs-dismiss="modal" class="p-2 rounded-lg text-white" style="background-color: #007bff; " >Cancel</button>
-            <button type="submit" class="p-2 bg-red-600 rounded-lg text-white mx-2 py-2">Yes, Remove</button>
+            <button type="submit" class="p-2 bg-red-600 rounded-lg text-white">Yes, Remove</button>
         </div>
         </div>
 
