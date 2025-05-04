@@ -9,3 +9,4 @@
     <link rel="stylesheet" href="admin/assets/vendors/owl-carousel-2/owl.theme.default.min.css">
     <link rel="stylesheet" href="admin/assets/css/style.css">
     <link rel="shortcut icon" href="admin/assets/images/favicon.png" />
+    <script src="admin/assets/vendors/chart.js/Chart.min.js"></script>

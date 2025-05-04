@@ -52,7 +52,7 @@
               <a class="nav-link" href="{{url('announcement')}}">Announcements</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
+              <a class="nav-link" href="{{ url('/Home/Contact') }}">Contact</a>
             </li>
             <li class="nav-item"><a class="nav-link" href="https://portal.svfc-edu.com/login">Portal</a></li>
             @if(Route::has('login'))

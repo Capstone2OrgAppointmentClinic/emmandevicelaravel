@@ -138,11 +138,7 @@
                         <!-- Image Upload Field -->
                         <div class="mb-4">
                             <label for="image">Image Announcement</label>
-<<<<<<< HEAD
-                            <input type="file" class="custom-file-input" name="image" accept="image/jpeg,image/jpg, image/png" onchange="validateImage">
-=======
                             <input type="file" class="custom-file-input" name="image" accept="image/*">
->>>>>>> d092c475a73b320e04b0d0ac0799191bf28263e0
                         </div>
 
                         <!-- Submit Button -->

@@ -130,6 +130,12 @@ Route::put('/admin/force-logout/{id}', [App\Http\Controllers\AdminController::cl
 
 Route::put('/force-logout/{log_id}', [HomeController::class, 'forceLogout'])->name('force.logout');
 
-Route::get('/Student/Home/Contact', [HomeController::class, 'userContact'])->name('contact');
+Route::get('/Home/Contact', [HomeController::class, 'userContact'])->name('contact');
 
 Route::get('/viewAnnouncements', [AdminController::class, 'viewannounce'])->name('viewAnnouncements');
+
+Route::get('/medicine', [AdminController::class, 'adminMedicine'])->name('medicine');
+
+Route::post('/medicine', [AdminController::class, 'storeMedicine'])->name('medicine.store');
+
+Route::put('/medicine{id}', [AdminController::class, 'updateMedicine'])->name('medicine.update');

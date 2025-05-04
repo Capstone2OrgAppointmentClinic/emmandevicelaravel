@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Doctor;
 use App\Models\User;
 use App\Models\Appointment;
+use App\Models\Medicine;
+use App\Models\MedicineLog;
 use Carbon\Carbon;
 use Spatie\GoogleCalendar\Event as GoogleCalendarEvent;
 use Google_Client;
@@ -461,7 +463,7 @@ public function sendDoneEmail(Request $request)
         $appointment->user->notify(new AppointmentStatusNotification($appointment, 'done'));
     }
 
-    return back()->with('success', 'Email sent appointment done.');
+    return back()->with('success', 'Email sent appointment done ✔️');
 }
 public function cancel(Request $request)
 {
@@ -481,7 +483,7 @@ public function cancel(Request $request)
         $appointment->user->notify(new AppointmentStatusNotification($appointment, 'canceled'));
     }
 
-    return redirect()->back()->with('success', 'Appointment canceled message sent.');
+    return redirect()->back()->with('success', 'Appointment canceled message sent ✔️');
 }
 public function approve(Request $request)
 {
@@ -502,7 +504,7 @@ public function approve(Request $request)
         $appointment->user->notify(new AppointmentStatusNotification($appointment, 'approved'));
     }
 
-    return redirect()->back()->with('success', 'Appointment approved message sent.');
+    return redirect()->back()->with('success', 'Appointment approved message sent ✔️');
 }
 
 public function forceLogout($log_id)
@@ -530,6 +532,42 @@ public function viewannounce () {
     
     return view('admin.viewAnnouncement', compact('announcements'));
 }
+public function adminMedicine(){
 
+    $medicines = Medicine::all();
+
+    return view('admin.medicine', compact('medicines'));
+
+}
+public function storeMedicine(Request $request)
+{
+    $validated = $request->validate([
+        'product_name' => 'required|string|max:255',
+        'category' => 'required|string|max:255',
+        'quantity' => 'required|integer',
+        'description' => 'nullable|string',
+        'expiry_date' => 'required|date',
+    ]);
+
+    Medicine::create($validated);
+
+    return redirect()->back()->with('message', 'Medicine added successfully!');
+}
+
+public function updateMedicine(Request $request, $id)
+{
+    $validated = $request->validate([
+        'product_name' => 'required|string|max:255',
+        'category' => 'required|string|max:255',
+        'quantity' => 'required|integer',
+        'description' => 'nullable|string',
+        'expiry_date' => 'required|date',
+    ]);
+
+    $medicine = Medicine::findOrFail($id);
+    $medicine->update($validated);
+
+    return redirect()->back()->with('message', 'Medicine updated successfully!');
+}
 
 }
