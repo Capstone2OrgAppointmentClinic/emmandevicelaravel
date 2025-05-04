@@ -38,13 +38,10 @@ RUN npm install
 # Step 8: Build frontend assets (optional)
 RUN npm run build
 
-# Step 9: Run database migrations
-RUN php artisan migrate
-
-# Step 10: Set proper permissions
+# Step 9: Set proper permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Step 11: Expose port 80
+# Step 10: Expose port 80
 EXPOSE 80
 
 # Step 12: Start Laravel and Apache
