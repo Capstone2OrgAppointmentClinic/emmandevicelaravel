@@ -39,7 +39,7 @@ RUN npm install
 RUN npm run build
 
 # Step 9: Run database migrations
-RUN php artisan migrate --force
+RUN php artisan migrate
 
 # Step 10: Set proper permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
