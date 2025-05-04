@@ -1,55 +1,49 @@
-# Step 1: Use an official PHP image with Apache
-FROM php:8.2-apache
+# Base PHP image
+FROM php:8.2-fpm
 
-# Step 2: Install system dependencies and PHP extensions
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
-    libonig-dev \
-    libzip-dev \
-    zip \
-    curl \
-    git \
-    nano \
-    unzip \
+    build-essential \
     libpng-dev \
     libjpeg-dev \
-    libfreetype6-dev \
-    gnupg \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo pdo_mysql zip mbstring gd \
-    && a2enmod rewrite
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip \
+    curl \
+    git \
+    libpq-dev \
+    libzip-dev \
+    libonig-dev \
+    nodejs \
+    npm \
+    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip
 
-# Step 3: Install Node.js v20.x and update npm
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs \
-    && npm install -g npm@latest
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Step 4: Set working directory
-WORKDIR /var/www/html
+# Set working directory
+WORKDIR /var/www
 
-# Step 5: Copy project files into container
+# Copy app files
 COPY . .
 
-# Step 6: Install Composer globally
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader
 
-# Step 7: Install backend dependencies
-RUN composer install --optimize-autoloader --no-dev
-
-# Step 8: Install and build frontend assets
+# Install Node dependencies and build
 RUN npm install && npm run build
 
-# Step 9: Set directory permissions for Laravel
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+# Set permissions
+RUN chown -R www-data:www-data /var/www \
+    && chmod -R 755 /var/www/storage
 
-# Step 10: Set Apache DocumentRoot to Laravel's public folder
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+# Laravel optimize
+RUN php artisan config:cache \
+    && php artisan route:cache \
+    && php artisan view:cache
 
-# Step 11: Update Apache config to use Laravel's public folder as root
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
-    && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+# Expose port
+EXPOSE 9000
 
-# Step 12: Expose port 80
-EXPOSE 80
-
-# Step 13: Start Apache in the foreground
-CMD ["apache2-foreground"]
+CMD ["php-fpm"]
