@@ -12,41 +12,40 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
+    gnupg \
     && docker-php-ext-install pdo pdo_mysql zip mbstring gd \
     && a2enmod rewrite
 
-# Step 3: Install Node.js (for npm) and other dependencies
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
+# Step 3: Install Node.js v20.x
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs \
     && npm install -g npm@latest \
     && apt-get install -y unzip
 
-# Step 4: Set the working directory to /var/www/html
+# Step 4: Set the working directory
 WORKDIR /var/www/html
 
-# Step 5: Copy your Laravel app into the container
+# Step 5: Copy your Laravel app
 COPY . .
 
 # Step 6: Install Composer globally
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Step 7: Install Composer dependencies
+# Step 7: Install PHP and Node dependencies
 RUN composer install --optimize-autoloader --no-dev
-
-# Step 8: Install Node.js dependencies
 RUN npm install
 
-# Step 9: Build frontend assets using npm (optional if you're using Vue/React)
+# Step 8: Build frontend assets (optional)
 RUN npm run build
 
-# Step 10: Run database migrations (adjust to your needs)
+# Step 9: Run database migrations
 RUN php artisan migrate --force
 
-# Step 11: Set proper file permissions for Laravel
+# Step 10: Set proper permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Step 12: Expose port 80 for Apache
+# Step 11: Expose port 80
 EXPOSE 80
 
-# Step 13: Start Apache server and PHP Laravel app
-CMD php artisan serve --host=0.0.0.0 && apache2-foreground
+# Step 12: Start Laravel and Apache
+CMD php artisan serve --host=0.0.0.0 --port=8000 & apache2-foreground
