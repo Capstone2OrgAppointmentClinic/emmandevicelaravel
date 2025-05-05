@@ -1,49 +1,52 @@
-# Step 1: Use an official PHP image as the base
-FROM php:8.2-apache
+# Use official PHP 8.2 FPM image
+FROM php:8.2-fpm
 
-# Step 2: Install dependencies and PHP extensions
+# Set working directory
+WORKDIR /var/www
+
+# Install dependencies
 RUN apt-get update && apt-get install -y \
-    libonig-dev \
-    libzip-dev \
-    zip \
-    curl \
-    git \
-    nano \
+    build-essential \
     libpng-dev \
     libjpeg-dev \
-    libfreetype6-dev \
-    && docker-php-ext-install pdo pdo_mysql zip mbstring gd \
-    && a2enmod rewrite
+    libonig-dev \
+    libxml2-dev \
+    zip unzip curl git \
+    libpq-dev libzip-dev \
+    gnupg ca-certificates \
+    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip
 
-# Step 3: Install Node.js (for npm) and other dependencies
-RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs \
-    && npm install -g npm@latest \
-    && apt-get install -y unzip
+# Install Node.js 20.x and npm
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
 
-# Step 4: Set the working directory to /var/www/html
-WORKDIR /var/www/html
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Step 5: Copy your Laravel app into the container
+# Copy app source
 COPY . .
 
-# Step 6: Install Composer globally
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Install PHP dependencies
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
-# Step 7: Install Composer dependencies
-RUN composer install
+# Copy .env file (optional if using Railway Env Vars)
+# COPY .env .env
 
-# Step 8: Install Node.js dependencies
-RUN npm install
+# Generate key & optimize
+RUN php artisan config:clear && \
+    php artisan key:generate && \
+    php artisan migrate --force && \
+    php artisan config:cache
 
-# Step 9: Build frontend assets using npm (optional if you're using Vue/React)
-RUN npm run build
+# Build frontend assets
+RUN npm install && npm run build
 
-# Step 11: Set proper file permissions for Laravel
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+# Set correct permissions
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache \
+    && chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
-# Step 12: Expose port 80 for Apache
-EXPOSE 80
+# Expose port
+EXPOSE 8080
 
-# Step 13: Start Apache server and PHP Laravel app
+# Run Laravel server
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
