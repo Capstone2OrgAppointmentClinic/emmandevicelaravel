@@ -44,7 +44,7 @@
 <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <div class="page-hero bg-image overlay-dark" style="background-image: url('../assets/img/latestimg/building.png');">
+            <div class="page-hero bg-image overlay-dark" style="background-image: url('/assets/img/latestimg/building.png');">
                 <div class="hero-section">
                     <div class="container text-center wow zoomIn">
                         <span class="display-4 btn-headcolor" style="color:#f204f2;">CliniQuickAid</span><br><br>
@@ -57,7 +57,7 @@
         </div>
 
         <div class="carousel-item">
-            <div class="page-hero bg-image overlay-dark" style="background-image: url('../assets/img/latestimg/CLINIC 1.png');">
+            <div class="page-hero bg-image overlay-dark" style="background-image: url('/assets/img/latestimg/CLINIC_1.png');">
                 <div class="hero-section">
                     <div class="container text-center wow zoomIn">
                         <span class="display-4 btn-headcolor" style="color:#f204f2;">CliniQuickAid</span><br><br>
@@ -70,7 +70,7 @@
         </div>
 
         <div class="carousel-item">
-            <div class="page-hero bg-image overlay-dark" style="background-image: url('../assets/img/latestimg/CLINIC 2.png');">
+            <div class="page-hero bg-image overlay-dark" style="background-image: url('/assets/img/latestimg/CLINIC_2.png');">
                 <div class="hero-section">
                     <div class="container text-center wow zoomIn">
                         <span class="display-4 btn-headcolor" style="color:#f204f2;">CliniQuickAid</span><br><br>
