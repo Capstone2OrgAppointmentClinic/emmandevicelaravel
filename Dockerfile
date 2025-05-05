@@ -33,7 +33,7 @@ RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 RUN npm install
 
 # Build frontend assets (if applicable)
-RUN npm run prod
+RUN npm run build
 
 # Set proper permissions for Laravel storage and cache directories
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
