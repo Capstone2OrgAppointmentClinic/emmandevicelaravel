@@ -27,7 +27,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY . .
 
 # Install Composer dependencies
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+RUN composer install
 
 # Install Node.js dependencies (for frontend assets)
 RUN npm install
