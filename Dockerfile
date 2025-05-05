@@ -29,6 +29,5 @@ COPY . .
 # Expose Laravel port
 EXPOSE 8080
 
-# Use entrypoint to prep Laravel, then start the server
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+# start the server
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
