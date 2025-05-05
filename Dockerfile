@@ -18,10 +18,8 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     libzip-dev \
     gnupg \
-    ca-certificates
-
-# Install PHP extensions
-RUN docker-php-ext-install pdo_mysql exif pcntl bcmath gd zip
+    ca-certificates \
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd zip
 
 # Install Node.js 20.x and npm
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
@@ -30,22 +28,25 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy Laravel app code
+# Copy Laravel app files
 COPY . .
 
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Install Node dependencies and build frontend (if using Vite/React/Vue)
+# Install Node dependencies and build frontend
 RUN npm install && npm run build
 
-# Set permissions for Laravel
+# Set correct permissions for Laravel storage and cache
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache \
     && chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
+# Run migrations and seed the database (Automatic at container startup)
+RUN php artisan migrate --force
+RUN php artisan db:seed --force
 
-# Expose port for Laravel (Artisan serve)
+# Expose HTTP port
 EXPOSE 8080
 
-# Run Laravel app using PHP's built-in server
+# Start Laravel using Artisan serve (suitable for Render)
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
