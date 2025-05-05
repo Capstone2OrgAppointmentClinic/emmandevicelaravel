@@ -32,7 +32,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY . .
 
 # Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+RUN composer require fakerphp/faker --no-interaction --optimize-autoloader
 
 # Install Node dependencies and build frontend
 RUN npm install && npm run build
