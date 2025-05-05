@@ -4,7 +4,7 @@ FROM php:8.2-fpm
 # Set working directory
 WORKDIR /var/www
 
-# Install dependencies
+# Install dependencies and PHP extensions
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpng-dev \
@@ -23,11 +23,23 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy application code
+# Copy application code into the container
 COPY . .
 
-# Expose Laravel port
+# Install Composer dependencies
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
+# Install Node.js dependencies (for frontend assets)
+RUN npm install
+
+# Build frontend assets (if applicable)
+RUN npm run prod
+
+# Set proper permissions for Laravel storage and cache directories
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+
+# Expose Laravel port (8080)
 EXPOSE 8080
 
-# start the server
+# Start the Laravel application using artisan (for development)
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
