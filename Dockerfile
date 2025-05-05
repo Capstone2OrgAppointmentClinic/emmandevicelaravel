@@ -29,15 +29,6 @@ COPY . .
 # Install PHP dependencies
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
-# Copy .env file (optional if using Railway Env Vars)
-# COPY .env .env
-
-# Generate key & optimize
-RUN php artisan config:clear && \
-    php artisan key:generate && \
-    php artisan migrate --force && \
-    php artisan config:cache
-
 # Build frontend assets
 RUN npm install && npm run build
 
@@ -48,5 +39,5 @@ RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache \
 # Expose port
 EXPOSE 8080
 
-# Run Laravel server
+# Start Laravel server (you’ll run artisan commands in Railway shell)
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
