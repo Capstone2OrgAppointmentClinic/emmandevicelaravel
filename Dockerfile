@@ -42,8 +42,7 @@ RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache \
     && chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
 # Run migrations and seed the database (Automatic at container startup)
-RUN php artisan migrate --force
-RUN php artisan db:seed --force
+RUN php artisan migrate
 
 # Expose HTTP port
 EXPOSE 8080
