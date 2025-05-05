@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="copyright" content="MACode ID, https://macodeid.com/">
 
-  <link rel="icon" href="{{ asset('assets/img/adminimg/titlebaricon.ico') }}" type=" image/icon">
+ <link rel="icon" href="https://svfcappointmentcliniquickaid.onrender.com/assets/img/adminimg/titlebaricon.ico">
   <title>SVFC CliniQuickAid Appointment System</title>
 
   <link rel="stylesheet" href="../assets/css/maicons.css">
@@ -198,9 +198,9 @@
 <script>
      document.addEventListener("DOMContentLoaded", function () {
         const images = [
-            "../assets/img/latestimg/building.png",
-            "../assets/img/latestimg/clinic_1.png",
-            "../assets/img/latestimg/clinic_2.png"
+            "public/assets/img/latestimg/building.png",
+            "public/assets/img/latestimg/clinic_1.png",
+            "public/assets/img/latestimg/clinic_2.png"
         ];
 
         let currentIndex = 0;
