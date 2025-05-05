@@ -39,9 +39,6 @@ RUN npm install
 # Step 9: Build frontend assets using npm (optional if you're using Vue/React)
 RUN npm run build
 
-# Step 10: Run database migrations (adjust to your needs)
-RUN php artisan migrate
-
 # Step 11: Set proper file permissions for Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
