@@ -23,21 +23,16 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy app source
+# Copy application code
 COPY . .
 
-# Install PHP dependencies
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+# Copy the entrypoint script
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Build frontend assets
-RUN npm install && npm run build
-
-# Set correct permissions
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache \
-    && chmod -R 775 /var/www/storage /var/www/bootstrap/cache
-
-# Expose port
+# Expose Laravel port
 EXPOSE 8080
 
-# Start Laravel server (you’ll run artisan commands in Railway shell)
+# Use entrypoint to prep Laravel, then start the server
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
