@@ -38,11 +38,6 @@ RUN npm install && npm run build
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 755 /var/www/storage
 
-# Laravel optimize
-RUN php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache
-
 # Expose port
 EXPOSE 9000
 
