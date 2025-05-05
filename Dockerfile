@@ -32,7 +32,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY . .
 
 # Install PHP dependencies
-RUN composer install --optimize-autoloader --no-interaction
+RUN composer install
 
 # Install Node dependencies and build frontend
 RUN npm install && npm run build
