@@ -1,9 +1,8 @@
-APP_NAME=CliniQuickAid
-APP_ENV=local
+APP_NAME=Laravel
+APP_ENV=production
 APP_KEY=base64:fAlLSKbS+3dJdLRkP7eCk713hXUgkIy2O937pohlhDo=
-APP_DEBUG=true
-APP_URL=http://localhost:8000
-
+APP_DEBUG=false
+APP_URL=https://svfcappointmentcliniquickaid.onrender.com
 
 APP_LOCALE=en
 APP_FALLBACK_LOCALE=en
@@ -21,11 +20,11 @@ LOG_DEPRECATIONS_CHANNEL=null
 LOG_LEVEL=info
 
 DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3307
-DB_DATABASE=svfcappointmentclinic
+DB_HOST=maglev.proxy.rlwy.net
+DB_PORT=3306
+DB_DATABASE=railway
 DB_USERNAME=root
-DB_PASSWORD=Inventory123
+DB_PASSWORD=OZIaqKTcorOhEoaBOVNRIvzBZgaTFeNZ
 
 SESSION_DRIVER=database
 SESSION_LIFETIME=120

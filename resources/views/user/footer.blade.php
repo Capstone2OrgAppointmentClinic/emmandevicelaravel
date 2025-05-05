@@ -41,6 +41,8 @@
             </div>
         </div>
         <hr>
-        <p id="copyright">All rights reserved © 2025</p>
+        <p style="text-align: center; font-size: 14px; color: #aaa;">
+    © 2025 <strong>CliniQuickAid</strong>. All rights reserved.
+  </p>
     </div>
 </footer>

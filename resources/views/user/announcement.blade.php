@@ -122,7 +122,7 @@
             </li>
             <li class="nav-item">
 
-              <a class="nav-link" href="{{ url('aboutUs') }}">About Us</a>
+              <a class="nav-link" href="{{ url('aboutUs') }}">Who We Are</a>
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="{{url('announcement')}}">Announcements</a>

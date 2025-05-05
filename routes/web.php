@@ -3,6 +3,7 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ContactController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -139,3 +140,5 @@ Route::get('/medicine', [AdminController::class, 'adminMedicine'])->name('medici
 Route::post('/medicine', [AdminController::class, 'storeMedicine'])->name('medicine.store');
 
 Route::put('/medicine{id}', [AdminController::class, 'updateMedicine'])->name('medicine.update');
+
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');

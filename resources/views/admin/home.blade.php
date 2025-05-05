@@ -43,9 +43,9 @@
         @include('admin.navbar')
         <div class="main-panel w-full">
             <div class="content-wrapper flex flex-col" style="background-color: #FAEBD7;">
-                <div class="justify-center p-6 flex-wrap gap-3 md:flex-row md:items-center flex w-full items-center" style="justify-content: space-between;">
+                <div class="justify-center p-6 flex-wrap gap-3 md:flex-row md:items-center flex w-full items-center" style="justify-content: space-evenly;">
                     <!-- Users Button Box -->
-                    <button id="toggleUsers" class="btn box-btn" style="height: auto; width: 260px; padding: 20px 30px; margin: 15px; background-color: #AD1457; color: white; border-radius: 15px; border: none; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
+                    <button id="toggleUsers" class="btn box-btn" style="height: auto; width: 460px; padding: 20px 30px; margin: 15px; background-color: #AD1457; color: white; border-radius: 15px; border: none; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
                         <div class="btn-content" style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 10px;">
                             <i class="fas fa-user" style="font-size: 40px;"></i>
                             <div style="text-align: right;">
@@ -55,7 +55,7 @@
                         </div>
                     </button>
                     <!-- Appointment Button Box -->
-                    <button id="toggleAppointment" class="btn box-btn" style="height: auto; width: 260px; padding: 20px 30px; margin: 15px; background-color: #AD1457; color: white; border-radius: 15px; border: none; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
+                    <button id="toggleAppointment" class="btn box-btn" style="height: auto; width: 460px; padding: 20px 30px; margin: 15px; background-color: #AD1457; color: white; border-radius: 15px; border: none; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
                         <div class="btn-content" style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 10px;">
                             <i class="fas fa-calendar-check" style="font-size: 40px;"></i>
                             <div style="text-align: right;">
