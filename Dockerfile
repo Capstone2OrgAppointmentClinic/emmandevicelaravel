@@ -46,4 +46,4 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 EXPOSE 80
 
 # Step 13: Start Apache server and PHP Laravel app
-CMD php artisan serve --host=0.0.0.0 && apache2-foreground
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
