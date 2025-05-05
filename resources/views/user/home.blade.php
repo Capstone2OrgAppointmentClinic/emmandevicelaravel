@@ -199,8 +199,8 @@
      document.addEventListener("DOMContentLoaded", function () {
         const images = [
             "../assets/img/latestimg/building.png",
-            "../assets/img/latestimg/clinic 1.png",
-            "../assets/img/latestimg/clinic 2.png"
+            "../assets/img/latestimg/clinic_1.png",
+            "../assets/img/latestimg/clinic_2.png"
         ];
 
         let currentIndex = 0;
