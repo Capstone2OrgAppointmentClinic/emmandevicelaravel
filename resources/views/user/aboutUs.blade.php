@@ -7,6 +7,7 @@
   <meta name="copyright" content="MACode ID, https://macodeid.com/" />
 
   <title>CliniQuickAid</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
   <link rel="icon" href=" {{ asset('assets/img/adminimg/titlebaricon.ico') }}" type="image/icon">
 
@@ -17,7 +18,56 @@
   <link rel="stylesheet" href="../assets/css/theme.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    
+
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+.slide-in-right {
+  animation: slideInRight 1s ease-out forwards;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.slide-in-right i {
+  font-size: 130px;
+  color: red;
+}
+
+
+
+    @keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in-left {
+  animation: slideInLeft 1s ease-out forwards;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.slide-in-left img {
+  width: 200px; /* Adjust based on your preference */
+  height: auto;
+}
+
     
 
     
@@ -180,7 +230,7 @@
             <div class="" id="navbarSupport">
               <ul class="navbar-nav ml-auto nav-menu">
                 <li class="nav-item"><a class="nav-link" href="{{url('/')}}">Home</a></li>
-                <li class="nav-item active"><a class="nav-link" href="{{ url('aboutUs') }}">About us</a></li>
+                <li class="nav-item active"><a class="nav-link" href="{{ url('aboutUs') }}">Who We Are </a></li>
                 <li class="nav-item"><a class="nav-link" href="{{url('announcement')}}">Announcements</a></li>
                 <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                 <li class="nav-item"><a class="nav-link" href="https://portal.svfc-edu.com/login">Portal</a></li>
@@ -213,12 +263,39 @@
 
       <!-- Main Content -->
       <div class="about-header text-center">
-        <h1>About us</h1>
+        <h1 class="pb-4">About us</h1>
+        <div style="font-size: 28px; max-width: 900px; margin-left: auto; margin-right: auto; text-align: justify; padding: 0;"><span>A streamlined clinic appointment system designed to make scheduling quick, easy, and accessible for all students and staff. </span>
       </div>
+      </div>
+      <h1 class="text-center mb-4 pt-4">MISSION</h1>
+      <div class="slide-in-left" style="max-width: 900px; margin: 0 10%; padding-top: 2rem; ">
+  <img src="{{ asset('assets/img/person/svfctrans.png') }}" alt="School Logo">
+  <div style="font-size: 28px; text-align: justify;">
+    <span>
+      IT'S MISSION TO PROVIDE ITS PATIENTS WITHIN THE COLLEGE, THE HIGHEST QUALITY PATIENT
+      CARE SERVICES AND ADVOCACY WHICH IS RESPONSIVE TO COMMUNITY DEMANDS THROUGH THE
+      PROGRAMS AND ACTIVITIES OF THE WELLNESS CLINIC.
+    </span>
+  </div>
+</div>
+<DIV style="margin-top: 32px;">
+<h1 class="text-center mb-4 pt-4">VISION</h1>
+<div class="slide-in-right" style="max-width: 900px; margin: 0 10%; padding-top: 2rem; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+  <div style="font-size: 28px; text-align: justify;">
+    <span>
+      IT ENVISIONS TO BE A PROVIDER OF RESPONSIVE AND EXCELLENT HEALTH, DENTAL, AND NURSING
+      SERVICES AND ADVOCACY TO THE COMMUNITY OF ST. VINCENT DE FERRER COLLEGE OF CAMARIN.
+    </span>
+  </div>
+  
+  <i class="bi bi-bullseye"></i>
+</div>
+</DIV>
 
-      <div class="container pb-5">
+
+      <div class="container pb-5 mt-5" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
         <div class="section-title text-center">
-          <h2>Clinic Facilities</h2>
+          <h2 class="w-full text-center mb-4 pt-4" style="font-size:33px;"> CLINIC FACILITIES</h2>
         </div>
         <div class="row gallery">
           <div class="col-md-4 mb-4"><img src="../assets/img/facilities/CLINIC 1.png" class="img-fluid rounded shadow-lg gallery-img" alt=""></div>
@@ -287,87 +364,7 @@
       if (e.target === modal) modal.style.display = 'none';
     });
   </script>
-@guest
-<style>
-.nav-menu {
-  position: relative;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
 
-.nav-menu .nav-item {
-  position: relative;
-  z-index: 2;
-}
-
-.nav-menu .nav-link {
-  display: inline-block;
-  padding: 10px 20px;
-  color: white;
-  transition: color 0.3s ease;
-  position: relative;
-  z-index: 2;
-}
-.nav-menu::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: var(--left, 0px);
-  width: var(--width, 0px);
-  height: 100%;
-  background-color: #00D9A5;
-  border-radius: 12px;
-  z-index: 1;
-  opacity: 0.85;
-  transform: scaleX(0.8);
-  transition:
-    left 0.3s ease,
-    width 0.3s ease,
-    transform 0.3s ease,
-    opacity 0.3s ease;
-}
-.nav-menu:hover::before {
-  opacity: 1;
-  transform: scaleX(1);
-}
-
-.nav-menu .nav-item.active .nav-link {
-  font-weight: bold;
-  color: gray;
-}
-
-</style>
-@endguest
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const navMenu = document.querySelector('.nav-menu');
-    const items = navMenu.querySelectorAll('.nav-item');
-    const activeItem = navMenu.querySelector('.nav-item.active');
-
-    function moveIndicator(target) {
-        const rect = target.getBoundingClientRect();
-        const parentRect = navMenu.getBoundingClientRect();
-        navMenu.style.setProperty('--left', `${target.offsetLeft}px`);
-        navMenu.style.setProperty('--width', `${target.offsetWidth}px`);
-    }
-    if (activeItem) {
-        moveIndicator(activeItem);
-    }
-
-    items.forEach(item => {
-        if (item.classList.contains('login') || item.classList.contains('register')) {
-            return;
-        }
-
-        item.addEventListener('mouseenter', () => moveIndicator(item));
-    });
-
-    navMenu.addEventListener('mouseleave', () => {
-        if (activeItem) moveIndicator(activeItem);
-    });
-});
-</script>
 <style>
 .nav-item .btn.btn-primary {
     background-color: transparent !important;

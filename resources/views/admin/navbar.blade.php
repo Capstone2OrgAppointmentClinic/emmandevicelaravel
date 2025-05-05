@@ -97,25 +97,24 @@
               <x-app-layout>
    
               </x-app-layout> 
-                        @if(session('success'))
-                <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
-                    <div id="autoDismissToast" class="toast align-items-center text-white bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
-                        <div class="d-flex">
-                            <div class="toast-body">
-                                {{ session('success') }}
-                            </div>
-                        </div>
-                    </div>
+              @if(session('success'))
+    <div class="position-fixed top-1 end-0 p-3" style="z-index: 9999;">
+        <div id="autoDismissToast" class="toast align-items-center text-success bg-dark border-0 show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="1000">
+            <div class="d-flex">
+                <div class="toast-body" style="font-size:20px;">
+                    {{ session('success') }}
                 </div>
-
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const toastEl = document.getElementById('autoDismissToast');
-                    const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
-                    toast.show();
-                });
-            </script>
-            @endif
+            </div>
+        </div>
+    </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toastEl = document.getElementById('autoDismissToast');
+        const toast = new bootstrap.Toast(toastEl, { delay: 2000 });
+        toast.show();
+    });
+</script>
+@endif
             </ul>
             <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
               <span class="mdi mdi-format-line-spacing"></span>

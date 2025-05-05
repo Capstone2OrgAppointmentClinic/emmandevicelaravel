@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     @include('admin.css')
-    @include('admin.script')
+ 
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="icon" href="{{ asset('assets/img/adminimg/titlebaricon.ico') }}" type="image/icon">
     <style>
@@ -44,7 +45,7 @@
             <div class="content-wrapper flex flex-col" style="background-color: #FAEBD7;">
                 <div class="justify-center p-6 flex-wrap gap-3 md:flex-row md:items-center flex w-full items-center" style="justify-content: space-between;">
                     <!-- Users Button Box -->
-                    <button id="toggleUsers" class="btn box-btn" style="height: auto; width: 320px; padding: 20px 30px; margin: 15px; background-color: #AD1457; color: white; border-radius: 15px; border: none; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
+                    <button id="toggleUsers" class="btn box-btn" style="height: auto; width: 260px; padding: 20px 30px; margin: 15px; background-color: #AD1457; color: white; border-radius: 15px; border: none; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
                         <div class="btn-content" style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 10px;">
                             <i class="fas fa-user" style="font-size: 40px;"></i>
                             <div style="text-align: right;">
@@ -54,7 +55,7 @@
                         </div>
                     </button>
                     <!-- Appointment Button Box -->
-                    <button id="toggleAppointment" class="btn box-btn" style="height: auto; width: 320px; padding: 20px 30px; margin: 15px; background-color: #AD1457; color: white; border-radius: 15px; border: none; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
+                    <button id="toggleAppointment" class="btn box-btn" style="height: auto; width: 260px; padding: 20px 30px; margin: 15px; background-color: #AD1457; color: white; border-radius: 15px; border: none; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
                         <div class="btn-content" style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 10px;">
                             <i class="fas fa-calendar-check" style="font-size: 40px;"></i>
                             <div style="text-align: right;">
@@ -63,16 +64,7 @@
                             </div>
                         </div>
                     </button>
-                    <!-- Availability Button Box -->
-                    <button id="toggleAvailability" class="btn box-btn" style="height: auto; width: 320px; padding: 20px 30px; margin: 15px; background-color: #AD1457; color: white; border-radius: 15px; border: none; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
-                        <div class="btn-content" style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 10px;">
-                            <i class="	fas fa-capsules" style="font-size: 40px;"></i>
-                            <div style="text-align: right;">
-                                <h3 style="font-size: 24px; font-weight: 600; margin: 0;">Medicine</h3>
-                                <p style="font-size: 32px; font-weight: 700; margin: 5px 0;">↓</p>
-                            </div>
-                        </div>
-                    </button>
+                    
                 </div>
                 @include('admin.buttoncss')
                 <!-- Users Table -->
@@ -142,7 +134,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div>\
+                </div>
 
                                  <!-- Confirmation Remove Modal -->
 <div class="modal fade" id="myRemoteModal" tabindex="-1" aria-labelledby="removeModalLabel" aria-hidden="true">
@@ -260,9 +252,6 @@
                     </table>
                 </div>
 
-
-
-
                 <!-- Modals for viewing records -->
                <!-- Modal -->
                <div class="modal fade" id="viewUserModal" tabindex="-1" aria-labelledby="viewUserModalLabel" aria-hidden="true">
@@ -280,7 +269,6 @@
 
       <!-- Modal Body -->
       <div class="modal-body bg-white text-dark px-4 py-3">
-        <p><strong>I.D:</strong> <span id="modalUserId"></span></p>
         <p><strong>Student ID:</strong> <span id="modalUserStudentId"></span></p>
         <p><strong>Name:</strong> <span id="modalUserName"></span></p>
         <p><strong>Email:</strong> <span id="modalUserEmail"></span></p>
@@ -390,7 +378,7 @@
                      <!-- 🔍 Search Input -->
                 <input type="text" class="form-control mb-2 search-input" style="width:250px;background-color:white;color:black;" id="studentSearchInput" placeholder="Search student name">
                       
-                <div class="table-wrapper table-responsive" style=" max-height: 450px;overflow-y: auto;">
+                <div class="table-wrapper table-responsive" style=" max-height: 350px;">
                         <table class="table table-bordered mb-0 ">
                             <thead class="table-light">
                                 <tr>
@@ -419,7 +407,7 @@
                 <!-- 🔍 Search Input -->
                 <input type="text" class="form-control mb-2 search-input" id="adminSearchInput" style="width:250px; background-color:white;color:black;" placeholder="Search admin name...">
  
-                    <div class="table-wrapper" style=" max-height: 450px;overflow-y: auto;">
+                    <div class="table-wrapper" style=" max-height: 350px;overflow-y: auto;">
                         <table class="table table-bordered mb-0">
                             <thead class="table-light">
                                 <tr>
@@ -498,6 +486,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
             </div>
         </div>
+        @include('admin.script')
     </div>
     </body>
 </html>

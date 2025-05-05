@@ -54,7 +54,7 @@
               <a class="nav-link" href="{{url('announcement')}}">Announcements</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
+              <a class="nav-link" href="{{ url('/Home/Contact') }}">Contact</a>
             </li>
             
             @if(Route::has('login'))
@@ -399,85 +399,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 @include('user.calendar')
 
-@guest
-<style>
-.nav-menu {
-  position: relative;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
 
-.nav-menu .nav-item {
-  position: relative;
-  z-index: 2;
-}
-
-.nav-menu .nav-link {
-  display: inline-block;
-  padding: 10px 20px;
-  color: white;
-  transition: color 0.3s ease;
-  position: relative;
-  z-index: 2;
-}
-.nav-menu::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: var(--left, 0px);
-  width: var(--width, 0px);
-  height: 100%;
-  background-color: #00D9A5;
-  border-radius: 12px;
-  z-index: 1;
-  opacity: 0.85;
-  transform: scaleX(0.8);
-  transition:
-    left 0.3s ease,
-    width 0.3s ease,
-    transform 0.3s ease,
-    opacity 0.3s ease;
-}
-.nav-menu:hover::before {
-  opacity: 1;
-  transform: scaleX(1);
-}
-
-.nav-menu .nav-item.active .nav-link {
-  font-weight: bold;
-  color: gray;
-}
-</style>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const navMenu = document.querySelector('.nav-menu');
-    const items = navMenu.querySelectorAll('.nav-item');
-    const activeItem = navMenu.querySelector('.nav-item.active');
-
-    function moveIndicator(target) {
-        const rect = target.getBoundingClientRect();
-        const parentRect = navMenu.getBoundingClientRect();
-        navMenu.style.setProperty('--left', `${target.offsetLeft}px`);
-        navMenu.style.setProperty('--width', `${target.offsetWidth}px`);
-    }
-    if (activeItem) {
-        moveIndicator(activeItem);
-    }
-
-    items.forEach(item => {
-        if (item.classList.contains('login') || item.classList.contains('register')) {
-            return;
-        }
-
-        item.addEventListener('mouseenter', () => moveIndicator(item));
-    });
-
-    navMenu.addEventListener('mouseleave', () => {
-        if (activeItem) moveIndicator(activeItem);
-    });
-})
-</script>
-@endguest
 </body>
 </html>
