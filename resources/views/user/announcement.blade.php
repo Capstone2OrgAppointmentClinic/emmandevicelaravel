@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" href="{{ asset('assets/img/adminimg/titlebaricon.ico ') }}" type="image/icon">
 
   <meta name="copyright" content="MACode ID, https://macodeid.com/">
 
@@ -122,7 +123,7 @@
             </li>
             <li class="nav-item">
 
-              <a class="nav-link" href="{{ url('aboutUs') }}">About Us</a>
+              <a class="nav-link" href="{{ url('aboutUs') }}">Who We Are</a>
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="{{url('announcement')}}">Announcements</a>
@@ -141,7 +142,7 @@
             @auth
 
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle active" style="background: none; color: #00d9a5;" href="{{url('myappointment')}}">
+              <a class="nav-link dropdown-toggle " style="background: none; color: #00d9a5;" href="{{url('myappointment')}}">
               Appointment
              </a>
              <ul class="dropdown-menu">
