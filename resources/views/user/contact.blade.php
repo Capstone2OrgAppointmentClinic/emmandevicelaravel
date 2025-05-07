@@ -68,7 +68,7 @@
             @auth
 
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle active" style="background: none; color: #00d9a5;" href="{{url('myappointment')}}">
+              <a class="nav-link dropdown-toggle"  href="{{url('myappointment')}}">
               Appointment
              </a>
              <ul class="dropdown-menu">
@@ -162,34 +162,53 @@
     <div class="alert alert-success">{{ session('success') }}</div>
   @endif
 
-  <form action="{{ route('contact.store') }}" method="POST">
-    @csrf
-    <div class="form-group">
-      <label for="contactName">Name</label>
-      <input type="text" class="form-control" id="contactName" name="name" placeholder="Your Name">
-      @error('name')
-        <small class="text-danger">{{ $message }}</small>
-      @enderror
-    </div>
+  <form id="contactForm" action="{{ route('contact.store') }}" method="POST">
+  @csrf
 
-    <div class="form-group">
-      <label for="contactEmail">Email</label>
-      <input type="email" class="form-control" id="contactEmail" name="email" placeholder="your@email.com">
-      @error('email')
-        <small class="text-danger">{{ $message }}</small>
-      @enderror
-    </div>
+  <!-- Name Field -->
+  <div class="form-group">
+    <label for="contactName">Name</label>
+    <input type="text" class="form-control" id="contactName" name="name" placeholder="Your Name">
+    @error('name')
+      <small class="text-danger">{{ $message }}</small>
+    @enderror
+  </div>
 
-    <div class="form-group">
-      <label for="contactMessage">Message</label>
-      <textarea class="form-control" id="contactMessage" name="message" rows="4" placeholder="Type your message here..."></textarea>
-      @error('message')
-        <small class="text-danger">{{ $message }}</small>
-      @enderror
-    </div>
+  <!-- Email Field -->
+  <div class="form-group">
+    <label for="contactEmail">Email</label>
+    <input type="email" class="form-control" id="contactEmail" name="email" placeholder="your@email.com">
+    @error('email')
+      <small class="text-danger">{{ $message }}</small>
+    @enderror
+  </div>
 
-    <button type="submit" class="btn btn-submit">Send</button>
-  </form>
+  <!-- Message Field -->
+  <div class="form-group">
+    <label for="contactMessage">Message</label>
+    <textarea class="form-control" id="contactMessage" name="message" rows="4" placeholder="Type your message here..."></textarea>
+    @error('message')
+      <small class="text-danger">{{ $message }}</small>
+    @enderror
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" class="btn btn-submit">Send</button>
+</form>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(event) {
+    // Check if the user is authenticated
+    @if (Auth::check())
+      // Proceed with form submission if authenticated
+    @else
+      event.preventDefault(); // Prevent form submission
+      alert('Oops! You must be logged in to send your message. Please log in to continue.');
+      window.location.href = '{{ route('login') }}'; // Redirect to login page
+    @endif
+  });
+</script>
+
 </div>
 
 </div>

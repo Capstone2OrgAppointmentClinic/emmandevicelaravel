@@ -48,7 +48,7 @@
               <a class="nav-link" href="{{url('/')}}">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url('aboutUs') }}">About us</a>
+              <a class="nav-link" href="{{ url('aboutUs') }}">Who We Are</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url('announcement')}}">Announcements</a>

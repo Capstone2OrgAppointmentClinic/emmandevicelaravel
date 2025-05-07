@@ -267,7 +267,7 @@
         <div style="font-size: 28px; max-width: 900px; margin-left: auto; margin-right: auto; text-align: justify; padding: 0;"><span>A streamlined clinic appointment system designed to make scheduling quick, easy, and accessible for all students and staff. </span>
       </div>
       </div>
-      <h1 class="text-center mb-4 pt-4">MISSION</h1>
+      <h1 class="text-center mb-4 pt-4 text-2xl">MISSION</h1>
       <div class="slide-in-left" style="max-width: 900px; margin: 0 10%; padding-top: 2rem; ">
   <img src="{{ asset('assets/img/person/svfctrans.png') }}" alt="School Logo">
   <div style="font-size: 28px; text-align: justify;">
@@ -279,7 +279,7 @@
   </div>
 </div>
 <DIV style="margin-top: 32px;">
-<h1 class="text-center mb-4 pt-4">VISION</h1>
+<h1 class="text-center mb-4 pt-4 text-2xl">VISION</h1>
 <div class="slide-in-right" style="max-width: 900px; margin: 0 10%; padding-top: 2rem; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
   <div style="font-size: 28px; text-align: justify;">
     <span>
