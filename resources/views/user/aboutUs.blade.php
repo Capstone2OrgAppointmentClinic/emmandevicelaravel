@@ -267,29 +267,7 @@
         <div style="font-size: 28px; max-width: 900px; margin-left: auto; margin-right: auto; text-align: justify; padding: 0;"><span>A streamlined clinic appointment system designed to make scheduling quick, easy, and accessible for all students and staff. </span>
       </div>
       </div>
-      <div class="container mt-5">
-        <div class="section-title text-center">
-          <h2 class="w-full text-center mb-4 pt-4" style="font-size:33px;"> OUR CLINIC</h2>
-        </div>
-        <div class="row">
-          <div class="col-lg-6 wow fadeInLeft" data-wow-delay="400ms">
-            <img src="../assets/img/facilities/CLINIC 4.png" alt="">
-          </div>
-          <div class="col-lg-6 py-3 wow fadeInRight" data-wow-delay="400ms">
-  <h1 class="text-start fw-bold mb-4" style="font-size: 40px;">
-    Welcome to the CliniQuickAid Appointment
-  </h1>
-  <p class="text-secondary text-start" style="line-height: 1.8; font-size: 18px;">
-    <b>Your health matters, and CliniQuickAid is here to make sure you never have to wait in long lines again.
-    Designed especially for SVFC students, our platform lets you easily schedule appointments for clinic check-ups,
-    health consultations, and medical assistance at your convenience. Whether it’s a routine visit or something urgent,
-    getting the care you need has never been this simple and efficient. Prioritize your wellness and experience stress-free
-    access to healthcare—book your appointment now!</b>
-  </p>
-</div>
-
-     <div class="container mt-5">
-      <h1 class="text-center mb-4 pt-4 text-4xl">MISSION</h1>
+      <h1 class="text-center mb-4 pt-4 text-2xl">MISSION</h1>
       <div class="slide-in-left" style="max-width: 900px; margin: 0 10%; padding-top: 2rem; ">
   <img src="{{ asset('assets/img/person/svfctrans.png') }}" alt="School Logo">
   <div style="font-size: 28px; text-align: justify;">
@@ -301,8 +279,8 @@
   </div>
   </div>
 </div>
-<DIV style="margin-top: 32px;"  class="container mt-5">
-<h1 class="text-center mb-4 pt-4 text-4xl">VISION</h1>
+<DIV style="margin-top: 32px;">
+<h1 class="text-center mb-4 pt-4 text-2xl">VISION</h1>
 <div class="slide-in-right" style="max-width: 900px; margin: 0 10%; padding-top: 2rem; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
   <div style="font-size: 28px; text-align: justify;">
     <span>

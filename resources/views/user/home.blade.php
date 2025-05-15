@@ -57,7 +57,7 @@
         </div>
 
         <div class="carousel-item">
-            <div class="page-hero bg-image overlay-dark" style="background-image: url('../assets/img/latestimg/CLINIC 1.png');">
+            <div class="page-hero bg-image overlay-dark" style="background-image: url('../assets/img/latestimg/clinic_1');">
                 <div class="hero-section">
                     <div class="container text-center wow zoomIn">
                         <span class="display-4 btn-headcolor" style="color:#f204f2;">CliniQuickAid</span><br><br>
@@ -70,7 +70,7 @@
         </div>
 
         <div class="carousel-item">
-            <div class="page-hero bg-image overlay-dark" style="background-image: url('../assets/img/latestimg/CLINIC 2.png');">
+            <div class="page-hero bg-image overlay-dark" style="background-image: url('../assets/img/latestimg/clinic_2.png');">
                 <div class="hero-section">
                     <div class="container text-center wow zoomIn">
                         <span class="display-4 btn-headcolor" style="color:#f204f2;">CliniQuickAid</span><br><br>
@@ -199,8 +199,8 @@
      document.addEventListener("DOMContentLoaded", function () {
         const images = [
             "../assets/img/latestimg/building.png",
-            "../assets/img/latestimg/clinic 1.png",
-            "../assets/img/latestimg/clinic 2.png"
+            "../assets/img/latestimg/clinic_1.png",
+            "../assets/img/latestimg/clinic_2.png"
         ];
 
         let currentIndex = 0;

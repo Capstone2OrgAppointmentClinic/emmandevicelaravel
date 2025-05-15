@@ -68,7 +68,7 @@
             @auth
 
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle active" style="background: none; color: #00d9a5;" href="{{url('myappointment')}}">
+              <a class="nav-link dropdown-toggle"  href="{{url('myappointment')}}">
               Appointment
              </a>
              <ul class="dropdown-menu">
@@ -142,10 +142,9 @@
     <li><strong>Clinic Name:</strong> SVFC - CliniQuickAid Appointment System </li>
     <li><strong>Address:</strong> 
     Area D, SVFC Compound, San Vincente Ferrer St, Brgy 178 Camarin, Caloocan, 1400 Metro Manila</li>
-    <li><strong>Phone:</strong> Cel No. 09602167214
-    </li>
-    <li><strong>Email:</strong> svfcclinic@gmail.com</li>
-    <li><strong>Facebook: </strong> St. VIncent de Ferrer College of Camarin Inc.</li>
+    <li><strong>Phone:</strong> (02) 1234-5678</li>
+    <li><strong>Email:</strong> clinic@svfc-edu.com</li>
+    <li><strong>Facebook: </strong> St.VIncent de Ferrer College of Camarin Inc.</li>
     <li><strong>Operating Hours:</strong> Monday – Friday, 8:00 AM – 5:00 PM</li>
   </ul>
 </div>
@@ -153,9 +152,7 @@
 
   <!-- Contact Form Section -->
   <div class="col-md-6">
-    <h2 class="section-title mb-2">Do You Have Any Feedback or Questions?</h2>
-  <div class="mb-4"><span>We’d love to hear from you — send us a message and we’ll do our best to help you out.</span></div>
-
+  <h2 class="section-title mb-4">Got a Question or Concern? We’re Here to Help!</h2>
 
 
 
@@ -165,34 +162,53 @@
     <div class="alert alert-success">{{ session('success') }}</div>
   @endif
 
-  <form action="{{ route('contact.store') }}" method="POST">
-    @csrf
-    <div class="form-group">
-      <label for="contactName">Name</label>
-      <input type="text" class="form-control" id="contactName" name="name" placeholder="Your Name">
-      @error('name')
-        <small class="text-danger">{{ $message }}</small>
-      @enderror
-    </div>
+  <form id="contactForm" action="{{ route('contact.store') }}" method="POST">
+  @csrf
 
-    <div class="form-group">
-      <label for="contactEmail">Email</label>
-      <input type="email" class="form-control" id="contactEmail" name="email" placeholder="your@email.com">
-      @error('email')
-        <small class="text-danger">{{ $message }}</small>
-      @enderror
-    </div>
+  <!-- Name Field -->
+  <div class="form-group">
+    <label for="contactName">Name</label>
+    <input type="text" class="form-control" id="contactName" name="name" placeholder="Your Name">
+    @error('name')
+      <small class="text-danger">{{ $message }}</small>
+    @enderror
+  </div>
 
-    <div class="form-group">
-      <label for="contactMessage">Message</label>
-      <textarea class="form-control" id="contactMessage" name="message" rows="4" placeholder="Type your message here..."></textarea>
-      @error('message')
-        <small class="text-danger">{{ $message }}</small>
-      @enderror
-    </div>
+  <!-- Email Field -->
+  <div class="form-group">
+    <label for="contactEmail">Email</label>
+    <input type="email" class="form-control" id="contactEmail" name="email" placeholder="your@email.com">
+    @error('email')
+      <small class="text-danger">{{ $message }}</small>
+    @enderror
+  </div>
 
-    <button type="submit" class="btn btn-submit">Send</button>
-  </form>
+  <!-- Message Field -->
+  <div class="form-group">
+    <label for="contactMessage">Message</label>
+    <textarea class="form-control" id="contactMessage" name="message" rows="4" placeholder="Type your message here..."></textarea>
+    @error('message')
+      <small class="text-danger">{{ $message }}</small>
+    @enderror
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" class="btn btn-submit">Send</button>
+</form>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(event) {
+    // Check if the user is authenticated
+    @if (Auth::check())
+      // Proceed with form submission if authenticated
+    @else
+      event.preventDefault(); // Prevent form submission
+      alert('Oops! You must be logged in to send your message. Please log in to continue.');
+      window.location.href = '{{ route('login') }}'; // Redirect to login page
+    @endif
+  });
+</script>
+
 </div>
 
 </div>
